@@ -86,19 +86,28 @@ Last Updated: 2025-05-24
 
     # Validation Block
 
+    ## Normalize input mode
+    $strMode = $strMode.ToLower()
+
     ## Validation of operating mode and speed integer
     $validModes = @("full", "autoslow", "suspend", "custom")
-    $isModeValid = $validModes -contains $strMode.ToLower()
+    $isModeValid = $validModes -contains $strMode
 
     if (-not $isModeValid) {
         Write-Error "Your mode selection '$strMode' is invalid."
-        Write-Error "Please select from $($validModes -join ', ')"
+        Write-Error "Please select from {$($validModes -join ', ')}."
+        return
+    }
+
+    # No -Speed when not using 'custom' mode
+    if ($strMode -ne "custom" -and $PSBoundParameters.ContainsKey("intSpeed")) {
+        Write-Error "The -Speed parameter is only allowed when -Mode is 'custom'."
         return
     }
 
     if ($strMode -eq "custom") {
         # Enforce -Speed in custom mode
-        if (-not $PSBoundParameters.ContainsKey("Speed")) {
+        if (-not $PSBoundParameters.ContainsKey("intSpeed")) {
             Write-Error "When -Mode is 'custom', the -Speed parameter is required."
             Write-Error "Please select an integer between 1 and 9."
             return
@@ -208,7 +217,13 @@ Last Updated: 2025-05-24
             Write-Host "`n Copying '$folderName' to '$targetFolderPath'"
             
             # Build shared arguments
-            $FCargs = Build-FCArgs -Mode $strMode -Speed $intSpeed -Verify $verifyDigit -Exec $execDigit -SourcePath $folder -TargetPath $destination
+            $FCargs = Build-FCArgs `
+                -buildMode $strMode `
+                -buildSpeed $intSpeed `
+                -buildVerifyDigi $verifyDigit `
+                -buildExecDigi $execDigit `
+                -buildSourcePath $folder `
+                -buildTargetPath $destination
             
             # Debug message showing each command line
             Write-Verbose "Executing..."
