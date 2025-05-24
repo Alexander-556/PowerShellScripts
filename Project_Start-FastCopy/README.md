@@ -2,8 +2,6 @@
 
 A PowerShell utility that wraps [FastCopy](https://fastcopy.jp/) to enable safe, customizable, and modular folder-by-folder copying. Designed for use cases that require throttled backups, optional file verification, and flexible delay between transfers — all with proper PowerShell support for `-WhatIf`, `-Confirm`, and input validation.
 
----
-
 ## Features
 
 - Folder-by-folder copy using FastCopy
@@ -13,8 +11,6 @@ A PowerShell utility that wraps [FastCopy](https://fastcopy.jp/) to enable safe,
 - Simulation mode using `-WhatIf` or `-Exec 0`
 - Built-in progress tracking
 - Modular function loading and safe input validation
-
----
 
 ## Usage
 
@@ -44,32 +40,32 @@ Start-FastCopy -SourceFolder "D:\Data" `
 
 ### Basic Full-Speed Copy
 
-````powershell
+```powershell
 Start-FastCopy -SourceFolder "D:\Photos" -TargetFolder "G:\Backup" -Mode "full"
-````
+```
 
 ### AutoSlow with Delay
 
-````powershell
+```powershell
 Start-FastCopy -SourceFolder "D:\Media" -TargetFolder "G:\Backup" -Mode "autoslow" -Delay 120
-````
+```
 
 ### Dry Run (No Files Will Be Written)
 
-````powershell
+```powershell
 Start-FastCopy -SourceFolder "D:\Projects" -TargetFolder "G:\Backup" -Exec 0 -Verify 0
-````
+```
 
 ## Folder Structure
 
-````pgsql
+```pgsql
 Start-FastCopy/
 ├── Start-FastCopy.ps1         # Main function
 ├── functions/                 # Contains helper .ps1 files (e.g., Get-ChildFolderPath)
 ├── README.md                  # This file
 ├── Import-Function.ps1        # Function loader script
 └── .gitignore                 # Recommended exclusions
-````
+```
 
 ## Requirements
 
@@ -77,22 +73,10 @@ PowerShell 5.1+ (Windows only)
 
 FastCopy installed and accessible at a fixed path (edit $FCPath in script if needed)
 
-## Customization Ideas
+## Future Improvements
 
 Add logging to file
 
 Create GUI frontend with Out-GridView
 
 Wrap in .psm1 module for use as a PowerShell toolset
-
-Schedule as a weekly backup job using Task Scheduler
-
-## Author
-
-Jialiang Chang
-Created as a modular and educational PowerShell scripting project.
-Last Updated: 2025-05-24
-
-## License
-
-MIT License — free to use, adapt, and distribute.
