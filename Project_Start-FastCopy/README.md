@@ -15,7 +15,7 @@ A PowerShell utility that wraps [FastCopy](https://fastcopy.jp/) to enable safe,
 ## Usage
 
 ```powershell
-Start-FastCopy -SourceFolder "D:\Data" `
+Start-FastCopy -SourceFolder "D:\Data" `j
                -TargetFolder "G:\Backup" `
                -Mode "custom" `
                -Speed 5 `
