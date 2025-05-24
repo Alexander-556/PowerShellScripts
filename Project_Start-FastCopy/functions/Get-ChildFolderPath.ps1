@@ -34,6 +34,7 @@ function Get-ChildFolderPath {
     Get-ChildItem
 #>
 
+    [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true)]             # Folder parameter is required
         [Alias("Folder")]                          # Allow user to use -Folder instead of -inputFolderPath

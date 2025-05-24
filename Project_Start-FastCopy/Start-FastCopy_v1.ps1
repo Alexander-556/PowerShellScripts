@@ -64,8 +64,12 @@ Last Updated: 2025-05-24
         [string]$targetFolderPath,
 
         [Parameter(Mandatory = $false)]
+        [Alias("Mode")]
+        [string]$strMode = "full", 
+        
+        [Parameter(Mandatory = $false)]
         [Alias("Speed")]
-        [string]$strSpeed = "Full", 
+        [int]$intSpeed, 
 
         [Parameter(Mandatory = $false)]
         [Alias("Delay")]
@@ -80,48 +84,62 @@ Last Updated: 2025-05-24
         [int]$execDigit = 1
     )
 
-    # Validate speed commands
-    
-    # List of valid speed names
-    $validNamedSpeeds = @("full", "autoslow", "suspend")
+    # Validation Block
 
-    # Process boolean for integer speed
-    [int]$parsedSpeed = $null
-    $isInt = [int]::TryParse($strSpeed, [ref]$parsedSpeed)
-    $isValidNumericSpeed = $isInt -and ($parsedSpeed -ge 1 -and $parsedSpeed -le 9)
+    ## Validation of operating mode and speed integer
+    $validModes = @("full", "autoslow", "suspend", "custom")
+    $isModeValid = $validModes -contains $strMode.ToLower()
 
-    if ($isValidNumericSpeed -or ($validNamedSpeeds -contains $strSpeed.ToLower())) {
-        # Valid input
-    }
-    else {
-        Write-Error "Invalid speed value: '$strSpeed'."
-        Write-Error "Use 1-9 or one of: $($validNamedSpeeds -join ', ')"
+    if (-not $isModeValid) {
+        Write-Error "Your mode selection '$strMode' is invalid."
+        Write-Error "Please select from $($validModes -join ', ')"
         return
     }
 
-    # Validate verifyDigit
+    if ($strMode -eq "custom") {
+        # Enforce -Speed in custom mode
+        if (-not $PSBoundParameters.ContainsKey("Speed")) {
+            Write-Error "When -Mode is 'custom', the -Speed parameter is required."
+            Write-Error "Please select an integer between 1 and 9."
+            return
+        }
+
+        # Enforce integer range for speed integer
+        if ($intSpeed -lt 1 -or $intSpeed -gt 9) {
+            Write-Error "Your speed selection '$intSpeed' is invalid."
+            Write-Error "Please select an integer between 1 and 9."
+            return
+        }
+    }
+
+    ## Validate verifyDigit
     if ($verifyDigit -ne 0 -and $verifyDigit -ne 1) {
         Write-Error "Ambiguous verify instructions: use 0 (off) or 1 (on)."
         return
     }
 
-    # Validate execDigit
+    ## Validate execDigit
     if ($execDigit -ne 0 -and $execDigit -ne 1) {
         Write-Error "Ambiguous execution instructions: use 0 (simulate) or 1 (execute)."
         return
     }
 
+    # Program Starts
+
+    ## Alias for confirmation
     $action = "Copy data from $sourceFolderPath"
     $target = "Path: $targetFolderPath"
+
+    ## Fixed FastCopy path, adjustable
     $FCPath = "C:\Users\shcjl\FastCopy\FastCopy.exe"
 
+    ## Confirmation and simulate block
     if ($PSCmdlet.ShouldProcess($target, $action)) {
         # If confirmed, perform the copy
         Write-Host "Executing copy..."
     
         # Check if dependent functions are loaded
         if (-not (Get-Command Import-Functions -ErrorAction SilentlyContinue)) {
-
             # If not loaded, print error message and exit
             $errMsg = @"
 
@@ -139,79 +157,58 @@ Last Updated: 2025-05-24
 
         # Check if Get-ChildFolderPath is available
         if (-not (Get-Command Get-ChildFolderPath -ErrorAction SilentlyContinue)) {
-
             # If not loaded, print error message and exit
             $errMsg = @"
 
     [ERROR] The helper function import unsuccessful!
-    Try check: .\Import-Function.ps1
+    Check:
+    .\Import-Function.ps1
+    .\functions\Get-ChildFolderPath
 "@
             # Emit the error and exit early
             Write-Error $errMsg                       
             return
         }
 
-        # Retrieve subfolders to process
+        ## Retrieve subfolders to process
         $subFolders = Get-ChildFolderPath -Folder $sourceFolderPath
-
-        $index = 0
         $totalFolderNum = $subFolders.Count
-
-        # If the folder is empty, abort the program
-        if (-not $subFolders -or $subFolders.Count -eq 0) {
+        
+        ## If the folder is empty, abort the program
+        if (-not $subFolders -or $totalFolderNum -eq 0) {
             Write-Warning "No subfolders found to copy in $sourceFolderPath!"
             return
         }
 
-        # If all ecc passed, start copy
+        ## If all ecc passed, start copy
         Write-Host "Starting FastCopy for each subfolder..."
+        Write-Host "From: $sourceFolderPath"
+        Write-Host "To: $targetFolderPath`n"
 
-        # Main loop for copying each subfolder
+
+        ## Main loop for copying each subfolder
+
+        ### Create index for progress bar
+        $index = 0
+        ### Loop starts
         foreach ($folder in $subFolders) {
+            # Bump the index
             $index++
 
             # Parse folderName and destination
             $folderName = Split-Path $folder -Leaf
             $destination = Join-Path $targetFolderPath $folderName
 
-            # User message displaying current action
-            Write-Host "Copying '$folderName' to '$targetFolderPath'"
-
+            # Progress bar implementation
             Write-Progress `
                 -Activity "Copying Folders" `
-                -Status "Processing $index of ${totalFolderNum} : $folderName" `
+                -Status "Processing $index of ${totalFolderNum}: $folderName" `
                 -PercentComplete (($index / $totalFolderNum) * 100)
+
+            Write-Host "`n Copying '$folderName' to '$targetFolderPath'"
             
             # Build shared arguments
-            $FCargs = @(
-                "/cmd=diff",
-                "/auto_close",
-                "/open_window",
-                "/estimate",
-                "/speed=$strSpeed"
-            )
-
-            # Conditionally add verification flag
-            if ($verifyDigit -eq 1) {
-                $FCargs += "/verify"
-            }
-            elseif ($verifyDigit -eq 0) {
-                $FCargs += "/verify=FALSE"
-            }
-
-            # Conditionally add execution flag
-            if ($execDigit -eq 0) {
-                $FCargs += "/no_exec"
-            }
-            elseif ($execDigit -eq 1) {
-                # Normal execution; no flag needed
-            }
-
-            # Add source and destination paths
-            $FCargs += @(
-                "`"$folder`"",
-                "/to=`"$destination`""
-            )
+            $FCargs = Build-FCArgs -Mode $strMode -Speed $intSpeed -Verify $verifyDigit -Exec $execDigit -SourcePath $folder -TargetPath $destination
             
             # Debug message showing each command line
             Write-Verbose "Executing..."
