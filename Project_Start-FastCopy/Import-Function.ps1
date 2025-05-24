@@ -30,7 +30,7 @@ function Import-Functions {
     about_Functions
     https://learn.microsoft.com/powershell/
 #>
-
+    [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true)]             # Require the folder path from the user
         [Alias("Folder")]                          # Allow user to use -Folder instead of -functionFolder
@@ -57,6 +57,6 @@ function Import-Functions {
     Get-ChildItem -Path $functionFolder -Filter *.ps1 -File |
     ForEach-Object {
         Write-Verbose "Importing: $($_.Name)"  # Log which file is being imported (only visible if -Verbose is passed)
-        . .\$_.FullName                          # Dot-source the script to import its functions
+        . $_.FullName                          # Dot-source the script to import its functions
     }
 }

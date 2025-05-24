@@ -23,7 +23,7 @@ System.String
 Returns one or more unquoted folder path strings (full paths).
 
 .EXAMPLE
-> Get-ChildFolderPath -Folder "C:\Users\shcjl\Downloads"
+Get-ChildFolderPath -Folder "C:\Users\shcjl\Downloads"
 
 Returns the full paths of all immediate subfolders in the Downloads directory:
 C:\Users\shcjl\Downloads\Music
@@ -40,7 +40,7 @@ Author: Jialiang Chang
 Version: 1.0
 Last Updated: 2025-05-24
 #>
-
+    [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true)]
         [Alias("Folder")]

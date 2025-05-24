@@ -37,14 +37,15 @@ Author: Jialiang Chang
 Version: 1.0
 Last Updated: 2025-05-24
 #>
-
-    [Parameter(Mandatory = $true)]
-    [Alias("Path")]
+    [CmdletBinding()]
     param (
+        [Parameter(Mandatory = $true, ValueFromPipeline = $true, Position = 0)]
         [string]$path
     )
 
     # Return the string wrapped in literal double quotes.
     # Use backtick (`) to escape the quote symbol in PowerShell.
-    "`"$path`""
+    process {
+        "`"$path`""
+    }
 }
