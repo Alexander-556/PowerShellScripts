@@ -28,6 +28,10 @@ The speed mode passed to FastCopy. Acceptable values are tool-defined
 .PARAMETER delaySeconds
 Optional. The delay in seconds to wait between copying each subfolder. Default is 0.
 
+.PARAMETER verifyDigit
+
+.PARAMETER execDigit
+
 .OUTPUTS
 None. This function writes progress and status messages to the host. 
 Copies are initiated using Start-Process.
@@ -75,6 +79,25 @@ Last Updated: 2025-05-24
         [Alias("Exec")]
         [int]$execDigit = 1
     )
+
+    # Validate speed commands
+    
+    # List of valid speed names
+    $validNamedSpeeds = @("full", "autoslow", "suspend")
+
+    # Process boolean for integer speed
+    [int]$parsedSpeed = $null
+    $isInt = [int]::TryParse($strSpeed, [ref]$parsedSpeed)
+    $isValidNumericSpeed = $isInt -and ($parsedSpeed -ge 1 -and $parsedSpeed -le 9)
+
+    if ($isValidNumericSpeed -or ($validNamedSpeeds -contains $strSpeed.ToLower())) {
+        # Valid input
+    }
+    else {
+        Write-Error "Invalid speed value: '$strSpeed'."
+        Write-Error "Use 1-9 or one of: $($validNamedSpeeds -join ', ')"
+        return
+    }
 
     # Validate verifyDigit
     if ($verifyDigit -ne 0 -and $verifyDigit -ne 1) {
@@ -155,9 +178,9 @@ Last Updated: 2025-05-24
             Write-Host "Copying '$folderName' to '$targetFolderPath'"
 
             Write-Progress `
-            -Activity "Copying Folders" `
-            -Status "Processing $index of ${totalFolderNum} : $folderName" `
-            -PercentComplete (($index / $totalFolderNum) * 100)
+                -Activity "Copying Folders" `
+                -Status "Processing $index of ${totalFolderNum} : $folderName" `
+                -PercentComplete (($index / $totalFolderNum) * 100)
             
             # Build shared arguments
             $FCargs = @(
