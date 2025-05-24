@@ -1,51 +1,57 @@
 function Start-FastCopy {
     <#
 .SYNOPSIS
-Initiates a controlled batch folder copy using FastCopy with verification, 
-speed control, and delay between transfers.
+    Initiates a controlled batch folder copy using FastCopy with verification, 
+    speed control, and optional delay between transfers.
 
 .DESCRIPTION
-This function performs a high-assurance, folder-by-folder copy from a specified source 
-directory to a target directory using the external tool FastCopy. It supports optional 
-throttling via speed flags, file verification, and delays between transfers to prevent 
-drive overheating or saturation.
+    This function performs a folder-by-folder copy from a specified source 
+    directory to a target directory using the external FastCopy utility. It supports:
+    - Adjustable speed modes (full, autoslow, suspend, or custom integer speeds)
+    - Optional post-copy verification
+    - Optional execution simulation (dry run)
+    - Delays between folder transfers to throttle the copying speed
 
-The function verifies that necessary helper functions are available before execution. 
-It supports `-WhatIf` and `-Confirm` to simulate and control execution safely.
+    This function checks for required helper functions before running and supports
+    PowerShell's -WhatIf and -Confirm for safe simulation.
 
 .PARAMETER sourceFolderPath
-The root folder whose immediate subfolders will be copied. Each subfolder is copied 
-individually to the destination path.
+    The root folder whose immediate subfolders will be copied individually to the destination.
 
 .PARAMETER targetFolderPath
-The destination root folder where subfolders will be replicated. Each source subfolder 
-will be copied as a subdirectory under this path.
+    The target directory where each source subfolder will be copied as a separate subdirectory.
 
-.PARAMETER strSpeed
-The speed mode passed to FastCopy. Acceptable values are tool-defined 
-(e.g., Full, DiffHD, etc.).
+.PARAMETER strMode
+    The copy speed mode to use. Valid values: full, autoslow, suspend, or custom.
+    If "custom" is selected, -Speed becomes mandatory.
+
+.PARAMETER intSpeed
+    The numeric speed value (1–9) used only when -Mode is "custom".
 
 .PARAMETER delaySeconds
-Optional. The delay in seconds to wait between copying each subfolder. Default is 0.
+    Optional delay in seconds between each folder copy. Useful for cooling drives in
+    between transfers of single subfolders.
 
 .PARAMETER verifyDigit
+    Set to 1 to enable verification (default), 0 to skip it.
 
 .PARAMETER execDigit
+    Set to 1 to perform actual execution (default), 0 to simulate only. 
+    When simulating, FastCopy windows will be created for each subfolder transfer. 
 
 .OUTPUTS
-None. This function writes progress and status messages to the host. 
-Copies are initiated using Start-Process.
+    None. Writes progress, warnings, and status messages to the host.
 
 .EXAMPLE
-Start-FastCopy -SourceFolder "D:\Data" -TargetFolder "G:\Backup" -Speed "Full" -Delay 60
+    Start-FastCopy -SourceFolder "D:\Data" -TargetFolder "G:\Backup" -Mode "custom" -Speed 5 -Delay 60 -Verify 1 -Exec 1
 
-Initiates a backup of each subfolder from D:\Data to G:\Backup using FastCopy in Full 
-speed, waiting 60 seconds between copies.
+    This copies each subfolder from D:\Data to G:\Backup using FastCopy at speed 5,
+    verifying each transfer and waiting 60 seconds between folders.
 
 .NOTES
-Author: Jialiang Chang
-Version: 1.0
-Last Updated: 2025-05-24
+    Author: Jialiang Chang
+    Version: 1.0
+    Last Updated: 2025-05-24
 #>
 
     [CmdletBinding(
@@ -84,27 +90,27 @@ Last Updated: 2025-05-24
         [int]$execDigit = 1
     )
 
-    # Validation Block
-
-    ## Normalize input mode
+    # Normalize mode input for consistent validation
     $strMode = $strMode.ToLower()
 
-    ## Validation of operating mode and speed integer
+    # Validate that selected mode is in allowed list
     $validModes = @("full", "autoslow", "suspend", "custom")
     $isModeValid = $validModes -contains $strMode
 
+    # Exit if mode is not valid
     if (-not $isModeValid) {
         Write-Error "Your mode selection '$strMode' is invalid."
         Write-Error "Please select from {$($validModes -join ', ')}."
         return
     }
 
-    # No -Speed when not using 'custom' mode
+    # Prevent use of -Speed if mode is not custom
     if ($strMode -ne "custom" -and $PSBoundParameters.ContainsKey("intSpeed")) {
         Write-Error "The -Speed parameter is only allowed when -Mode is 'custom'."
         return
     }
 
+    # Enforce speed validation when mode is 'custom'
     if ($strMode -eq "custom") {
         # Enforce -Speed in custom mode
         if (-not $PSBoundParameters.ContainsKey("intSpeed")) {
@@ -121,13 +127,13 @@ Last Updated: 2025-05-24
         }
     }
 
-    ## Validate verifyDigit
+    # Validate verifyDigit
     if ($verifyDigit -ne 0 -and $verifyDigit -ne 1) {
         Write-Error "Ambiguous verify instructions: use 0 (off) or 1 (on)."
         return
     }
 
-    ## Validate execDigit
+    # Validate execDigit
     if ($execDigit -ne 0 -and $execDigit -ne 1) {
         Write-Error "Ambiguous execution instructions: use 0 (simulate) or 1 (execute)."
         return
