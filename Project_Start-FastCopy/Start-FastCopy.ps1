@@ -139,6 +139,51 @@ function Start-FastCopy {
         return
     }
 
+    # Import Module
+
+    $moduleFolder = ".\modules"
+
+    if (-not (Test-Path $moduleFolder)) {
+
+        Write-Error "`n
+        [ERROR] The specified folder '$moduleFolder' does not exist.`n
+        Try:
+        - Check for typos in the path.
+        - Make sure the folder exists on disk.
+        - Ensure the script has access permissions.`n"
+
+        return
+    }
+
+    $moduleName = 
+    Get-ChildItem -Path $moduleFolder -Filter *.psm1 |
+    Select-Object -ExpandProperty BaseName
+
+    foreach ($module in $moduleName) {
+
+        Write-Verbose "Module: $module"
+
+        $modulePath = Join-Path -Path $moduleFolder -ChildPath "$module.psm1"
+
+        Write-Verbose "Importing: $module"
+        Write-Verbose "Resolved path: $modulePath"
+        
+        try {
+            Import-Module $modulePath
+            Write-Host "Import $module successful"
+        }
+        catch {
+            Write-Warning "Failed to import $module from $modulePath"
+            continue
+        }
+
+        if (-not (Get-Command $module -ErrorAction SilentlyContinue)) {
+            Write-Error "[ERROR] Required module '$module' was not loaded."
+            Write-Error "Check: `"$modulePath`""
+            return
+        }
+    }
+
     # Program Starts
 
     ## Alias for confirmation
