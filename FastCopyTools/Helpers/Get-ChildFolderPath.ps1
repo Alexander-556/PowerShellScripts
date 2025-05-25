@@ -2,20 +2,16 @@ function Get-ChildFolderPath {
     <#
 .SYNOPSIS
 
-
 .DESCRIPTION
-
 
 .PARAMETER inputFolderPath
 
 
 .EXAMPLE
 
-
 .OUTPUTS
 
 .NOTES
-
 
 .LINK
 
