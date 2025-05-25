@@ -13,6 +13,33 @@ PowerShellScripts/
 └── README.md                # This file
 ```
 
+## Todos and Plans
+
+This section presents the ideas for future developments in this repo. This todo list is updated frequently as development progresses.
+
+### Current Work in Progress
+
+- [ ] Finalize FastCopyTools module (argument parser, logging)
+- [ ] Add README examples for each function in `Simple_Functions/`
+
+### Future Project Plans
+
+- [ ] Automate backup of key folders using Task Scheduler + FreeFileSYnc
+- [ ] Automate journal logging
+  - [ ] Create a journal file daily
+  - [ ] Automate git pull several times per day
+  - [ ] Automate git push changes at the end of day
+- [ ] Build a tool to monitor disk health status with `smartctl`.
+  - [ ] Log disk status with smartctl output
+  - [ ] Save key data history and create visualization
+  - [ ] Alert user of key events
+
+### Documentation & Repo Enhancements
+
+- [ ] Add screenshots and usage demos for main tools
+- [ ] Add `FastCopyTools/README` file with setup guides and advanced tips for the tool
+- [ ] Polish this repo README
+
 ## My tools
 
 ### The Shell
@@ -40,9 +67,9 @@ Also notice that installing PowerShell 7.5 doesn't mean it replaces PowerShell 5
 
 This means that you can use PowerShell 5.1 and 7 at the same time, which is great for compatibility. But you should also be aware of your current working PowerShell version when you are configuring your terminal, because it's quite easy to get confused. To check your PowerShell version, use
 
-````powershell
+```powershell
 Get-Host
-````
+```
 
 and look at `Version`. More detailed documentation can be found at microsoft website [Get-Host](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-host?view=powershell-7.5).
 
@@ -65,9 +92,9 @@ For me, in order to fully engage myself with a shell through a terminal, customi
 
 You can install oh-my-posh via winget:
 
-````powershell
+```powershell
 winget install JanDeDobbeleer.OhMyPosh -s winget
-````
+```
 
 where `-s winget` restricts the source of app package to winget. Click the link for more information on [winget install command](https://learn.microsoft.com/en-us/windows/package-manager/winget/install). After winget installation, you might need to update
 
@@ -75,9 +102,9 @@ where `-s winget` restricts the source of app package to winget. Click the link 
 
 oh-my-posh themes often require a Nerd Font to render glyphs and icons properly. By default, oh-my-posh official documentation recommends installation of their recommended Meslo Nerd font through
 
-````powershell
+```powershell
 oh-my-posh font install meslo
-````
+```
 
 but if this doesn't work for you, you can manually go to [Nerd Fonts](https://www.nerdfonts.com), and download MesloLG Nerd Font.
 
