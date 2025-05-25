@@ -36,28 +36,23 @@ function Get-ChildFolderPath {
 
     [CmdletBinding()]
     param (
-        [Parameter(Mandatory = $true)]             # Folder parameter is required
-        [Alias("Folder")]                          # Allow user to use -Folder instead of -inputFolderPath
-        [string]$inputFolderPath                   # Path to the parent directory
+        [Parameter(Mandatory = $true)]
+        [Alias("Folder")]
+        [string]$inputFolderPath
     )
 
-    # Validate that the provided folder exists
     if (-Not (Test-Path $inputFolderPath)) {
-        # Display a multi-line error message with tips
-        $errMsg = @"
-    
-    [ERROR] The specified folder '$inputFolderPath' does not exist.
-
-    Try:
-    - Check for typos in the path.
-    - Make sure the folder exists on disk.
-    - Ensure the script has access permissions.
-"@
-        Write-Error $errMsg                       # Emit the error to the error stream
-        return                                    # Exit function early
+        Write-Error "`n
+        [ERROR] The specified folder '$inputFolderPath' does not exist.
+        Try:
+        - Check for typos in the path.
+        - Make sure the folder exists on disk.
+        - Ensure the script has access permissions.`n"
+        return
     }
 
-    # List immediate subdirectories and return their full paths
     Get-ChildItem -Path $inputFolderPath -Directory |
     Select-Object -ExpandProperty FullName
 }
+
+Export-ModuleMember -Function Get-ChildFolderPath

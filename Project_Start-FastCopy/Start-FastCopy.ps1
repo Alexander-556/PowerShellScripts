@@ -148,42 +148,10 @@ function Start-FastCopy {
     ## Fixed FastCopy path, adjustable
     $FCPath = "C:\Users\shcjl\FastCopy\FastCopy.exe"
 
-    ## Confirmation and simulate block
+    ## Confirmation and simulate condition
     if ($PSCmdlet.ShouldProcess($target, $action)) {
         # If confirmed, perform the copy
-        Write-Host "Executing copy..."
-    
-        # Check if dependent functions are loaded
-        if (-not (Get-Command Import-Functions -ErrorAction SilentlyContinue)) {
-            # If not loaded, print error message and exit
-            $errMsg = @"
-
-    [ERROR] The helper function is not ready!
-    Try run: . .\Import-Function.ps1
-"@
-            # Emit the error and exit early
-            Write-Error $errMsg                       
-            return
-        }
-
-        # Import the helper functions
-        Write-Host "Importing helper functions..."
-        Import-Functions -Folder .\functions
-
-        # Check if Get-ChildFolderPath is available
-        if (-not (Get-Command Get-ChildFolderPath -ErrorAction SilentlyContinue)) {
-            # If not loaded, print error message and exit
-            $errMsg = @"
-
-    [ERROR] The helper function import unsuccessful!
-    Check:
-    .\Import-Function.ps1
-    .\functions\Get-ChildFolderPath
-"@
-            # Emit the error and exit early
-            Write-Error $errMsg                       
-            return
-        }
+        Write-Host "`nExecuting copy...`n"
 
         ## Retrieve subfolders to process
         $subFolders = Get-ChildFolderPath -Folder $sourceFolderPath
@@ -197,8 +165,8 @@ function Start-FastCopy {
 
         ## If all ecc passed, start copy
         Write-Host "Starting FastCopy for each subfolder..."
-        Write-Host "From: $sourceFolderPath"
-        Write-Host "To: $targetFolderPath`n"
+        Write-Host "In: '$sourceFolderPath'"
+        Write-Host "To: '$targetFolderPath'`n"
 
 
         ## Main loop for copying each subfolder
@@ -220,7 +188,7 @@ function Start-FastCopy {
                 -Status "Processing $index of ${totalFolderNum}: $folderName" `
                 -PercentComplete (($index / $totalFolderNum) * 100)
 
-            Write-Host "`n Copying '$folderName' to '$targetFolderPath'"
+            Write-Host "`nCopying folder '$folderName' to '$targetFolderPath'"
             
             # Build shared arguments
             $FCargs = Build-FCArgs `
@@ -238,9 +206,11 @@ function Start-FastCopy {
             # Invoke FastCopy main program, next loop will start after current copy
             Start-Process -FilePath $FCPath -ArgumentList $FCargs -Wait
 
+            Write-Host "Folder $folderName copy complete."
+
             # Optional pause between copies
             if ($delaySeconds -gt 0 -and $folder -ne $subFolders[-1]) {
-                Write-Host "Waiting $delaySeconds seconds before next copy..."
+                Write-Host "Waiting $delaySeconds seconds before next copy...`n"
                 Start-Sleep -Seconds $delaySeconds
             }
         }
