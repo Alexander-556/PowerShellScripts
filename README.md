@@ -1,5 +1,20 @@
 # PowerShell Scripting Projects
 
+![HeaderGIF](./Images/WindowsTerminal_7DcFt7URrF.gif)
+
+<!-- markdownlint-disable-next-line MD033 -->
+<div align="center">
+
+<!-- First row -->
+
+![Status](https://img.shields.io/badge/Status-WorkInProgress-yellow) ![Type: Self-Learning](https://img.shields.io/badge/Type-Self--Learning-blueviolet) ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg) ![PowerShell](https://img.shields.io/badge/Shell-PowerShell-blue) ![Platform: Windows](https://img.shields.io/badge/Platform-Windows-lightgrey)
+
+<!-- Second row -->
+
+![LastCommit](https://img.shields.io/github/last-commit/Alexander-556/PowerShellScripts) ![Commits](https://img.shields.io/github/commit-activity/w/Alexander-556/PowerShellScripts) ![Created](https://img.shields.io/github/created-at/Alexander-556/PowerShellScripts)
+
+</div>
+
 This repository is a collection of powershell scripts and functions created to solve problems that are relevant to me. My main purpose for this repo is to learn powershell as a windows based automation tool to try to automate my daily routines.
 
 ## Repository Structure

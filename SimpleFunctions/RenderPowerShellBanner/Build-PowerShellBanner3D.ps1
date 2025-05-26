@@ -1,7 +1,7 @@
 function Build-PowerShellBanner3D {
     [CmdletBinding()]
     param (
-        [int]$Delay = 0.50  # Milliseconds delay per character
+        [int]$Delay = 0.55  # Milliseconds delay per character
     )
 
     $banner = @'
