@@ -1,5 +1,4 @@
-# PowerShell Scripting Projects
-
+<!-- markdownlint-disable-next-line MD041 -->
 ![HeaderGIF](./Images/WindowsTerminal_7DcFt7URrF.gif)
 
 <!-- markdownlint-disable-next-line MD033 -->
@@ -14,6 +13,8 @@
 ![LastCommit](https://img.shields.io/github/last-commit/Alexander-556/PowerShellScripts) ![Commits](https://img.shields.io/github/commit-activity/w/Alexander-556/PowerShellScripts) ![Created](https://img.shields.io/github/created-at/Alexander-556/PowerShellScripts)
 
 </div>
+
+# PowerShell Scripting Projects
 
 This repository is a collection of powershell scripts and functions created to solve problems that are relevant to me. My main purpose for this repo is to learn powershell as a windows based automation tool to try to automate my daily routines.
 
