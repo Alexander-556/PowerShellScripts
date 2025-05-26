@@ -7,9 +7,9 @@ This repository is a collection of powershell scripts and functions created to s
 ```pgsql
 PowerShellScripts/
 ├── FastCopyTools/           # Modular FastCopy automation wrapper
-├── Simple_Functions/        # Small reusable PowerShell utilities
-├── .gitignore               # Git ignore file log
-├── LICENSE                  # MIT License for reuse
+├── SimpleFunctions/        # Small reusable PowerShell utilities
+├── .gitignore               # Git ignore file
+├── LICENSE                  # MIT License
 └── README.md                # This file
 ```
 
@@ -19,8 +19,13 @@ This section presents the ideas for future developments in this repo. This todo 
 
 ### Current Work in Progress
 
-- [ ] Finalize FastCopyTools module (argument parser, logging)
-- [ ] Add README examples for each function in `Simple_Functions/`
+- [ ] Add new features to FastCopyTools
+  - [ ] Write log files
+  - [ ] More options
+  - [ ] Add GUI
+- [ ] In `SimpleFunctions`
+  - [ ] Add README to current functions
+  - [ ] More simple function ideas
 
 ### Future Project Plans
 
@@ -32,27 +37,27 @@ This section presents the ideas for future developments in this repo. This todo 
 - [ ] Build a tool to monitor disk health status with `smartctl`.
   - [ ] Log disk status with smartctl output
   - [ ] Save key data history and create visualization
-  - [ ] Alert user of key events
+  - [ ] Alert user of critical events and potential drive failure
 
 ### Documentation & Repo Enhancements
 
-- [ ] Add screenshots and usage demos for main tools
-- [ ] Add `FastCopyTools/README` file with setup guides and usage information for the tool
+- [ ] Add screenshots and usage demos for FastCopyTools
+- [ ] Polish `FastCopyTools/README` file with setup guides and usage information for the tool
 - [ ] Polish this repo README
   - [ ] Finish tool setup guide
 
 ## My tools
 
-### The Shell
+### The Shell and Terminal
 
 - PowerShell 7.5
+  - oh-my-posh
+  - PSfzf
 - Windows Terminal
-- oh-my-posh
-- PSfzf
 
 ### PowerShell 7.5
 
-I work on PowerShell 7.5, available through [this link from microsoft](https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.5). Install available through msi installer or `winget`, which is recommended by microsoft. You can install PowerShell 7.5 through the following steps:
+I work on PowerShell 7.5, available through [this link from microsoft](https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.5). You can install through msi installer or `winget` which is recommended by microsoft. You can install PowerShell 7.5 through the following steps:
 
 Search for the latest version of PowerShell with
 
@@ -62,9 +67,9 @@ winget search Microsoft.PowerShell
 
 Install PowerShell with
 
-````powershell
+```powershell
 winget install --id Microsoft.PowerShell --source winget
-````
+```
 
 Also notice that installing PowerShell 7.5 doesn't mean it replaces PowerShell 5.1. According to this link: [Side-by-Side](https://learn.microsoft.com/en-us/powershell/scripting/whats-new/migrating-from-windows-powershell-51-to-powershell-7?view=powershell-7.5#using-powershell-7-side-by-side-with-windows-powershell-51), PowerShell 5, 6, and 7 install to
 
@@ -97,15 +102,21 @@ For me, in order to fully engage myself with a shell through a terminal, customi
 
 ##### Installation
 
-You can install oh-my-posh via **winget**:
+Following the [official documentation on installation](https://ohmyposh.dev/docs/installation/windows), you can install oh-my-posh and a package of builtin themes via **winget**:
 
 ```powershell
 winget install JanDeDobbeleer.OhMyPosh -s winget
 ```
 
-where `-s winget` restricts the source of app package to winget, avoiding ambiguity with similarly named packages in other sources. Click the link for more information on [winget install command](https://learn.microsoft.com/en-us/windows/package-manager/winget/install). After winget installation, you can check if `oh-my-posh` is installed correctly by typing `oh-my-posh` into your terminal and hit `Enter`. If `oh-my-posh` is installed correctly, you should see the following output:
+where `-s winget` restricts the source of app package to winget, avoiding ambiguity with similarly named packages in other sources. Click the link for more information on [winget install command](https://learn.microsoft.com/en-us/windows/package-manager/winget/install). After winget installation, you can check if `oh-my-posh` is installed correctly by typing
 
-````powershell
+```powershell
+oh-my-posh
+```
+
+into your terminal and hit `Enter`. If `oh-my-posh` is installed correctly, you should see the following output:
+
+```powershell
 oh-my-posh is a cross platform tool to render your prompt.
 It can use the same configuration everywhere to offer a consistent
 experience, regardless of where you are. For a detailed guide
@@ -139,15 +150,22 @@ Flags:
       --version         print the version number and exit
 
 Use "oh-my-posh [command] --help" for more information about a command.
-````
+```
 
-If you receive a "'oh-my-posh' is not recognized as an internal or external command" error, it likely means that the folder containing the `oh-my-posh.exe` binary was not added to your system's `PATH` environment variable.
+If you receive an error saying:
+
+```powershell
+oh-my-posh: The term 'oh-my-posh' is not recognized as a name of a cmdlet, function, script file, or executable program.
+Check the spelling of the name, or if a path was included, verify that the path is correct and try again.
+```
+
+it likely means that the folder containing the `oh-my-posh.exe` binary was not added to your system's `PATH` environment variable.
 
 By default, oh-my-posh is installed to
 
-````path
+```path
 C:\Users\<YourUsername>\AppData\Local\Programs\oh-my-posh\bin
-````
+```
 
 To use `oh-my-posh` from any terminal window, add this folder to the system `PATH`. Here's how
 
@@ -159,7 +177,7 @@ To use `oh-my-posh` from any terminal window, add this folder to the system `PAT
 6. Then, under "System Variables" select "Path" and click the "Edit" button
 7. Now you have entered the edit variables page, click "New" on the right to create a new entry
 8. Paste your `oh-my-posh` binary path `C:\Users\<YourUsername>\AppData\Local\Programs\oh-my-posh\bin` into the entry and hit `Enter`
-(Replace \<YourUsername\> with your actual Windows username)
+   (Replace <YourUsername\> with your actual Windows username)
 9. Now you have added a new `Path` environment variable to your system
 10. Save your settings by clicking "OK" on each settings window
 11. Close and restart your terminal to load new environment variable
@@ -169,7 +187,7 @@ For more information about environment variables and the `PATH` mechanism, check
 
 ##### Fonts
 
-oh-my-posh themes often require a Nerd Font to render glyphs and icons properly. By default, oh-my-posh official documentation recommends installation of their recommended Meslo Nerd font through
+oh-my-posh themes often require a Nerd Font to render glyphs and icons properly. By default, oh-my-posh [official documentation on fonts](https://ohmyposh.dev/docs/installation/fonts) recommends installation of their recommended Meslo Nerd font through
 
 ```powershell
 oh-my-posh font install meslo
@@ -197,7 +215,91 @@ Note: If Windows Terminal cannot find the font, it will silently fall back to th
 
 Once this is set, any oh-my-posh theme that relies on Nerd Fonts will display correctly across PowerShell and other shells running in Windows Terminal.
 
-##### Configuring Your PowerShell Profile
+##### Configuring Your PowerShell Profile with `oh-my-posh`
+
+Now, `oh-my-posh` is almost ready, but your terminal window is still in its default shape. To enable `oh-my-posh` appearance, you can follow `oh-my-posh` [official documentation on prompt](https://ohmyposh.dev/docs/installation/prompt). Here is a summary for your convenience.
+
+To enable `oh-my-posh` appearance, you need to change your default PowerShell profile, which you can find by typing this into your terminal:
+
+```powershell
+notepad $PROFILE
+```
+
+This above command line will open PowerShell default profile with notepad. When the above command gives an error, troubleshoot by creating the profile first using
+
+```powershell
+New-Item -Path $PROFILE -Type File -Force
+```
+
+Try open again with the `notepad $PROFILE` command. If this still doesn't work, please reference additional troubleshooting instruction in the [official documentation on prompt](https://ohmyposh.dev/docs/installation/prompt).
+
+If you are able to open the default profile, add the following as the last line to your PowerShell profile script:
+
+```powershell
+oh-my-posh init pwsh | Invoke-Expression
+```
+
+After you add the line, save the file, and then use
+
+```powershell
+. $PROFILE
+```
+
+to reload the profile for the changes to take effect. Now, you should be able to see that your terminal has a different appearance, which is the default `oh-my-posh` theme.
+
+##### Change Your `oh-my-posh` Theme
+
+The theme previews are available through this link to the [gallery](https://ohmyposh.dev/docs/themes). Choose your favorite theme and take note of its name.
+
+To change your theme, you need to modify your profile file. Open the file again by
+
+```powershell
+notepad $PROFILE
+```
+
+Your current `oh-my-posh` config line should look like:
+
+```powershell
+oh-my-posh init pwsh | Invoke-Expression
+```
+
+Now, use the `--config` option of `oh-my-posh` to change the theme, here's the command
+
+```powershell
+oh-my-posh init pwsh --config <PathToThemeFile> | Invoke-Expression
+```
+
+The location of builtin themes is
+
+```path
+C:\Users\<YourUsername>\AppData\Local\Programs\oh-my-posh\themes
+```
+
+Go to this folder, find the file of your favorite theme, for example, mine is
+
+```path
+clean-detailed.omp.json
+```
+
+Click on the file to choose it, then press `Ctrl + Shift + C` (default key binding to copy the path to the chosen file). In the command
+
+```powershell
+oh-my-posh init pwsh --config <PathToThemeFile> | Invoke-Expression
+```
+
+replace <PathToThemeFile\> with your path. For example, my command will be
+
+```powershell
+oh-my-posh init pwsh --config C:\Users\user\AppData\Local\Programs\oh-my-posh\themes\clean-detailed.omp.json | Invoke-Expression
+```
+
+Save this in your profile, and then use
+
+```powershell
+. $PROFILE
+```
+
+to reload. The terminal should display your chosen theme by this step.
 
 #### Useful Utilities
 
