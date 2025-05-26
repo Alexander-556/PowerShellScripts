@@ -165,7 +165,7 @@ To use `oh-my-posh` from any terminal window, add this folder to the system `PAT
 11. Close and restart your terminal to load new environment variable
 12. Check again by running command `oh-my-posh`
 
-For more information about environment variables and the `PATH` mechanism, check out this helpful explanation: [StackExchange website](https://superuser.com/questions/284342/what-are-path-and-other-environment-variables-and-how-can-i-set-or-use-them).
+For more information about environment variables and the `PATH` mechanism, check out this helpful explanation: [SuperUser](https://superuser.com/questions/284342/what-are-path-and-other-environment-variables-and-how-can-i-set-or-use-them).
 
 ##### Fonts
 
