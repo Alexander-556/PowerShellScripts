@@ -23,7 +23,7 @@ This section presents the ideas for future developments in this repo. This todo 
   - [ ] Write log files
   - [ ] More options
   - [ ] Add GUI
-- [ ] In `SimpleFunctions`
+- [ ] In folder `./SimpleFunctions`
   - [ ] Add README to current functions
   - [ ] More simple function ideas
 
@@ -42,9 +42,10 @@ This section presents the ideas for future developments in this repo. This todo 
 ### Documentation & Repo Enhancements
 
 - [ ] Add screenshots and usage demos for FastCopyTools
-- [ ] Polish `FastCopyTools/README` file with setup guides and usage information for the tool
+- [ ] Polish `./FastCopyTools/README` file with setup guides and usage information for the tool
 - [ ] Polish this repo README
   - [ ] Finish tool setup guide
+    - [x] PowerShell 7.5
 
 ## My tools
 
@@ -58,6 +59,8 @@ This section presents the ideas for future developments in this repo. This todo 
 ### PowerShell 7.5
 
 I work on PowerShell 7.5, available through [this link from microsoft](https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.5). You can install through msi installer or `winget` which is recommended by microsoft. You can install PowerShell 7.5 through the following steps:
+
+As [PowerShell 5.1](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_windows_powershell_5.1?view=powershell-5.1) is built into windows, we can launch PowerShell 5.1 by first pressing `Win + R`, then type `powershell` and hit `Enter`. A terminal window should pop up. We will type the commands in the terminal window.
 
 Search for the latest version of PowerShell with
 
@@ -77,7 +80,7 @@ Also notice that installing PowerShell 7.5 doesn't mean it replaces PowerShell 5
 - PowerShell 6.x: `$Env:ProgramFiles\PowerShell\6`
 - PowerShell 7: `$Env:ProgramFiles\PowerShell\7`
 
-This means that you can use PowerShell 5.1 and 7 at the same time, which is great for compatibility. But you should also be aware of your current working PowerShell version when you are configuring your terminal, because it's quite easy to get confused. To check your PowerShell version, use
+This means that you can use PowerShell 5.1 and 7 at the same time, which is great for compatibility. But since installing new version of powershell doesn't replace the old one, you should be aware of the version of the PowerShell you are working with. To check your PowerShell version, use
 
 ```powershell
 Get-Host
@@ -102,19 +105,19 @@ For me, in order to fully engage myself with a shell through a terminal, customi
 
 ##### Installation
 
-Following the [official documentation on installation](https://ohmyposh.dev/docs/installation/windows), you can install oh-my-posh and a package of builtin themes via **winget**:
+Following the [official documentation on installation](https://ohmyposh.dev/docs/installation/windows), you can install oh-my-posh and a package of builtin themes via winget:
 
 ```powershell
 winget install JanDeDobbeleer.OhMyPosh -s winget
 ```
 
-where `-s winget` restricts the source of app package to winget, avoiding ambiguity with similarly named packages in other sources. Click the link for more information on [winget install command](https://learn.microsoft.com/en-us/windows/package-manager/winget/install). After winget installation, you can check if `oh-my-posh` is installed correctly by typing
+where `-s winget` restricts the source of app package to winget, avoiding ambiguity with similarly named packages in other sources. Click the link for more information on [winget install command](https://learn.microsoft.com/en-us/windows/package-manager/winget/install). After winget installation, you can check if `oh-my-posh` is installed correctly by typing in your terminal
 
 ```powershell
 oh-my-posh
 ```
 
-into your terminal and hit `Enter`. If `oh-my-posh` is installed correctly, you should see the following output:
+and hit `Enter`. If `oh-my-posh` is installed correctly, you should see the following output:
 
 ```powershell
 oh-my-posh is a cross platform tool to render your prompt.
@@ -205,13 +208,13 @@ but if this doesn't work for you, you can manually go to [Nerd Fonts](https://ww
 After the font is installed, you need to configure Windows Terminal to use it as the default font:
 
 1. Launch Windows Terminal
-2. Open the settings by pressing `Ctrl + ,` or using the dropdown arrow in the tab bar → Settings
+2. Open the settings by pressing `Ctrl + ,` or using the dropdown arrow in the tab bar then go to Settings
 3. In the Settings UI, go to Profiles > Defaults
 4. Select the Appearance tab
-5. Find "Font face" and enter: "MesloLGM Nerd Font"
+5. Find "Font Face" and enter: "MesloLGM Nerd Font"
 6. Click save (bottom right corner)
 
-Note: If Windows Terminal cannot find the font, it will silently fall back to the default one. So if nothing changed after you changed the settings, check if the font is installed and whether the "Font Face" settings entry is correct.
+Note: If Windows Terminal cannot find the font, it will silently fall back to the default one. So if nothing changed after you changed the settings, check if the font is installed and whether the "Font Face" settings entry is correct. The entry has to be verbatim.
 
 Once this is set, any oh-my-posh theme that relies on Nerd Fonts will display correctly across PowerShell and other shells running in Windows Terminal.
 
@@ -278,7 +281,7 @@ C:\Users\<YourUsername>\AppData\Local\Programs\oh-my-posh\themes
 Go to this folder, find the file of your favorite theme, for example, mine is
 
 ```path
-clean-detailed.omp.json
+probua.minimal.omp.json
 ```
 
 Click on the file to choose it, then press `Ctrl + Shift + C` (default key binding to copy the path to the chosen file). In the command
@@ -290,7 +293,7 @@ oh-my-posh init pwsh --config <PathToThemeFile> | Invoke-Expression
 replace <PathToThemeFile\> with your path. For example, my command will be
 
 ```powershell
-oh-my-posh init pwsh --config C:\Users\user\AppData\Local\Programs\oh-my-posh\themes\clean-detailed.omp.json | Invoke-Expression
+oh-my-posh init pwsh --config C:\Users\user\AppData\Local\Programs\oh-my-posh\themes\probua.minimal.omp.json | Invoke-Expression
 ```
 
 Save this in your profile, and then use
@@ -316,38 +319,25 @@ to reload. The terminal should display your chosen theme by this step.
 
 ## Projects & Modules
 
-### `Project_Start-FastCopy/`
+### `./FastCopyTools`
 
-My first project is a function called Start-FastCopy, this is a wrapper around [FastCopy](https://fastcopy.jp/) for controlled, folder-by-folder file copying with:
-
-- Adjustable speed modes (full, autoslow, suspend, or custom)
-- Optional post-copy file verification
-- Customizable delay between transfers
-- Support for simulation (`-WhatIf`, `-Exec 0`)
-- Modular helper functions and clean logging
-
-See FastCopy Project README → `Project_Start-FastCopy/README.md` for more information
-
-### `Simple_Functions/`
-
-Smaller standalone utilities and learning demos, including:
-
-Great for learning, experimentation, and inclusion in larger projects.
+### `./SimpleFunctions`
 
 ## Feedback
 
-Issues and suggestions are welcome!  
-If you find these scripts useful, feel free to open an [issue](https://github.com/your-user-name/your-repo-name/issues) or submit a pull request.
+Questions, issues, or suggestions are welcome!
+If you find these scripts useful or have ideas for improvements, feel free to [open an issue](https://github.com/Alexander-556/PowerShellScripts/issues) or submit a pull request.
 
 ## Author
 
-Jialiang Chang, undergraduate student. Currently self-learning powershell scripting language.
-This repository serves as both a learning log and a utility hub for everyday scripting problems. Feel free to use my scripts if you find them useful.
+**Jialiang Chang** — undergraduate student, currently self-learning PowerShell scripting.  
+This repository serves as both a learning log and a collection of practical scripts for everyday automation tasks.
+Feel free to explore, adapt, and reuse anything that helps your workflow.
 
-## License
+## 📄 License
 
-This repository is released under the **MIT License**.  
-Feel free to use, adapt, and share — with credit where due.
+This project is licensed under the [MIT License](LICENSE).  
+You're free to use, modify, and share this code — just include attribution when you do.
 
 ---
 
