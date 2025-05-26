@@ -67,7 +67,7 @@ function Start-FastCopy {
         [string]$targetFolderPath,
 
         [Parameter(Mandatory = $false)]
-        [string]$fastCopyPath,
+        [string]$FastCopyPath,
 
         [Parameter(Mandatory = $false)]
         [Alias("Mode")]
@@ -133,7 +133,7 @@ function Start-FastCopy {
         return
     }
 
-    # Import helper module (must define Build-FCArgs, Get-ChildFolderPath)
+    # Import helper module
     Import-Module "$PSScriptRoot\FastCopyTools.psd1" -Force
 
     # Define action description for WhatIf/Confirm support
@@ -142,7 +142,7 @@ function Start-FastCopy {
     $config = Get-Config
 
     # Apply override logic
-    if ($PSBoundParameters.ContainsKey("fastCopyPath")) {
+    if ($PSBoundParameters.ContainsKey("FastCopyPath")) {
         $FCPath = $fastCopyPath
         Write-Verbose "Using override FastCopy path: $FCPath"
     }
@@ -150,14 +150,6 @@ function Start-FastCopy {
         $FCPath = $config.fastCopyPath
         Write-Verbose "Using configured FastCopy path: $FCPath"
     }
-
-
-    # Path to the FastCopy executable (adjust if portable path used)
-    $config = Get-Config
-    $FCPath = $config.fastCopyPath
-
-    
-    $FCPath = "C:\Users\shcjl\FastCopy\FastCopy.exe"
 
     # Only continue if confirmed via ShouldProcess (or WhatIf not used)
     if ($PSCmdlet.ShouldProcess($target, $action)) {
@@ -219,5 +211,6 @@ function Start-FastCopy {
         }
 
         Write-Host "`nCopy task complete.`n"
+        exit 1
     }
 }
