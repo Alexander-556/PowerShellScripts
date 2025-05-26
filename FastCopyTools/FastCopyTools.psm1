@@ -22,7 +22,7 @@ foreach ($file in $helperFunctionFiles) {
 }
 
 # Define required function names that must be loaded successfully
-$expectedFunctions = @('Get-ChildFolderPath', 'Build-FCargs')
+$expectedFunctions = @('Get-ChildFolderPath', 'Build-FCargs', 'Get-Config')
 
 # Verify that each expected function was actually loaded into the session
 foreach ($func in $expectedFunctions) {

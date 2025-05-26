@@ -67,6 +67,9 @@ function Start-FastCopy {
         [string]$targetFolderPath,
 
         [Parameter(Mandatory = $false)]
+        [string]$fastCopyPath,
+
+        [Parameter(Mandatory = $false)]
         [Alias("Mode")]
         [string]$strMode = "full", 
         
@@ -136,8 +139,24 @@ function Start-FastCopy {
     # Define action description for WhatIf/Confirm support
     $action = "Copy data from $sourceFolderPath"
     $target = "Path: $targetFolderPath"
+    $config = Get-Config
+
+    # Apply override logic
+    if ($PSBoundParameters.ContainsKey("fastCopyPath")) {
+        $FCPath = $fastCopyPath
+        Write-Verbose "Using override FastCopy path: $FCPath"
+    }
+    else {
+        $FCPath = $config.fastCopyPath
+        Write-Verbose "Using configured FastCopy path: $FCPath"
+    }
+
 
     # Path to the FastCopy executable (adjust if portable path used)
+    $config = Get-Config
+    $FCPath = $config.fastCopyPath
+
+    
     $FCPath = "C:\Users\shcjl\FastCopy\FastCopy.exe"
 
     # Only continue if confirmed via ShouldProcess (or WhatIf not used)
