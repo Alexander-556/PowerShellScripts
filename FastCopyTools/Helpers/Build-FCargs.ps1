@@ -13,12 +13,6 @@ function Build-FCargs {
     This function should not be called directly, but rather used within the
     Start-FastCopy.ps1 script to prepare the FastCopy command-line arguments.
     
-.PARAMETER buildSourcePath
-    The root source directory. Each immediate subfolder will be copied individually.
-
-.PARAMETER buildTargetPath
-    The root destination directory. Each subfolder will be copied as a new folder here.
-
 .PARAMETER buildMode
     Speed mode to use. Acceptable values: full, autoslow, suspend, custom.
     When 'custom' is selected, -intSpeed must be specified.
@@ -31,6 +25,12 @@ function Build-FCargs {
 
 .PARAMETER buildExecDigi
     1 to execute FastCopy (default), 0 to simulate using /no_exec.
+
+.PARAMETER buildSourcePath
+    The root source directory. Each immediate subfolder will be copied individually.
+
+.PARAMETER buildTargetPath
+    The root destination directory. Each subfolder will be copied as a new folder here.
 
 .OUTPUTS
     [string[]] A list of FastCopy-compatible arguments.
@@ -50,12 +50,12 @@ function Build-FCargs {
 
     [CmdletBinding()]
     param(
-        [string]$buildSourcePath,
-        [string]$buildTargetPath,
         [string]$buildMode,
         [int]$buildSpeed,
         [int]$buildVerifyDigi,
-        [int]$buildExecDigi
+        [int]$buildExecDigi,
+        [string]$buildSourcePath,
+        [string]$buildTargetPath
     )
 
     # Initialize base argument list with default options
