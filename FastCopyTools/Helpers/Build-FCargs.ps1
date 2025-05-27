@@ -4,35 +4,43 @@ function Build-FCargs {
     Constructs a list of FastCopy command-line arguments based on user-defined options.
 
 .DESCRIPTION
-    This function generates a dynamic argument array for FastCopy execution. It supports
-    setting custom or preset transfer speeds, enabling or disabling verification, specifying
-    dry-run execution, and quoting source and destination paths for safety. The final output
-    is an array of command-line arguments ready to be passed to FastCopy.
+    As a part of the modular functions that belongs to Start-FastCopy function,
+    this function generates a dynamic argument array for FastCopy execution. Takes in
+    given input parameters, and outputs a formatted array of command-line arguments. All
+    the input parameters are given by the Start-FastCopy function, with a build prefix to 
+    indicate they are for building FastCopy arguments.
 
-.PARAMETER buildMode
-    Transfer speed preset or "custom" for user-defined speed (e.g., "autoslow", "auto", "custom").
-
-.PARAMETER buildSpeed
-    Speed value to use when buildMode is "custom". Ignored otherwise.
-
-.PARAMETER buildVerifyDigi
-    Use 1 to enable file verification after copy, 0 to disable it.
-
-.PARAMETER buildExecDigi
-    Use 0 to add /no_exec for dry run. Use 1 for normal execution.
-
+    This function should not be called directly, but rather used within the
+    Start-FastCopy.ps1 script to prepare the FastCopy command-line arguments.
+    
 .PARAMETER buildSourcePath
-    Full path to the source directory (quoted in output).
+    The root source directory. Each immediate subfolder will be copied individually.
 
 .PARAMETER buildTargetPath
-    Full path to the target directory (quoted in output).
+    The root destination directory. Each subfolder will be copied as a new folder here.
+
+.PARAMETER buildMode
+    Speed mode to use. Acceptable values: full, autoslow, suspend, custom.
+    When 'custom' is selected, -intSpeed must be specified.
+
+.PARAMETER buildSpeed
+    Custom integer transfer speed (1–9). Only required when -strMode is 'custom'.
+
+.PARAMETER buildVerifyDigi
+    1 to enable post-copy verification (default), 0 to disable.
+
+.PARAMETER buildExecDigi
+    1 to execute FastCopy (default), 0 to simulate using /no_exec.
 
 .OUTPUTS
     [string[]] A list of FastCopy-compatible arguments.
 
 .EXAMPLE
-    PS> Build-FCargs -buildMode "full" -buildVerifyDigi 1 -buildExecDigi 1 `
-                        -buildSourcePath "C:\Source" -buildTargetPath "D:\Backup"
+    PS> Build-FCargs -buildSourcePath "C:\Source" -buildTargetPath "D:\Backup" `
+                    -buildMode "custom" -buildSpeed 5 -buildVerifyDigi 1 -buildExecDigi 1
+    
+    Constructs arguments for a custom-speed copy with verification enabled and normal 
+    execution.
 
 .NOTES
     Author: Jialiang Chang
@@ -42,12 +50,12 @@ function Build-FCargs {
 
     [CmdletBinding()]
     param(
+        [string]$buildSourcePath,
+        [string]$buildTargetPath,
         [string]$buildMode,
         [int]$buildSpeed,
         [int]$buildVerifyDigi,
-        [int]$buildExecDigi,
-        [string]$buildSourcePath,
-        [string]$buildTargetPath
+        [int]$buildExecDigi
     )
 
     # Initialize base argument list with default options
