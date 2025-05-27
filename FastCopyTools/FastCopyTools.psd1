@@ -69,7 +69,7 @@
     # NestedModules = @()
 
     # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-    FunctionsToExport = @('Get-ChildFolderPath', 'Build-FCargs', 'Get-Config', 'Test-IsNullOrWhiteSpace')
+    FunctionsToExport = @('Get-ChildFolderPath', 'Build-FCargs', 'Get-Config', 'Test-IsNullOrWhiteSpace', 'Confirm-FCpath')
 
     # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
     CmdletsToExport   = '*'
