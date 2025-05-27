@@ -51,10 +51,7 @@ function Start-FastCopy {
 .NOTES
     Author: Jialiang Chang
     Version: 1.0
-    Last Updated: 2025-05-27
-    Dependencies: FastCopy.exe, FastCopyTools.psm1, FastCopyTools.psd1, and helper
-    functions including Build-FCargs, Get-ChildFolderPath, Get-Config, and 
-    Test-IsNullOrWhiteSpaces.
+    Date: 2025-05-27
 #>
 
 
