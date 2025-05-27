@@ -38,7 +38,7 @@ Thumbs.db
 
 # Workspace VSCode Settings
 ###########################
-.vscode/settings.json
+.vscode/
 
 # PowerShell specific
 #####################

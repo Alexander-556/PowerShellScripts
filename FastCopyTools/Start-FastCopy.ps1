@@ -13,12 +13,17 @@ function Start-FastCopy {
     - Dry run simulation with windowed FastCopy execution
     - Optional delay between subfolder copies for thermal throttling
     - Interactive confirmation via PowerShell's ShouldProcess
+    - Setup FastCopy executable path in a config file instead of digging inside the code
 
 .PARAMETER sourceFolderPath
     The root source directory. Each immediate subfolder will be copied individually.
 
 .PARAMETER targetFolderPath
     The root destination directory. Each subfolder will be copied as a new folder here.
+
+.PARAMETER fastCopyPath
+    Optional override of the default and configured path to FastCopy.exe executable,
+    useful when using portable FastCopy.exe.
 
 .PARAMETER strMode
     Speed mode to use. Acceptable values: full, autoslow, suspend, custom.
@@ -46,8 +51,10 @@ function Start-FastCopy {
 .NOTES
     Author: Jialiang Chang
     Version: 1.0
-    Last Updated: 2025-05-24
-    Dependencies: FastCopy.exe, FastCopyTools.psd1 (with Build-FCArgs, Get-ChildFolderPath)
+    Last Updated: 2025-05-27
+    Dependencies: FastCopy.exe, FastCopyTools.psm1, FastCopyTools.psd1, and helper
+    functions including Build-FCargs, Get-ChildFolderPath, Get-Config, and 
+    Test-IsNullOrWhiteSpaces.
 #>
 
 
@@ -65,6 +72,9 @@ function Start-FastCopy {
         [Parameter(Mandatory = $true)]
         [Alias("TargetFolder")]
         [string]$targetFolderPath,
+
+        [Parameter(Mandatory = $false)]
+        [string]$fastCopyPath,
 
         [Parameter(Mandatory = $false)]
         [Alias("Mode")]
@@ -130,15 +140,24 @@ function Start-FastCopy {
         return
     }
 
-    # Import helper module (must define Build-FCArgs, Get-ChildFolderPath)
+    # Import helper module
     Import-Module "$PSScriptRoot\FastCopyTools.psd1" -Force
 
     # Define action description for WhatIf/Confirm support
     $action = "Copy data from $sourceFolderPath"
     $target = "Path: $targetFolderPath"
+    $config = Get-Config
 
-    # Path to the FastCopy executable (adjust if portable path used)
-    $FCPath = "C:\Users\shcjl\FastCopy\FastCopy.exe"
+    # Apply override logic
+    if ($PSBoundParameters.ContainsKey("fastCopyPath")) {
+        Confirm-FCpath -inputPath $fastCopyPath
+        $FCPath = $fastCopyPath
+        Write-Verbose "Using override FastCopy path: $FCPath"
+    }
+    else {
+        $FCPath = $config.fastCopyPath
+        Write-Verbose "Using configured FastCopy path: $FCPath"
+    }
 
     # Only continue if confirmed via ShouldProcess (or WhatIf not used)
     if ($PSCmdlet.ShouldProcess($target, $action)) {
@@ -200,5 +219,6 @@ function Start-FastCopy {
         }
 
         Write-Host "`nCopy task complete.`n"
+        exit 1
     }
 }
