@@ -79,6 +79,7 @@ function Start-FastCopy {
                     -Mode "custom" -Speed 5 -Delay 60 -Verify 1 -Exec 1
 
     .NOTES
+    
         This function is the main function for the FastCopyTools module.
         Users should dot source this script to load the module and its dependencies.
 
