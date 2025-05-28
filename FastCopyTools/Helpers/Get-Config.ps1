@@ -71,7 +71,6 @@ function Get-Config {
 
         Try-Catch-Finally Documentation:
             https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_try_catch_finally?view=powershell-7.5
-
     #>
 
     [CmdletBinding()]

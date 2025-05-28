@@ -46,6 +46,7 @@ function Build-FCargs {
         A list of FastCopy-compatible arguments.
 
     .EXAMPLE
+    
         PS> Build-FCargs -buildSourcePath "C:\Source" -buildTargetPath "D:\Backup" `
                         -buildMode "custom" -buildSpeed 5 -buildVerifyDigi 1 -buildExecDigi 1
         
