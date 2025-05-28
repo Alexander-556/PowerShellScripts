@@ -23,7 +23,7 @@ This repository is a collection of powershell scripts and functions created to s
 ```pgsql
 PowerShellScripts/
 ├── FastCopyTools/           # Modular FastCopy automation wrapper
-├── SimpleFunctions/        # Small reusable PowerShell utilities
+├── SimpleFunctions/         # Small reusable PowerShell utilities
 ├── .gitignore               # Git ignore file
 ├── LICENSE                  # MIT License
 └── README.md                # This file
