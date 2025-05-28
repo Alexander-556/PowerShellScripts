@@ -1,58 +1,91 @@
 function Start-FastCopy {
     <#
-.SYNOPSIS
-    Initiates a batch copy operation using FastCopy, with per-folder transfer, 
-    speed control, verification, and optional delay.
+    .SYNOPSIS
 
-.DESCRIPTION
-    This function performs controlled copying of each subfolder from a specified 
-    source directory to a target directory using the external FastCopy utility.
-    Features include:
-    - Transfer speed configuration ("full", "autoslow", "suspend", or custom 1–9)
-    - Optional file verification after transfer
-    - Dry run simulation with windowed FastCopy execution
-    - Optional delay between subfolder copies for thermal throttling
-    - Interactive confirmation via PowerShell's ShouldProcess
-    - Setup FastCopy executable path in a config file instead of digging inside the code
+        Initiates a batch copy operation using FastCopy, with per-folder transfer, 
+        speed control, verification, and optional delay.
 
-.PARAMETER sourceFolderPath
-    The root source directory. Each immediate subfolder will be copied individually.
+    .DESCRIPTION
 
-.PARAMETER targetFolderPath
-    The root destination directory. Each subfolder will be copied as a new folder here.
+        This function performs controlled copying of each subfolder from a specified 
+        source directory to a target directory using the external FastCopy utility.
 
-.PARAMETER fastCopyPath
-    Optional override of the default and configured path to FastCopy.exe executable,
-    useful when using portable FastCopy.exe.
+        Features include:
+        - Transfer speed configuration ("full", "autoslow", "suspend", or custom 1–9)
+        - Optional file verification after transfer
+        - Dry run simulation with windowed FastCopy execution
+        - Optional delay between subfolder copies for thermal throttling
+        - Interactive confirmation via PowerShell's ShouldProcess
+        - Setup FastCopy executable path in a config file instead of digging inside the code
 
-.PARAMETER strMode
-    Speed mode to use. Acceptable values: full, autoslow, suspend, custom.
-    When 'custom' is selected, -intSpeed must be specified.
+    .PARAMETER sourceFolderPath
+        
+        The root source directory. Each immediate subfolder will be copied individually.
 
-.PARAMETER intSpeed
-    Custom integer transfer speed (1–9). Only required when -strMode is 'custom'.
+        Alias: SourceFolder
 
-.PARAMETER delaySeconds
-    Optional delay (in seconds) to wait between copying each subfolder.
+    .PARAMETER targetFolderPath
 
-.PARAMETER verifyDigit
-    1 to enable post-copy verification (default), 0 to disable.
+        The root destination directory. Each subfolder will be copied as a new folder here.
 
-.PARAMETER execDigit
-    1 to execute FastCopy (default), 0 to simulate using /no_exec.
+        Alias: TargetFolder
 
-.OUTPUTS
-    None. Writes progress and status messages to host.
+    .PARAMETER fastCopyPath
 
-.EXAMPLE
-    Start-FastCopy -SourceFolder "D:\Data" -TargetFolder "G:\Backup" `
-                   -Mode "custom" -Speed 5 -Delay 60 -Verify 1 -Exec 1
+        Optional override of the default and configured path to FastCopy.exe executable,
+        useful when using portable FastCopy.exe.
 
-.NOTES
-    Author: Jialiang Chang
-    Version: 1.0
-    Date: 2025-05-27
-#>
+    .PARAMETER strMode
+
+        Speed mode to use. Acceptable values: full, autoslow, suspend, custom.
+        When 'custom' is selected, -intSpeed must be specified.
+
+        Alias: Mode
+
+    .PARAMETER intSpeed
+
+        Custom integer transfer speed (1–9). Only required when -strMode is 'custom'.
+
+        Alias: Speed
+
+    .PARAMETER delaySeconds
+
+        Optional delay (in seconds) to wait between copying each subfolder.
+
+        Alias: Delay
+
+    .PARAMETER verifyDigit
+
+        1 to enable post-copy verification (default), 0 to disable.
+
+        Alias: Verify
+
+    .PARAMETER execDigit
+
+        1 to execute FastCopy (default), 0 to simulate using /no_exec.
+
+        Alias: Exec
+
+    .INPUTS
+        Accepts parameters for source and target folder paths, FastCopy executable path,
+        mode, speed, delay, verification, and execution flags. For details, check the 
+        parameter descriptions.
+        
+    .OUTPUTS
+        None. Writes progress and status messages to host.
+
+    .EXAMPLE
+        Start-FastCopy -SourceFolder "D:\Data" -TargetFolder "G:\Backup" `
+                    -Mode "custom" -Speed 5 -Delay 60 -Verify 1 -Exec 1
+
+    .NOTES
+        This function is the main function for the FastCopyTools module.
+        Users should dot source this script to load the module and its dependencies.
+
+        Author: Jialiang Chang
+        Version: 1.0
+        Date: 2025-05-27
+    #>
 
 
     [CmdletBinding(

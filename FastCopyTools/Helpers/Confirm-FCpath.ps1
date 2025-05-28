@@ -1,33 +1,47 @@
 function Confirm-FCpath {
     <#
-.SYNOPSIS
-    Validates that the provided path points to a valid FastCopy executable file.
+    .SYNOPSIS
 
-.DESCRIPTION
-    This function checks if the provided path exists, ensures that it points to a file
-    (not a folder), and verifies that the file name is "FastCopy.exe". If any of these
-    conditions are not met, the function throws an error with a descriptive message.
+        Validates that the provided path points to a valid FastCopy executable file.
 
-.PARAMETER inputPath
-    The full path to the FastCopy executable file that needs to be validated.
+    .DESCRIPTION
 
-.OUTPUTS
-    None. Throws an error if the validation fails.
+        This function checks if the provided path exists, ensures that it points to a file
+        (not a folder), and verifies that the file name is "FastCopy.exe". If any of these
+        conditions are not met, the function throws an error with a descriptive message.
 
-.EXAMPLE
-    PS> Confirm-FCpath -inputPath "C:\Tools\FastCopy\FastCopy.exe"
-    Validates that the file "FastCopy.exe" exists at the specified path and is a valid 
-    FastCopy executable.
+    .PARAMETER inputPath
 
-.NOTES
+        The full path to the FastCopy executable file that needs to be validated.
 
-.LINK
-    Test-Path Documentation:
-    https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/test-path?view=powershell-7.5
+    .OUTPUTS
 
-.LINK
-    Try-Catch-Finally Documentation:
-    https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_try_catch_finally?view=powershell-7.5
+        None. Throws an error if the validation fails.
+
+    .EXAMPLE
+
+        PS> Confirm-FCpath -inputPath "C:\Tools\FastCopy\FastCopy.exe"
+        Validates that the file "FastCopy.exe" exists at the specified path and is a valid 
+        FastCopy executable.
+
+    .NOTES
+
+        This function is a helper function for the main function Start-FastCopy. For modular
+        confirmation of the input FastCopy path in config file.
+        
+        Author: Jialiang Chang
+        Version: 1.0
+        Date: 2025-05-27
+
+    .LINK
+
+        Test-Path Documentation:
+        https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/test-path?view=powershell-7.5
+
+    .LINK
+
+        Try-Catch-Finally Documentation:
+        https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_try_catch_finally?view=powershell-7.5
 #>
 
     [CmdletBinding()]

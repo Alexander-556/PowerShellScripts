@@ -1,57 +1,78 @@
 function Get-Config {
     <#
-.SYNOPSIS
-    Reads and validates the configuration file for FastCopyTools.
+    .SYNOPSIS
 
-.DESCRIPTION
-    This function reads a JSON configuration file, validates its contents, and ensures that 
-    the required `FastCopyPath` property is present and points to a valid FastCopy executable. 
-    If the configuration file does not exist, a default configuration file is created with 
-    an empty `FastCopyPath` property, prompting the user to update it.
+        Reads and validates the configuration file for FastCopyTools.
 
-.PARAMETER configFilePath
-    The full path to the configuration file. If not specified, the default path is 
-    "..\config.json" relative to the script's directory.
+    .DESCRIPTION
 
-.OUTPUTS
-    [PSCustomObject] - Returns the configuration as a PowerShell object if validation succeeds.
+        This function reads a JSON configuration file, validates its contents, and ensures that 
+        the required `FastCopyPath` property is present and points to a valid FastCopy executable. 
+        If the configuration file does not exist, a default configuration file is created with 
+        an empty `FastCopyPath` property, prompting the user to update it.
 
-.EXAMPLE
-    PS> Get-Config
-    Reads the default configuration file, validates its contents, and returns the configuration object.
+    .PARAMETER configFilePath
 
-.EXAMPLE
-    PS> Get-Config -configFilePath "C:\MyConfig\config.json"
-    Reads the specified configuration file, validates its contents, and returns the configuration object.
+        The full path to the configuration file. If not specified, the default path is 
+        "..\config.json" relative to the script's directory.
 
-.NOTES
-    If the configuration file is missing, a new one is created with default values. 
-    The user must update the `FastCopyPath` property in the generated file before running the script again.
+    .OUTPUTS
 
-.LINK
-    Join-Path Documentation:
-    https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/join-path?view=powershell-7.5
+        [PSCustomObject] 
+        Returns the configuration as a PowerShell object if validation succeeds.
 
-.LINK
-    Test-Path Documentation:
-    https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/test-path?view=powershell-7.5
+    .EXAMPLE
 
-.LINK
-    Get-Content Documentation:
-    https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-content?view=powershell-7.5
+        PS> Get-Config
+        Reads the default configuration file, validates its contents, and returns the 
+        configuration object.
 
-.LINK
-    ConvertFrom-Json Documentation:
-    https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/convertfrom-json?view=powershell-7.5
+    .EXAMPLE
 
-.LINK ConvertTo-Json Documentation:
-    https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/convertto-json?view=powershell-7.5
+        PS> Get-Config -configFilePath "C:\MyConfig\config.json"
+        Reads the specified configuration file, validates its contents, and returns the 
+        configuration object.
 
-.LINK
-    Try-Catch-Finally Documentation:
-    https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_try_catch_finally?view=powershell-7.5
+    .NOTES
 
-#>
+        This function is a helper function for the main function Start-FastCopy. For modular
+        retrieval of FastCopy path from config file.
+        
+        Author: Jialiang Chang
+        Version: 1.0
+        Date: 2025-05-27
+
+    .LINK
+
+        Join-Path Documentation:
+            https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/join-path?view=powershell-7.5
+
+    .LINK
+
+        Test-Path Documentation:
+            https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/test-path?view=powershell-7.5
+
+    .LINK
+
+        Get-Content Documentation:
+            https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-content?view=powershell-7.5
+
+    .LINK
+
+        ConvertFrom-Json Documentation:
+            https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/convertfrom-json?view=powershell-7.5
+
+    .LINK 
+    
+        ConvertTo-Json Documentation:
+            https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/convertto-json?view=powershell-7.5
+
+    .LINK
+
+        Try-Catch-Finally Documentation:
+            https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_try_catch_finally?view=powershell-7.5
+
+    #>
 
     [CmdletBinding()]
     param(

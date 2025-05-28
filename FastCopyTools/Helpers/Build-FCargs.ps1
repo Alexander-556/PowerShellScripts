@@ -1,51 +1,65 @@
 function Build-FCargs {
     <#
-.SYNOPSIS
-    Constructs a list of FastCopy command-line arguments based on user-defined options.
+    .SYNOPSIS
 
-.DESCRIPTION
-    As a part of the modular functions that belongs to Start-FastCopy function,
-    this function generates a dynamic argument array for FastCopy execution. Takes in
-    given input parameters, and outputs a formatted array of command-line arguments. All
-    the input parameters are given by the Start-FastCopy function, with a build prefix to 
-    indicate they are for building FastCopy arguments.
+        Constructs a list of FastCopy command-line arguments based on user-defined options.
 
-    This function should not be called directly, but rather used within the
-    Start-FastCopy.ps1 script to prepare the FastCopy command-line arguments.
+    .DESCRIPTION
+
+        As a part of the modular functions that belongs to Start-FastCopy function,
+        this function generates a dynamic argument array for FastCopy execution. Takes in
+        given input parameters, and outputs a formatted array of command-line arguments. All
+        the input parameters are given by the Start-FastCopy function, with a build prefix to 
+        indicate they are for building FastCopy arguments.
+
+        This function should not be called directly, but rather used within the
+        Start-FastCopy.ps1 script to prepare the FastCopy command-line arguments.
+        
+    .PARAMETER buildMode
+
+        Speed mode to use. Acceptable values: full, autoslow, suspend, custom.
+        When 'custom' is selected, -intSpeed must be specified.
+
+    .PARAMETER buildSpeed
+
+        Custom integer transfer speed (1–9). Only required when -strMode is 'custom'.
+
+    .PARAMETER buildVerifyDigi
+
+        1 to enable post-copy verification (default), 0 to disable.
+
+    .PARAMETER buildExecDigi
+
+        1 to execute FastCopy (default), 0 to simulate using /no_exec.
+
+    .PARAMETER buildSourcePath
+
+        The root source directory. Each immediate subfolder will be copied individually.
+
+    .PARAMETER buildTargetPath
+
+        The root destination directory. Each subfolder will be copied as a new folder here.
+
+    .OUTPUTS
+
+        [string[]]
+        A list of FastCopy-compatible arguments.
+
+    .EXAMPLE
+        PS> Build-FCargs -buildSourcePath "C:\Source" -buildTargetPath "D:\Backup" `
+                        -buildMode "custom" -buildSpeed 5 -buildVerifyDigi 1 -buildExecDigi 1
+        
+        Constructs arguments for a custom-speed copy with verification enabled and normal 
+        execution.
+
+    .NOTES
     
-.PARAMETER buildMode
-    Speed mode to use. Acceptable values: full, autoslow, suspend, custom.
-    When 'custom' is selected, -intSpeed must be specified.
-
-.PARAMETER buildSpeed
-    Custom integer transfer speed (1–9). Only required when -strMode is 'custom'.
-
-.PARAMETER buildVerifyDigi
-    1 to enable post-copy verification (default), 0 to disable.
-
-.PARAMETER buildExecDigi
-    1 to execute FastCopy (default), 0 to simulate using /no_exec.
-
-.PARAMETER buildSourcePath
-    The root source directory. Each immediate subfolder will be copied individually.
-
-.PARAMETER buildTargetPath
-    The root destination directory. Each subfolder will be copied as a new folder here.
-
-.OUTPUTS
-    [string[]] A list of FastCopy-compatible arguments.
-
-.EXAMPLE
-    PS> Build-FCargs -buildSourcePath "C:\Source" -buildTargetPath "D:\Backup" `
-                    -buildMode "custom" -buildSpeed 5 -buildVerifyDigi 1 -buildExecDigi 1
-    
-    Constructs arguments for a custom-speed copy with verification enabled and normal 
-    execution.
-
-.NOTES
-    Author: Jialiang Chang
-    Version: 1.0
-    Date: 2025-05-27
+        This function is a helper function for the main function Start-FastCopy. For modular
+        retrieval of FastCopy command-line arguments.
+        
+        Author: Jialiang Chang
+        Version: 1.0
+        Date: 2025-05-27
 #>
 
     [CmdletBinding()]
@@ -58,12 +72,13 @@ function Build-FCargs {
         [string]$buildTargetPath
     )
 
-    # Initialize base argument list with default options
+    # Initialize base argument list with default options adjustable
+    # Next feature: add support for changing default options!
     $buildFCArgsList = @(
-        "/cmd=diff", # Use differential copy
-        "/auto_close", # Close FastCopy automatically after completion
+        "/cmd=diff",    # Use differential copy
+        "/auto_close",  # Close FastCopy automatically after completion
         "/open_window", # Open FastCopy UI window
-        "/estimate"         # Estimate size/time before execution
+        "/estimate"     # Estimate size/time before execution
     )
 
     # Append appropriate speed option
@@ -93,5 +108,6 @@ function Build-FCargs {
         "/to=`"$buildTargetPath`""
     )
 
+    # Return the constructed argument list
     return $buildFCArgsList
 }
