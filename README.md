@@ -22,13 +22,13 @@ This repository is a collection of powershell scripts and functions created to s
 
 ```pgsql
 PowerShellScripts/
-├── docs/                    # Setup tutorials and script documentations
-├── FastCopyTools/           # FastCopy automation wrapper for copying folder by folder
-├── Images/                  # Image assets
-├── SimpleFunctions/         # Small PowerShell utilities
-├── .gitignore               # Git ignore file
-├── LICENSE                  # MIT License
-└── README.md                # This file
+├── Collection_Simple-Functions/         # Small PowerShell utilities
+├── docs/                                # Setup tutorials and script documentations
+├── Images/                              # Image assets
+├── Project_Start-FastCopy/              # FastCopy automation wrapper for copying folder by folder
+├── .gitignore                           # Git ignore file
+├── LICENSE                              # MIT License
+└── README.md                            # This file
 ```
 
 ## Todos and Plans
@@ -115,15 +115,34 @@ PowerShell 7+ is open-source and actively maintained on the [PowerShell GitHub R
 
 #### Visual Studio Code
 
-[Visual Studio Code](https://code.visualstudio.com) (VScode) is popular choice for a code editor. It's lightweight and powerful with built-in support for PowerShell, Git, extensions, debugging and more. VScode is the primary editor used in this project for writing, testing, and managing PowerShell scripts efficiently.
+[Visual Studio Code](https://code.visualstudio.com) (VScode) is a popular code editor choice. It's lightweight and powerful with built-in support for PowerShell, Git, extensions, debugging and more. VScode is the primary editor used in this project for writing, testing, and managing PowerShell scripts efficiently, and the tutorials will be mainly based on VScode.
 
 → [Recommended VSCode Setup and Extensions](./docs/VScode_Setup.md)
 
 ## Projects & Modules
 
-### `./FastCopyTools`
+### FastCopyTools – Controlled Folder-by-Folder Copying via FastCopy
 
-### `./SimpleFunctions`
+FastCopyTools is a modular PowerShell wrapper designed to automate and control folder-level data transfers using the FastCopy utility. It provides a scriptable interface with fine-tuned control over speed, verification, simulation, and delay between folder transfers.
+
+🔧 Key Features
+Per-subfolder copying from source to target directory
+
+Speed control with presets: full, autoslow, suspend, or custom (1–9)
+
+Post-copy file verification toggle
+
+Dry run simulation using FastCopy’s /no_exec
+
+Thermal-friendly throttling with adjustable delay between folders
+
+Path configuration via config.json for FastCopy binary location
+
+Interactive confirmation with ShouldProcess
+
+This tool is ideal for users who want more transparency, control, or automation than the FastCopy GUI provides.
+
+### SimpleFunctions
 
 ## Feedback
 
