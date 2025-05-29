@@ -1,4 +1,5 @@
 <!-- markdownlint-disable-next-line MD041 -->
+
 ![HeaderGIF](./Images/WindowsTerminal_7DcFt7URrF.gif)
 
 <!-- markdownlint-disable-next-line MD033 -->
@@ -36,6 +37,7 @@ PowerShellScripts/
 This section presents current work-in-progress and some ideas for future developments in this repo. This todo list is updated frequently as development progresses.
 
 <!-- markdownlint-disable-next-line MD036 -->
+
 _Todo Last Updated: 2025-05-28_
 
 ### Repo Documentation Enhancements
@@ -49,8 +51,9 @@ _Todo Last Updated: 2025-05-28_
   - [ ] oh-my-posh Setup
   - [ ] VScode setup
     - [ ] Extensions
-    - [ ] Debug
+    - [ ] Debug `launch.json` `task.json`
 - [ ] Additional introduction to powershell information for information purposes
+  - [ ] Introduce on shell, terminal, and OS
 - [ ] Make this repo README look more attractive
 
 ### Project Start-FastCopy
@@ -79,18 +82,96 @@ _Todo Last Updated: 2025-05-28_
   - [ ] Log disk status with smartctl output
   - [ ] Save key data history and create visualization
   - [ ] Alert user of critical events and potential drive failure
+- [ ] Disk Space Analyzer on command line
+
+## Understanding the Basics: Operating System, Shell, and Terminal
+
+If you are new to scripting or command-line tools, don't worry. You're not alone. Many people feel intimidated at first by all the black windows with blinking cursors. But once you understand the three core building blocks - the Operating System, Shell, and Terminal - you'll realize it's not as mysterious and deep as it looks, and you'll be ready to explore scripting step by step.
+
+If you are already comfortable with these concepts, feel free to skip ahead to the "Tools Involved in Project" section.
+
+### What is an Operating System (OS)?
+
+The Operating System is the brain of your computer. It manages everything - your memory, files, devices, apps, and even how you interact with the system. It's the foundation that lets all your other programs function properly.
+
+Common desktop operating systems include:
+
+- **Windows**
+  -- This is the OS used throughout this project.
+- **macOS**
+  -- Found on Apple computers.
+- **Linux**
+  -- A family of open-source systems used on servers, embedded devices, and desktops.
+
+The OS is always working in the background to make sure your commands and programs behave as expected.
+
+### What is a Shell?
+
+Humans speak in human languages. It would be great if computers could directly understand us - and while we're getting closer to that goal, we're not quite there yet. Computers still speak a different language: machine code.
+
+Back in the day, people used things like punched cards and later assembly language to tell computers what to do. But over time, tools have been developed to make this process much easier - and that's where the Shell comes in.
+
+A Shell is a command-line interpreter. It acts as a translator between you and the operating system. You type in commands in a language the shell understands, and it passes your instructions along to the OS.
+
+Just like human translators specialize in different languages, different shells work with different OSes and have their own syntax and features.
+
+Common shells include:
+
+- On Windows:
+
+  - **PowerShell**
+    -- A modern and powerful shell designed for automation and scripting (used in this project).
+  - **Command Prompt** (cmd.exe)
+    -- A classic shell from MS-DOS days. Still works, but more limited in functionality.
+
+- On Unix-like systems (e.g., Linux/macOS):
+  - **sh**
+    -- The first default shell on Unix systems.
+  - **bash**
+    -- An extension of **sh** with additional features.
+  - **zsh**
+    -- An enhanced shell with new features compared to **bash** and great customization through the `oh-my-zsh` framework.
+  - **fish**
+    -- A beginner-friendly shell with clean default user interface and smart suggestions.
+
+### What is a Terminal?
+
+Now that we’ve talked about the Shell and the OS, what exactly is the Terminal?
+
+The Terminal is the application that hosts the shell — it’s the window where the conversation between you and your computer happens. You type commands into the terminal, the shell interprets them, and the OS gets the job done.
+
+In simple terms:
+
+- The Terminal is the environment where you type.
+
+- The Shell is the tool that understands and runs your commands.
+
+- The OS is what carries out the instructions.
+
+Terminal programs on Windows include:
+
+- **Windows Terminal**
+  -- A modern, customizable terminal with tab support, _the modern all-in-one_.
+
+- **Command Prompt**
+  -- The traditional terminal that opens cmd.exe by default, _the classic choice_.
+
+- **PowerShell Console**
+  -- PowerShell's default terminal window, _a bit boring_.
+
+In this project, I recommend you use Windows Terminal because of its customizability. It's always better to look into a modern window than the old-school black or blue ones.
 
 ## Tools Involved in Project
 
-This section introduces the key tools used across scripts and setups in this repository. For setup instructions, visit the `./Docs` folder or use the following links.
+This section introduces the key tools used across scripts and setups in this repository. For detailed setup instructions, visit the `./Docs` folder or use the following links.
 
 ### Coding Environment
 
 #### PowerShell 7.5
 
-[PowerShell](https://learn.microsoft.com/en-us/powershell/) is a powerful cross-platform shell and scripting language developed by Microsoft, ideal for task automation and system configuration. It offers deep integration with the Windows operating system and the .NET runtime. This repository uses the latest PowerShell 7.5 on Windows.  
+[PowerShell](https://learn.microsoft.com/en-us/powershell/) is a powerful cross-platform shell and scripting language developed by Microsoft, ideal for task automation and system configuration. It offers deep integration with the Windows operating system and the .NET runtime. This repository uses the latest PowerShell 7.5 on Windows.
 
-Compare to traditional  Command Prompt (cmd.exe), PowerShell includes advanced features and better syntax, with:
+Compare to traditional Command Prompt (cmd.exe), PowerShell includes advanced features and better syntax, with:
 
 - Object-based output instead of plain text
 - More consistent syntax and command naming
