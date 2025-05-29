@@ -2,7 +2,7 @@ function Confirm-FilenameArray {
     [CmdletBinding()]
     param(
         [Parameter(Mandatory = $true)]
-        [string]$filenameArray
+        [string[]]$filenameArray
     )
 
     Write-Verbose "Checking file input for null..."

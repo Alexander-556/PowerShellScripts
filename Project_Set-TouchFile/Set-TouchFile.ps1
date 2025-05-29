@@ -18,10 +18,12 @@ function Set-TouchFile {
         [string]$fullInputPath
     )
 
+    # Import helper functions
     Import-Module "$PSscriptRoot\SetTouchFileTools.psd1" -Force
     
+    # Touch mode selection
     if ($PSBoundParameters.ContainsKey("fullInputPath")) {
-        # In quick access mode, recurse call Set-TouchFile
+        # In quick access mode, recurse call Set-TouchFile with provided path
         Write-Host "Enter quick access mode." `
             -ForegroundColor Green
         
@@ -29,23 +31,26 @@ function Set-TouchFile {
         $fileFolder = Split-Path -Path $fullInputPath -Parent
         $filename = Split-Path -Path $fullInputPath -Leaf
 
-        # Recurse
+        # Recurse call
         Set-TouchFile -Filename $filename -Location $fileFolder
+
+        # End function after recurse call
         return
     }
     else {
         # In normal mode, check validity
         Confirm-FilenameArray -filenameArray $filenameArray
-        Confirm-DesiredFolder -desiredLocation $desiredLocation
+        if ($PSBoundParameters.ContainsKey("desiredLocation")) {
+            Confirm-DesiredFolder -desiredLocation $desiredLocation
+        }
     }
 
     # Enable processing array input of filenames
     foreach ($filename in $filenameArray) {
-
         # Normalize the filename by removing leading and trailing whitespace
         $filename = $filename.Trim()
 
-        # Construct the full path for the file to check path
+        # Construct file full path and filename for further use
         if ($PSBoundParameters.ContainsKey("desiredLocation")) {                 
             # If selected a desired path, use this path
             $fileFolder = $desiredLocation
@@ -66,8 +71,8 @@ function Set-TouchFile {
             continue
         }
 
-        # Custom logic to handle the filename, similar to unix touch, but different
-        # This try block handles unexpected errors
+        # Custom logic to handle the touch behavior, similar to unix touch, but different
+        # This try block handles unexpected errors in the whole process
         try {
             # If the file is not there, create new file
             if (-not (Test-Path $fullPath)) {
@@ -82,11 +87,16 @@ function Set-TouchFile {
                         -ForegroundColor Green
                     
                     # Prompt user to open the file or not
-                    Confirm-OpenFile `
+                    $isFileOpen = Confirm-OpenFile `
                         -filename $filename `
                         -fileFolder $fileFolder `
                         -fullPath $fullPath `
                         -mode "Clean"
+                    
+                    if ($isFileOpen) {
+                        Write-Verbose "In folder '$fileFolder,'"
+                        Write-Verbose "file '$filename' opened."
+                    }
                 }
                 catch {
                     Write-Verbose "In folder '$fileFolder',"
@@ -111,14 +121,23 @@ function Set-TouchFile {
                     Write-Warning "Failed to update timestamp for file '$filename'. Error: $_"
                 }
 
-                Confirm-OpenFile `
+                $fullPath = Join-Path -Path $fileFolder -ChildPath $filename
+                # Then start new filename query
+                $isFileOpen = Confirm-OpenFile `
                     -filename $filename `
                     -fileFolder $fileFolder `
+                    -fullPath $fullPath `
                     -mode "NewName"
+
+                if ($isFileOpen) {
+                    Write-Verbose "In folder '$fileFolder,'"
+                    Write-Verbose "file '$filename' opened."
+                }
             }
         }
         catch {
             Write-Error "Unexpected Error: $_"
         }
     }
+    return
 }

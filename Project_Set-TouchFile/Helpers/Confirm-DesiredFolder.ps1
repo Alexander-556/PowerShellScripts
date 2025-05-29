@@ -50,7 +50,7 @@ function Confirm-DesiredFolder {
     }
 
     Write-Verbose "Checking folder '$desiredLocation' for remaining disk space..."
-    $drive = Get-PSDrive -Name ([System.IO.Path]::GetPathRoot($desiredLocation).TrimEnd('\'))
+    $drive = Get-PSDrive -Name ([System.IO.Path]::GetPathRoot($desiredLocation) -replace '[:\\]', '')
     if ($drive.Free -lt 1MB) {
         Write-Error "Not enough disk space in the desired location."
         throw

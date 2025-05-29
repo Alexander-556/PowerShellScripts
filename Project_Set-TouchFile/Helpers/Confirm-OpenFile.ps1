@@ -23,14 +23,12 @@ function Confirm-OpenFile {
     $yesKeyWords = @('Y', 'y', '')
     $nooKeyWords = @('N', 'n')
 
-
     # Prompt user to open the file or not
     Write-Host "Do you want to open the file now? (Y/N, Enter=Yes)" `
         -ForegroundColor Yellow
 
     # Loop for continuous prompting
     while ($true) {
-
         # Read user input
         $response = Read-Host "Enter your response"
         
