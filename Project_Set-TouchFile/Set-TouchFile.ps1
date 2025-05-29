@@ -17,38 +17,30 @@ function Set-TouchFile {
         [Alias("FullPath")]
         [string]$fullInputPath
     )
+
+    Import-Module "$PSscriptRoot\SetTouchFileTools.psd1" -Force
     
     if ($PSBoundParameters.ContainsKey("fullInputPath")) {
+        # In quick access mode, recurse call Set-TouchFile
         Write-Host "Enter quick access mode." `
             -ForegroundColor Green
+        
+        # Set folder and filenames
         $fileFolder = Split-Path -Path $fullInputPath -Parent
         $filename = Split-Path -Path $fullInputPath -Leaf
-        Invoke-Touch -Filename $filename -Location $fileFolder
+
+        # Recurse
+        Set-TouchFile -Filename $filename -Location $fileFolder
         return
     }
-
-    # Pre-Check input validity
-    if (-not $filenameArray -or $filenameArray.Count -eq 0) {
-        Write-Error "No filename provided. Please specify a filename."
-        throw
+    else {
+        # In normal mode, check validity
+        Confirm-FilenameArray -filenameArray $filenameArray
+        Confirm-DesiredFolder -desiredLocation $desiredLocation
     }
-
-    $yesKeyWords = @('Y', 'y', '')
-    $nooKeyWords = @('N', 'n')
 
     # Enable processing array input of filenames
     foreach ($filename in $filenameArray) {
-        # Ensure each filename is not null or empty
-        if ([string]::IsNullOrWhiteSpace($filename)) {
-            Write-Error "Filename cannot be empty or whitespace."
-            continue
-        }
-        # Ensure each filename is valid under Windows rules
-        if ($filename -match '[<>:"/\\|?*]') {
-            Write-Error "Invalid filename '$filename'."
-            Write-Error "It contains characters that are not allowed in Windows."
-            continue
-        }
 
         # Normalize the filename by removing leading and trailing whitespace
         $filename = $filename.Trim()
@@ -64,13 +56,17 @@ function Set-TouchFile {
             $fullPath = Join-Path -Path (Get-Location) -ChildPath $filename
         }
 
-        if (-not (Test-Path $fileFolder)) {
-            Write-Error "The folder for the provided full path '$fileFolder' does not exist."
-            throw
+        $isValidFilename = Confirm-Filename `
+            -filename $filename `
+            -fileFolder $fileFolder
+        
+        if (-not $isValidFilename) {
+            Write-Verbose "In folder '$fileFolder',"
+            Write-Warning "file '$filename' is invalid and will be skipped."
+            continue
         }
 
         # Custom logic to handle the filename, similar to unix touch, but different
-        
         # This try block handles unexpected errors
         try {
             # If the file is not there, create new file
@@ -79,47 +75,24 @@ function Set-TouchFile {
                 try {
                     # Create the file with the specified name
                     New-Item -ItemType File -Path $fullPath -ErrorAction Stop | Out-Null
+
                     # Notify user for file creation
                     Write-Verbose "In folder '$fileFolder',"
                     Write-Host "file '$filename' created successfully." `
                         -ForegroundColor Green
                     
                     # Prompt user to open the file or not
-                    Write-Host "Do you want to open the file now? (Y/N, Enter=Yes)" `
-                        -ForegroundColor Yellow
-
-                    # Loop for continuous prompting
-                    while ($true) {
-                        # Read user input
-                        $response = Read-Host "Enter your response"
-                        # Check if the user wants to open the file
-                        if ($yesKeyWords -contains $response) {                        
-                            # Open the file in the default editor
-                            # This try block checks error in file opening process
-                            try { Start-Process $fullPath -ErrorAction Stop }
-                            catch {
-                                Write-Verbose "In folder '$fileFolder',"
-                                Write-Warning "Failed to open file '$filename'. Error: $_"
-                            }
-                            break
-                        }
-                        elseif ($nooKeyWords -contains $response) {
-                            Write-Verbose "In folder '$fileFolder',"
-                            Write-Host "Open file '$filename' cancelled." `
-                                -ForegroundColor Yellow
-                            break
-                        }
-                        else {
-                            Write-Warning "Invalid response. Please enter 'Y' or 'N'."
-                        }
-                    }
+                    Confirm-OpenFile `
+                        -filename $filename `
+                        -fileFolder $fileFolder `
+                        -fullPath $fullPath `
+                        -mode "Clean"
                 }
                 catch {
                     Write-Verbose "In folder '$fileFolder',"
                     Write-Error "Failed to create file '$filename'. Error: $_"
                 }   
             }
-
             # If the file already exists, 
             else {
                 # First update file timestamp
@@ -138,61 +111,10 @@ function Set-TouchFile {
                     Write-Warning "Failed to update timestamp for file '$filename'. Error: $_"
                 }
 
-                # Prompt user for confirmation to open the file
-                Write-Verbose "In folder '$fileFolder',"
-                Write-Host "Do you want to open '$filename'? (Y/N, Enter=Yes)" `
-                    -ForegroundColor Yellow
-
-                # Loop for continuous prompting
-                while ($true) {
-                    # Read user input
-                    $response = Read-Host "Enter your response"
-
-                    if ($yesKeyWords -contains $response) {
-                        # Open the file in the default editor
-                        # This try block checks error in file opening process
-                        try { Start-Process $fullPath -ErrorAction Stop }
-                        catch {
-                            Write-Verbose "In folder '$fileFolder',"
-                            Write-Warning "Failed to open file '$filename'. Error: $_"
-                        }
-                        break
-                    }
-                    elseif ($nooKeyWords -contains $response) {
-                        # Skip file creation, ask for rename
-                        Write-Host "File creation skipped." `
-                            -ForegroundColor Green
-                        Write-Host "If you still want to create this file, enter a different name below:" `
-                            -ForegroundColor Green
-
-                        while ($true) {
-                            # Prompt user for a new filename
-                            $newFilename = Read-Host "Enter new filename"
-
-                            if ([string]::IsNullOrWhiteSpace($newFilename)) {
-                                Write-Warning "Empty string input, rename cancelled."
-                                break
-                            }
-                            else {
-                                # Recursively call the touch function with the new filename and location
-                                if ($PSBoundParameters.ContainsKey("desiredLocation")) {
-                                    Invoke-Touch -Filename $newFilename -Location $desiredLocation
-                                    break
-                                }
-                                else {
-                                    Invoke-Touch -Filename $newFilename
-                                    break
-                                }
-                                break
-                            }                            
-                        }
-                    }
-                    else {
-                        Write-Error "Invalid response. Please enter 'Y' or 'N'."
-                    }
-                    
-                    break
-                }
+                Confirm-OpenFile `
+                    -filename $filename `
+                    -fileFolder $fileFolder `
+                    -mode "NewName"
             }
         }
         catch {
