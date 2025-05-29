@@ -1,5 +1,12 @@
 # oh-my-posh Setup
 
+- [oh-my-posh Setup](#oh-my-posh-setup)
+  - [Personalization with `oh-my-posh`](#personalization-with-oh-my-posh)
+    - [Installation](#installation)
+    - [Fonts](#fonts)
+    - [Configuring Your PowerShell Profile with `oh-my-posh`](#configuring-your-powershell-profile-with-oh-my-posh)
+    - [Change Your `oh-my-posh` Theme](#change-your-oh-my-posh-theme)
+
 ## Personalization with `oh-my-posh`
 
 For me, in order to fully engage myself with a shell through a terminal, customizing the terminal is a must. Luckily, there are quite a lot of native and third-party customizing options. Windows Terminal itself supports customizing color profile and many different appearance options. But for me, the default PowerShell appearance is just too boring, so I installed a prompt theme engine, [oh-my-posh](https://ohmyposh.dev). You can find the official documentation for downloading and configuring via the link, and the following is a summary of the setup process for Windows platform only.

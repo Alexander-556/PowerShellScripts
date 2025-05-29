@@ -1,6 +1,7 @@
+<!-- prettier-ignore-start -->
 <!-- markdownlint-disable-next-line MD041 -->
-
 ![HeaderGIF](./Images/WindowsTerminal_7DcFt7URrF.gif)
+<!-- prettier-ignore-end -->
 
 <!-- markdownlint-disable-next-line MD033 -->
 <div align="center">
@@ -19,6 +20,30 @@
 
 This repository is a collection of powershell scripts and functions created to solve problems that are relevant to me. My main purpose for this repo is to learn powershell as a windows based automation tool to try to automate my daily routines.
 
+- [PowerShell Scripting Projects](#powershell-scripting-projects)
+  - [Repository Structure](#repository-structure)
+  - [Todos and Plans](#todos-and-plans)
+    - [Repo Documentation Enhancements](#repo-documentation-enhancements)
+    - [Project Start-FastCopy](#project-start-fastcopy)
+    - [Collection of Simple Functions](#collection-of-simple-functions)
+    - [Future Project Plans](#future-project-plans)
+  - [Understanding the Basics: Operating System, Shell, and Terminal](#understanding-the-basics-operating-system-shell-and-terminal)
+    - [What is an Operating System (OS)?](#what-is-an-operating-system-os)
+    - [What is a Shell?](#what-is-a-shell)
+    - [What is a Terminal?](#what-is-a-terminal)
+  - [Tools Involved in Project](#tools-involved-in-project)
+    - [Coding Environment](#coding-environment)
+      - [PowerShell 7.5](#powershell-75)
+      - [Windows Terminal](#windows-terminal)
+      - [oh-my-posh](#oh-my-posh)
+      - [Visual Studio Code](#visual-studio-code)
+  - [Projects \& Modules](#projects--modules)
+    - [Start-FastCopy – Controlled Folder-by-Folder Copying via FastCopy](#start-fastcopy--controlled-folder-by-folder-copying-via-fastcopy)
+    - [Simple-Functions - Small Scripts for Terminal Fun \& Utility](#simple-functions---small-scripts-for-terminal-fun--utility)
+  - [Feedback](#feedback)
+  - [Author](#author)
+  - [License](#license)
+
 ## Repository Structure
 
 ```pgsql
@@ -36,9 +61,10 @@ PowerShellScripts/
 
 This section presents current work-in-progress and some ideas for future developments in this repo. This todo list is updated frequently as development progresses.
 
+<!-- prettier-ignore-start -->
 <!-- markdownlint-disable-next-line MD036 -->
-
 _Todo Last Updated: 2025-05-28_
+<!-- prettier-ignore-end -->
 
 ### Repo Documentation Enhancements
 
@@ -88,7 +114,7 @@ _Todo Last Updated: 2025-05-28_
 
 If you are new to scripting or command-line tools, don't worry. You're not alone. Many people feel intimidated at first by all the black windows with blinking cursors. But once you understand the three core building blocks - the Operating System, Shell, and Terminal - you'll realize it's not as mysterious and deep as it looks, and you'll be ready to explore scripting step by step.
 
-If you are already comfortable with these concepts, feel free to skip ahead to the "Tools Involved in Project" section.
+If you are already comfortable with these concepts, feel free to skip ahead to the [Tools Involved in Project](#tools-involved-in-project) section.
 
 ### What is an Operating System (OS)?
 
@@ -163,7 +189,11 @@ In this project, I recommend you use Windows Terminal because of its customizabi
 
 ## Tools Involved in Project
 
-This section introduces the key tools used across scripts and setups in this repository. For detailed setup instructions, visit the `./Docs` folder or use the following links.
+This section introduces the key tools used across scripts and setups in this repository. For detailed setup instructions, visit the `./Docs` folder or use the following links with arrows.
+
+If you are new to scripting, I recommend you to go through the tutorials sequentially starting from "Install & Configure PowerShell" and follow instruction links til the end of the setup tutorial.
+
+If you are only unsure about some of the tools, also feel free to jump around with the links to different documentations.
 
 ### Coding Environment
 
@@ -243,7 +273,7 @@ If you find these scripts useful or have ideas for improvements, feel free to [o
 This repository serves as both a learning log and a collection of practical scripts for everyday automation tasks.
 Feel free to explore, adapt, and reuse anything that helps your workflow.
 
-## 📄 License
+## License
 
 This project is licensed under the [MIT License](LICENSE).  
 You're free to use, modify, and share this code — just include attribution when you do.
