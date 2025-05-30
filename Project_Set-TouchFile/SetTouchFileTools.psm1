@@ -7,7 +7,7 @@ $expectedFunctions = @()
 
 # Retrieve all .ps1 helper scripts in the Helpers subdirectory
 try {
-    $helperFunctionFiles = Get-ChildItem -Path "$PSScriptRoot\Helpers" -Filter *.ps1 -ErrorAction Stop
+    $helperFunctionFiles = Get-ChildItem -Path "$PSScriptRoot\Helpers" -Recurse -Filter *.ps1 -ErrorAction Stop
 }
 catch {
     Write-Error "Unable to find helper functions."
