@@ -24,7 +24,7 @@ function Set-TouchFile {
     # Touch mode selection
     if ($PSBoundParameters.ContainsKey("fullInputPath")) {
         # In quick access mode, recurse call Set-TouchFile with provided path
-        Write-Host "Enter quick access mode." `
+        Write-Host "Entering quick access mode..." `
             -ForegroundColor Green
 
         $fileObjQuick = Split-FilePath -inputPath $fullInputPath
@@ -92,5 +92,7 @@ function Set-TouchFile {
             Write-Error "Unexpected Error: $_"
         }
     }
+    
+    # Return for recursion
     return
 }
