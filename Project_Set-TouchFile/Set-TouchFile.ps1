@@ -38,27 +38,30 @@ function Set-TouchFile {
         return
     }
     else {
-        # Resolve the full path for safety
-        $resolvedFullPath = Resolve-PathwErr -inputPath $desiredLocation
-
-        # In normal mode, check validity
-        # Check filename array validity
+        # In normal mode, check filename array validity
         Confirm-FilenameArray -filenameArray $filenameArray
 
         # Check desired folder validity only when provided
-        if ($PSBoundParameters.ContainsKey("desiredLocation")) {
+        if ($PSBoundParameters.ContainsKey("desiredLocation")) {            
+            # Resolve the full path for safety
+            $resolvedFullPath = Resolve-PathwErr -inputPath $desiredLocation
             Confirm-DesiredFolder -desiredLocation $resolvedFullPath
         }
     }
 
     # Enable processing array input of filenames
     foreach ($filename in $filenameArray) {
+        
+        $location = if ($PSBoundParameters.ContainsKey("desiredLocation")) {
+            $desiredLocation
+        }
+        else {
+        (Get-Location).Path
+        }
 
         $fileObj = Get-FileObj `
             -filename $filename `
-            -fileFolder $fileFolder `
-            -fullPath $fullPath `
-            -desiredLocation $desiredLocation
+            -desiredLocation $location
 
         $isValidFilename = Confirm-Filename `
             -filename $fileObj.Filename `

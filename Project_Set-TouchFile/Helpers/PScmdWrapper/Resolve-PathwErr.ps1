@@ -14,8 +14,7 @@ function Resolve-PathwErr {
         return $outputPath
     }
     catch {
-        Write-Error "Error in Resolve-Path operation for '$inputPath'. Error: $_"
+        Write-Warning "Error in Resolve-Path operation for '$inputPath'. Error: $_"
         throw
     }
-
 }

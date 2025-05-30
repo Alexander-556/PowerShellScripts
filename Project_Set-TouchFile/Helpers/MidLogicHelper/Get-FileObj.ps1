@@ -4,12 +4,6 @@ function Get-FileObj {
         [Parameter(Mandatory = $true)]
         [string]$filename,
 
-        [Parameter(Mandatory = $true)]
-        [string]$fileFolder,
-
-        [Parameter(Mandatory = $true)]
-        [string]$fullPath,
-
         [Parameter(Mandatory = $false)]
         [string]$desiredLocation
 
@@ -18,15 +12,8 @@ function Get-FileObj {
     # Normalize the filename by removing leading and trailing whitespace
     $filename = $filename.Trim()
 
-    # Construct file full path and filename for further use
-    if (-not [string]::IsNullOrWhiteSpace($desiredLocation)) {                 
-        # If selected a desired path, use this path
-        $fileFolder = $desiredLocation
-    }
-    else {
-        # If nothing specified, use current working directory
-        $fileFolder = Get-Location
-    }
+    # If selected a desired path, use this path
+    $fileFolder = $desiredLocation
 
     $fullPath = Join-Path -Path $fileFolder -ChildPath $filename
 
