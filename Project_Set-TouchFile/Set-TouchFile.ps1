@@ -5,7 +5,7 @@ function Set-TouchFile {
     
     [CmdletBinding(DefaultParameterSetName = 'ByName')]
     param (
-        [Parameter(Mandatory = $true, Position = 0, ParameterSetName = 'ByName')]
+        [Parameter(Mandatory = $true, Position = 0, ParameterSetName = 'ByName', ValueFromPipeline = $true)]
         [Alias("Filename")]
         [string[]]$filenameArray,
 
