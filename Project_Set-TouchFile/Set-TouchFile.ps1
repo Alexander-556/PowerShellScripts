@@ -18,8 +18,7 @@ function Set-TouchFile {
         [string]$fullInputPath
     )
 
-    # Import helper functions
-    Import-Module "$PSscriptRoot\SetTouchFileTools.psd1" -Force
+
     
     # Touch mode selection
     if ($PSBoundParameters.ContainsKey("fullInputPath")) {

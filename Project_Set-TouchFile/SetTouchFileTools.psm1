@@ -14,6 +14,11 @@ catch {
     throw
 }
 
+# Dot source main function
+$expectedFunctions += 'Set-TouchFile'
+. "$PSScriptRoot\Set-TouchFile.ps1" -Force
+$loadedFunctions += 'Set-TouchFile'
+
 # Dot-source each helper file and track loaded function names
 foreach ($file in $helperFunctionFiles) {
     try {
@@ -21,7 +26,7 @@ foreach ($file in $helperFunctionFiles) {
         $expectedFunctions += [System.IO.Path]::GetFileNameWithoutExtension($file.Name)
 
         # Dot source
-        . $file.FullName
+        . $file.FullName -Force
         Write-Verbose "Loaded helper: $($file.Name)"
 
         # Extract base name (without extension) for function tracking
