@@ -1,6 +1,6 @@
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable-next-line MD041 -->
-![HeaderGIF](./Images/WindowsTerminal_7DcFt7URrF.gif)
+![HeaderGIF](./Images/ReadmeHeader/WindowsTerminal_7DcFt7URrF.gif)
 <!-- prettier-ignore-end -->
 
 <!-- markdownlint-disable-next-line MD033 -->
