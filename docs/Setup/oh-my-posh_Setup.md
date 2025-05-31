@@ -1,13 +1,14 @@
-# oh-my-posh Setup
+# oh-my-posh Setup Guide
 
-- [oh-my-posh Setup](#oh-my-posh-setup)
-  - [Personalization with `oh-my-posh`](#personalization-with-oh-my-posh)
+- [oh-my-posh Setup Guide](#oh-my-posh-setup-guide)
+  - [Personalization with oh-my-posh](#personalization-with-oh-my-posh)
     - [Installation](#installation)
+      - [Environment Variable](#environment-variable)
     - [Fonts](#fonts)
     - [Configuring Your PowerShell Profile with `oh-my-posh`](#configuring-your-powershell-profile-with-oh-my-posh)
-    - [Change Your `oh-my-posh` Theme](#change-your-oh-my-posh-theme)
+    - [Change Your oh-my-posh Theme](#change-your-oh-my-posh-theme)
 
-## Personalization with `oh-my-posh`
+## Personalization with oh-my-posh
 
 For me, in order to fully engage myself with a shell through a terminal, customizing the terminal is a must. Luckily, there are quite a lot of native and third-party customizing options. Windows Terminal itself supports customizing color profile and many different appearance options. But for me, the default PowerShell appearance is just too boring, so I installed a prompt theme engine, [oh-my-posh](https://ohmyposh.dev). You can find the official documentation for downloading and configuring via the link, and the following is a summary of the setup process for Windows platform only.
 
@@ -71,6 +72,8 @@ Check the spelling of the name, or if a path was included, verify that the path 
 ```
 
 it likely means that the folder containing the `oh-my-posh.exe` binary was not added to your system's `PATH` environment variable.
+
+#### Environment Variable
 
 By default, oh-my-posh is installed to
 
@@ -136,13 +139,7 @@ To enable `oh-my-posh` appearance, you need to change your default PowerShell pr
 notepad $PROFILE
 ```
 
-This above command line will open PowerShell default profile with notepad. When the above command gives an error, troubleshoot by creating the profile first using
-
-```powershell
-New-Item -Path $PROFILE -Type File -Force
-```
-
-Try open again with the `notepad $PROFILE` command. If this still doesn't work, please reference additional troubleshooting instruction in the [official documentation on prompt](https://ohmyposh.dev/docs/installation/prompt).
+This above command line will open PowerShell default profile with notepad as we discussed earlier. If this doesn't work, please reference additional troubleshooting instruction in the [official documentation on prompt](https://ohmyposh.dev/docs/installation/prompt).
 
 If you are able to open the default profile, add the following as the last line to your PowerShell profile script:
 
@@ -158,9 +155,9 @@ After you add the line, save the file, and then use
 
 to reload the profile for the changes to take effect. Now, you should be able to see that your terminal has a different appearance, which is the default `oh-my-posh` theme.
 
-### Change Your `oh-my-posh` Theme
+### Change Your oh-my-posh Theme
 
-The theme previews are available through this link to the [gallery](https://ohmyposh.dev/docs/themes). Choose your favorite theme and take note of its name.
+The theme previews are available through this link to the [Theme Gallery](https://ohmyposh.dev/docs/themes). Choose your favorite theme and take note of its name.
 
 To change your theme, you need to modify your profile file. Open the file again by
 
@@ -211,3 +208,7 @@ Save this in your profile, and then use
 ```
 
 to reload. The terminal should display your chosen theme by this step.
+
+---
+
+This is the end of `oh-my-posh` basic setup and configuration.

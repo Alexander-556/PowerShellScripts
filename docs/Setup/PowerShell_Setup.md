@@ -1,17 +1,17 @@
-# PowerShell Setup
+# PowerShell Setup Guide
 
-- [PowerShell Setup](#powershell-setup)
+- [PowerShell Setup Guide](#powershell-setup-guide)
   - [Installation of PowerShell 7.5](#installation-of-powershell-75)
     - [Verify Winget command](#verify-winget-command)
     - [Installation Command](#installation-command)
+    - [How to Configure PowerShell](#how-to-configure-powershell)
   - [Things to Keep in Mind](#things-to-keep-in-mind)
     - [Verify Your PowerShell Version](#verify-your-powershell-version)
       - [PowerShell 5.1 and 7.5 Compatibility](#powershell-51-and-75-compatibility)
       - [Check PowerShell Version](#check-powershell-version)
       - [Launch Your Desired PowerShell Version](#launch-your-desired-powershell-version)
-  - [PowerShell Configurations](#powershell-configurations)
 
-This guide will help you set up latest PowerShell environment on Windows. If you would like to learn more about PowerShell before installation, please click the link and visit [A Brief Introduction on PowerShell](./PowerShell_Intro.md).
+This guide will help you set up latest PowerShell environment on Windows. If you would like to learn more about PowerShell before installation, please click the link and visit [A Brief Introduction on PowerShell](./../Intro/PowerShell_Intro.md).
 
 ## Installation of PowerShell 7.5
 
@@ -34,7 +34,7 @@ winget: The term 'winget' is not recognized as a name of a cmdlet, function, scr
 Check the spelling of the name, or if a path was included, verify that the path is correct and try again.
 ```
 
-then this means you need to install `winget`. Please go to this [Winget Installation Guide](Winget_Setup.md) for more details.
+then this means you need to install `winget`. Please go to this [Winget Installation Guide](./Winget_Setup.md) for more details.
 
 If your terminal displays a version number like
 
@@ -69,6 +69,39 @@ winget install --id Microsoft.PowerShell --source winget
 ```
 
 By this step, PowerShell 7.5 should be installed on your computer and ready to use.
+
+### How to Configure PowerShell
+
+To config PowerShell, you need to edit the profile file. Upon startup of every session, PowerShell will first execute the scripts or commands within `$PROFILE`.
+
+You can open the profile file by typing:
+
+```powershell
+notepad $PROFILE
+```
+
+The above command opens the profile file with notepad. You can use other editors if you put the path to their executables in the environment variable `PATH`, for example:
+
+```powershell
+code $PROFILE      # Uses VScode
+notepad++ $PROFILE # Uses notepad++
+```
+
+To see an example of how to add an executable path to `PATH`, you can later check out the "Environment Variable" section of tutorial [oh-my-posh Setup](./oh-my-posh_Setup.md#environment-variable).
+
+When you execute the `notepad $PROFILE` command, notepad might prompt you that the file doesn't exist and whether to create a new one. Make sure to choose yes, if you want to customize your PowerShell. The following PowerShell command does the same thing, it creates a new `$PROFILE` file at the correct location. If the previous method don't work, you can try the command:
+
+```powershell
+New-Item -Path $PROFILE -Type File -Force
+```
+
+and then try
+
+```powershell
+notepad $PROFILE
+```
+
+This should correctly open the profile file. The configuration of PowerShell 7.5 will continue after we setup the terminal we want to use at [Windows Terminal Setup Guide](./WindowsTerminal_Setup.md). Or if you want to skip the terminal setup, you can go to [oh-my-posh Setup Guide](./oh-my-posh_Setup.md). However, I still recommend that you should read the following "Things to Keep in Mind" section before proceeding.
 
 ## Things to Keep in Mind
 
@@ -117,7 +150,7 @@ Note that if you see "-1" in your version data, don't panic, and there is nothin
 
 #### Launch Your Desired PowerShell Version
 
-If you just successfully installed PowerShell 7.5, but you didn't see the correct version number. It's possible that you are using the PowerShell 5.1 terminal. By default, it can be very confusing sometimes. Here is a way to make sure you are using the correct version of powershell.
+If you just successfully installed PowerShell 7.5, but you didn't see the correct version number. It's possible that you are using the PowerShell 5.1 terminal. If you haven't done any personalization on your terminal, it can be very confusing sometimes. Here is a way to make sure you are using the correct version of powershell.
 
 Press `Win + R` to invoke the Windows Run menu.
 
@@ -126,12 +159,11 @@ Press `Win + R` to invoke the Windows Run menu.
 
 This works because according to [this documentation](https://learn.microsoft.com/en-us/powershell/scripting/whats-new/differences-from-windows-powershell?view=powershell-7.5#renamed-powershellexe-to-pwshexe), compared to version 5.1, Microsoft renamed PowerShell 7.5 executable from `powershell.exe` to `pwsh.exe` for clear distinction.
 
-## PowerShell Configurations
+---
 
-To config PowerShell, you need to edit the profile file. You can do this by typing:
+Now you have setup PowerShell on your computer, please proceed to
 
-```powershell
-notepad $PROFILE
-```
-
-The configuration of PowerShell 7.5 will continue after we setup the terminal we want to use.
+- 👉 [Windows Terminal Setup Guide](./WindowsTerminal_Setup.md)
+  If you want to setup Windows Terminal
+- 👉 [oh-my-posh Setup Guide](./oh-my-posh_Setup.md)
+  If you already know how to setup Windows Terminal and want to customize your PowerShell

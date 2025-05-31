@@ -30,8 +30,9 @@ This repository is a collection of PowerShell scripts I've created to explore Wi
     - [oh-my-posh](#oh-my-posh)
       - [Visual Studio Code](#visual-studio-code)
   - [Projects \& Modules](#projects--modules)
+    - [Set-TouchFile - Unix Touch Implementation in PowerShell with UX enhancements](#set-touchfile---unix-touch-implementation-in-powershell-with-ux-enhancements)
     - [Start-FastCopy – Controlled Folder-by-Folder Copying via FastCopy](#start-fastcopy--controlled-folder-by-folder-copying-via-fastcopy)
-    - [Simple-Functions - Small Scripts for Terminal Fun \& Utility](#simple-functions---small-scripts-for-terminal-fun--utility)
+    - [Simple-Functions - Collection of Small Scripts for Terminal Fun \& Utility](#simple-functions---collection-of-small-scripts-for-terminal-fun--utility)
   - [Todos and Plans](#todos-and-plans)
     - [Repo Documentation Enhancements](#repo-documentation-enhancements)
     - [Project Start-FastCopy](#project-start-fastcopy)
@@ -48,6 +49,7 @@ PowerShellScripts/
 ├── Collection_Simple-Functions/         # Small PowerShell utilities
 ├── Docs/                                # Setup tutorials and script documentation
 ├── Images/                              # Image assets
+├── Project_Set-TouchFile/               # Implement unix touch in powershell with enhancements
 ├── Project_Start-FastCopy/              # FastCopy automation wrapper for throttled copy tasks
 ├── .gitignore                           # Git ignore file
 ├── LICENSE                              # MIT License
@@ -58,13 +60,13 @@ PowerShellScripts/
 
 If you're new to scripting or command-line tools, don't worry - you're not alone. Many people feel intimidated at first, staring into the deep abyss of black windows with blinking cursors. But once you understand the three core building blocks - **the Operating System, the Shell, and the Terminal** - you’ll see that it’s not as mysterious or deep as it seems. With just a bit of guidance, you'll be ready to explore scripting step by step.
 
-👉 [Understanding the Command Line - Core Elements](./Docs/CoreElements_Intro.md)
+👉 [Understanding the Command Line - Core Elements](./Docs/Intro/CoreElements_Intro.md)
 
 ## Tools Overview
 
 This section introduces the key tools used across the scripts and automation workflows in this repository. For detailed setup instructions, visit the `./Docs` folder or use the quick links below.
 
-If you are new to scripting, I recommend starting with the [PowerShell Setup Guide](./Docs/PowerShell_Setup.md) and following the tutorials sequentially until the environment is fully configured.
+If you are new to scripting, I recommend starting with the [PowerShell Setup Guide](./Docs/Setup/PowerShell_Setup.md) and following the tutorials sequentially until the environment is fully configured.
 
 If you are already familiar with some tools or only need specific setups, feel free to jump directly to the ones you are interested in.
 
@@ -83,27 +85,31 @@ Compared to the traditional Command Prompt (cmd.exe), PowerShell offers:
 
 PowerShell 7+ is open source and actively maintained on [GitHub](https://github.com/PowerShell/PowerShell/tree/master). Its growing ecosystem of modules and tools makes it ideal for both beginners and advanced users.
 
-👉 [PowerShell Setup Guide](./Docs/PowerShell_Setup.md)
+👉 [PowerShell Setup Guide](./Docs/Setup/PowerShell_Setup.md)
 
 #### Windows Terminal
 
 [Windows Terminal](https://learn.microsoft.com/en-us/windows/terminal/) is a modern terminal app by Microsoft that supports multiple shells like PowerShell, Command Prompt, and WSL in a tabbed, customizable interface. It improves usability and adds modern features like transparency, Unicode, font ligatures, and theme control.
 
-👉 [Windows Terminal Setup Guide](./Docs/WindowsTerminal_Setup.md)
+👉 [Windows Terminal Setup Guide](./Docs/Setup/WindowsTerminal_Setup.md)
 
 ### oh-my-posh
 
 [oh-my-posh](https://ohmyposh.dev) is a sleek, highly configurable prompt renderer for PowerShell and other shells. It enhances the look and clarity of your terminal with icons, colors, and segments. It integrates with Nerd Fonts for full visual support.
 
-👉 [oh-my-posh Setup Guide](./Docs/oh-my-posh_Setup.md)
+👉 [oh-my-posh Setup Guide](./Docs/Setup/oh-my-posh_Setup.md)
 
 #### Visual Studio Code
 
 [Visual Studio Code](https://code.visualstudio.com) (VSCode) is a lightweight yet powerful code editor with built-in support for PowerShell, Git, extensions, and debugging. It’s the primary editor used in this project for writing and managing scripts. The tutorials in this repo are based on the VSCode environment.
 
-👉 [VSCode Setup and Extensions](./Docs/VScode_Setup.md)
+👉 [VSCode Setup and Extensions](./Docs/Setup/VScode_Setup.md)
 
 ## Projects & Modules
+
+### Set-TouchFile - Unix Touch Implementation in PowerShell with UX enhancements
+
+Introduction to this tools
 
 ### Start-FastCopy – Controlled Folder-by-Folder Copying via FastCopy
 
@@ -119,7 +125,7 @@ Project Start-FastCopy is a modular PowerShell wrapper designed to automate and 
 
 👉 Check out the [Start-FastCopy README](./Project_Start-FastCopy/README.md)
 
-### Simple-Functions - Small Scripts for Terminal Fun & Utility
+### Simple-Functions - Collection of Small Scripts for Terminal Fun & Utility
 
 The SimpleFunctions folder contains a growing collection of lightweight, self-contained PowerShell functions designed for fun, learning, and daily scripting enhancements. These scripts are ideal for exploring how to use loops, output formatting, animation tricks, and terminal interactivity in PowerShell.
 
