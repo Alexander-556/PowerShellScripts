@@ -6,8 +6,6 @@ function Confirm-NewNameFile {
     )
     
     # Skip file creation, ask for NewName
-    Write-Host "File creation skipped." `
-        -ForegroundColor Green
     Write-Host "If you still want to create this file, enter a different name below." `
         -ForegroundColor Green
 
@@ -17,7 +15,7 @@ function Confirm-NewNameFile {
 
         if ([string]::IsNullOrWhiteSpace($newFilename)) {
             # If empty string is received, abort action
-            Write-Warning "Empty string input, new name cancelled."
+            Write-Warning "Empty string input, new file creation cancelled."
             break
         }
         else {

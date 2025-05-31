@@ -2,7 +2,7 @@ BeforeAll {
     # Important Notice:
     # Have to include main in module for mock to work!
     # Import module with the following command
-    Import-Module "$PSscriptRoot\..\SetTouchFileTools.psd1" -Force
+    Import-Module "$PSscriptRoot\..\Modules\SetTouchFileTools.psd1" -Force
     
     # The following dot sourcing will not work for mock due to scoping
     # Dot sourcing the script once before all tests will not work for mock
@@ -410,6 +410,48 @@ Describe "Normal Mode Set-TouchFile for an array of filename" {
                 foreach ($path in $testPaths) {
                     Remove-Item $path -Force
                 }
+            }
+
+            It "Should update the timestamp if file already exists" {
+                # List test filenames
+                $filenames = @(
+                    "pester_file1.txt", "pester_file2.txt", "pester_file3.txt",
+                    "pester_file4.txt", "pester_file5.txt", "pester_file6.txt"
+                )
+
+                $originalTimeStamps = @()
+
+                # Assemble testPaths
+                $testPaths = $filenames | ForEach-Object { Join-Path -Path $env:TEMP -ChildPath $_ }
+
+                # Ensure clean state, create new file, and initialize
+                foreach ($path in $testPaths) {
+                    if (Test-Path $path) { Remove-Item $path -Force }
+                    New-Item -ItemType File -Path $path
+                    Set-Content -Path $path -Value "Initial"
+                    $originalTimeStamps += (Get-Item $path).LastWriteTime
+                }
+
+                # Mock different user input with a list of commands
+                # $script:var means the script scope variable
+                $script:count = 0 
+                $script:inputs = @('n', '')
+                Mock -CommandName Read-Host -MockWith { 
+                    return $inputs[$script:count++] 
+                } -ModuleName SetTouchFileTools
+
+                # Invoke test function
+                Set-TouchFile -filename $filenames -desiredLocation $env:TEMP
+        
+
+                # Cleanup
+                foreach ($path in $testPaths) {
+                    Remove-Item $path -Force
+                }
+            }
+
+            It "Should create a new file upon user instruction if already exists" {
+
             }
         }
     }

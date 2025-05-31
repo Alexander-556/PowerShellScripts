@@ -1,3 +1,8 @@
+<# 
+# Todo list:
+- [ ] Complete the documentation
+- [ ] Complete test scripts
+#>
 function Set-TouchFile {
     <#
     .SYNOPSIS
@@ -18,8 +23,6 @@ function Set-TouchFile {
         [string]$fullInputPath
     )
 
-
-    
     # Touch mode selection
     if ($PSBoundParameters.ContainsKey("fullInputPath")) {
         # In quick access mode, recurse call Set-TouchFile with provided path
