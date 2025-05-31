@@ -1,5 +1,5 @@
 BeforeAll {
-    # Important Notice:
+    # !Important Notice:
     # Have to include main in module for mock to work!
     # Import module with the following command
     Import-Module "$PSscriptRoot\..\Modules\SetTouchFileTools.psd1" -Force
@@ -13,6 +13,7 @@ BeforeAll {
     $script:testFile = "TestDrive:\pester_testFile.txt"
 }
 
+# !This test does not work
 Describe "Set-TouchFile in Normal Mode" {
     Context "-desiredLocation specified" {
         It "Should create a file" {
