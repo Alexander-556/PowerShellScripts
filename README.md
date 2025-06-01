@@ -93,6 +93,7 @@ PowerShell 7+ is open source and actively maintained on [GitHub](https://github.
 
 [Windows Terminal](https://learn.microsoft.com/en-us/windows/terminal/) is a modern terminal app by Microsoft that supports multiple shells like PowerShell, Command Prompt, and WSL in a tabbed, customizable interface. It improves usability and adds modern features like transparency, Unicode, font ligatures, and theme control.
 
+*Work in Progress*
 👉 [Windows Terminal Setup Guide](./Docs/Setup/WindowsTerminal_Setup.md)
 
 ### oh-my-posh
@@ -105,6 +106,7 @@ PowerShell 7+ is open source and actively maintained on [GitHub](https://github.
 
 [Visual Studio Code](https://code.visualstudio.com) (VSCode) is a lightweight yet powerful code editor with built-in support for PowerShell, Git, extensions, and debugging. It’s the primary editor used in this project for writing and managing scripts. The tutorials in this repo are based on the VSCode environment.
 
+*Work in Progress*
 👉 [VSCode Setup and Extensions](./Docs/Setup/VScode_Setup.md)
 
 ## Projects & Modules
@@ -125,6 +127,7 @@ Project Start-FastCopy is a modular PowerShell wrapper designed to automate and 
 - Path to FastCopy.exe executable configuration via config.json
 - Interactive confirmation with PowerShell ShouldProcess feature
 
+*Work in Progress*
 👉 Check out the [Start-FastCopy README](./Project_Start-FastCopy/README.md)
 
 ### Simple-Functions - Collection of Small Scripts for Terminal Fun & Utility
@@ -141,6 +144,7 @@ More fun and visual terminal scripts on the way!
 
 While not tied to automation tasks, these functions are great for building intuition about PowerShell scripting and experimenting with creative terminal outputs.
 
+*Work in Progress*
 👉 Browse the [Collection_Simple-Functions README](./Collection_Simple-Functions/README.md)
 
 ## Todos and Plans
@@ -148,7 +152,7 @@ While not tied to automation tasks, these functions are great for building intui
 This section presents current work-in-progress and some ideas for future developments in this repo. This todo list is updated frequently as development progresses.
 
 <!-- prettier-ignore-start -->
-<!-- markdownlint-disable-next-line MD036 -->
+<!-- markdownlint-disable-next-line -->
 _Todo Last Updated: 2025-05-28_
 <!-- prettier-ignore-end -->
 
