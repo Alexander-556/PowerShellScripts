@@ -20,7 +20,7 @@
 
 This repository is a collection of PowerShell scripts I've created to explore Windows-based automation and solve everyday problems in a practical way. My main goal with this project is to learn PowerShell by applying it to real-world tasks. Along the way, I hope to make these tools accessible and useful for others who are new to scripting or interested in automating their own workflows.
 
-----
+---
 
 - [PowerShell Scripting Projects](#powershell-scripting-projects)
   - [Repository Structure Overview](#repository-structure-overview)
@@ -37,6 +37,7 @@ This repository is a collection of PowerShell scripts I've created to explore Wi
     - [Simple-Functions - Collection of Small Scripts for Terminal Fun \& Utility](#simple-functions---collection-of-small-scripts-for-terminal-fun--utility)
   - [Todos and Plans](#todos-and-plans)
     - [Repo Documentation Enhancements](#repo-documentation-enhancements)
+    - [Project Set-TouchFile](#project-set-touchfile)
     - [Project Start-FastCopy](#project-start-fastcopy)
     - [Collection of Simple Functions](#collection-of-simple-functions)
     - [Future Project Plans](#future-project-plans)
@@ -93,7 +94,7 @@ PowerShell 7+ is open source and actively maintained on [GitHub](https://github.
 
 [Windows Terminal](https://learn.microsoft.com/en-us/windows/terminal/) is a modern terminal app by Microsoft that supports multiple shells like PowerShell, Command Prompt, and WSL in a tabbed, customizable interface. It improves usability and adds modern features like transparency, Unicode, font ligatures, and theme control.
 
-*Work in Progress*
+_Work in Progress_
 👉 [Windows Terminal Setup Guide](./Docs/Setup/WindowsTerminal_Setup.md)
 
 ### oh-my-posh
@@ -106,28 +107,47 @@ PowerShell 7+ is open source and actively maintained on [GitHub](https://github.
 
 [Visual Studio Code](https://code.visualstudio.com) (VSCode) is a lightweight yet powerful code editor with built-in support for PowerShell, Git, extensions, and debugging. It’s the primary editor used in this project for writing and managing scripts. The tutorials in this repo are based on the VSCode environment.
 
-*Work in Progress*
+_Work in Progress_
 👉 [VSCode Setup and Extensions](./Docs/Setup/VScode_Setup.md)
 
 ## Projects & Modules
 
 ### Set-TouchFile - Unix Touch Implementation in PowerShell with UX enhancements
 
-Introduction to this tools
+Project Set-TouchFile is my implementation of the Unix touch command in PowerShell with additional enhancements. Key features include:
+
+- Creates a new file if it does not already exist, allowing users to specify the desired location and filename.
+
+- Updates the last modified timestamp of an existing file without altering its contents.
+
+- Provides user-friendly prompts to confirm actions, such as opening files and specifying new filenames.
+
+- Includes validation helpers to ensure the filename and desired folder are valid before proceeding.
+
+- Allows users to specify relative or absolute paths for file operations, enhancing flexibility.
+
+_Work in Progress_
+👉 Check out the [Set-TouchFile README](./Project_Set-TouchFile/README.md)
 
 ### Start-FastCopy – Controlled Folder-by-Folder Copying via FastCopy
 
-Project Start-FastCopy is a modular PowerShell wrapper designed to automate and control folder-level data transfers using the FastCopy free software. It provides an interface with control over speed, verification, simulation, and delay between folder transfers. This script is ideal for conducting copying multiple folders of size 50-100GB to a backup folder. Key features include:
+Project Start-FastCopy is a PowerShell wrapper designed to automate and control data transfer folder-by-folder using the FastCopy free software. It provides an interface with control over speed, verification, simulation, and delay between folder transfers. This script is ideal for conducting copying multiple folders of size 50-100GB to a backup folder. Key features include:
 
 - Automated Per-subfolder copying from source to target directory
+
 - Set speed control with FastCopy presets at the terminal: full, autoslow, suspend, or custom (1–9)
+
 - Post-copy file verification toggle
+
 - Dry run simulation using FastCopy’s /no_exec
+
 - Optional thermal throttling with adjustable delay between folders
+
 - Path to FastCopy.exe executable configuration via config.json
+
 - Interactive confirmation with PowerShell ShouldProcess feature
 
-*Work in Progress*
+_Work in Progress_
 👉 Check out the [Start-FastCopy README](./Project_Start-FastCopy/README.md)
 
 ### Simple-Functions - Collection of Small Scripts for Terminal Fun & Utility
@@ -144,7 +164,7 @@ More fun and visual terminal scripts on the way!
 
 While not tied to automation tasks, these functions are great for building intuition about PowerShell scripting and experimenting with creative terminal outputs.
 
-*Work in Progress*
+_Work in Progress_
 👉 Browse the [Collection_Simple-Functions README](./Collection_Simple-Functions/README.md)
 
 ## Todos and Plans
@@ -159,18 +179,29 @@ _Todo Last Updated: 2025-05-28_
 ### Repo Documentation Enhancements
 
 - [ ] Complete this README structure for clarity
-  - [ ] Find location to add table of contents
-  - [ ] Use link to documentation instead of listing the tutorials in the README
+  - [x] Find location to add table of contents
+  - [x] Use link to documentation instead of listing the tutorials in the README
 - [ ] Complete documentation for necessary tool setup
-  - [ ] PowerShell Setup
+  - [x] PowerShell Setup
   - [ ] Terminal Setup
-  - [ ] oh-my-posh Setup
+  - [x] oh-my-posh Setup
   - [ ] VScode setup
     - [ ] Extensions
     - [ ] Debug `launch.json` `task.json`
 - [ ] Additional introduction to powershell information for information purposes
-  - [ ] Introduce on shell, terminal, and OS
+  - [x] Introduce on shell, terminal, and OS
 - [ ] Make this repo README look more attractive
+
+### Project Set-TouchFile
+
+- [ ] New features in Set-TouchFile
+  - [ ] Silent mode toggle
+  - [ ] overwrite file toggle
+  - [ ] logging
+- [ ] Better documentation for Set-TouchFile
+  - [ ] Build-in help block
+  - [ ] Set-TouchFile README
+    - [ ] Usage tutorial and demo with screenshots
 
 ### Project Start-FastCopy
 
@@ -178,7 +209,11 @@ _Todo Last Updated: 2025-05-28_
   - [x] Edit path for FastCopy executable in a config.json file, instead of using hard coded path
   - [ ] Write log files for operation, determine the location the information in the log
 - [ ] Better documentation for Start-FastCopy
-  - [ ] Usage tutorial and demo with screenshots in README
+  - [ ] Start-FastCopy README
+    - [ ] Usage tutorial and demo with screenshots
+  - [ ] Start-FastCopy build-in help block
+- [ ] Make Start-FastCopy more modular
+- [ ] Package Start-FastCopy as a PSmodule
 
 ### Collection of Simple Functions
 
