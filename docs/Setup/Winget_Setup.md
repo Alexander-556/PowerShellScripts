@@ -1,12 +1,14 @@
 # Windows Package Manager (Winget) Setup Guide
 
+In this guide, you will learn some basic facts about the Windows Package Manager (Winget) and follow the steps to install winget on your computer.
+
+---
+
 - [Windows Package Manager (Winget) Setup Guide](#windows-package-manager-winget-setup-guide)
   - [What is Winget?](#what-is-winget)
   - [Install Winget](#install-winget)
     - [Method 1: Download from Microsoft](#method-1-download-from-microsoft)
     - [Method 2: Download from GitHub](#method-2-download-from-github)
-
-In this guide, you will learn some basic facts about the Windows Package Manager (Winget) and follow the steps to install winget on your computer.
 
 ## What is Winget?
 

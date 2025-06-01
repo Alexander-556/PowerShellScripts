@@ -1,9 +1,13 @@
 # Windows Terminal Setup Guide
 
-This setup guide will help you install Windows Terminal on your computer
+This short setup guide will help you install Windows Terminal on your computer.
 
 ## Installation of Windows Terminal
 
-I mainly work on Windows, so Windows Terminal is my first choice for a terminal, available through the [Microsoft Store](https://apps.microsoft.com/detail/9n0dx20hk701?hl=en-US&gl=US). Compare to default Command Prompt and Windows PowerShell console, this one is a lot more modern and is a lot more customizable. Key features include tab support, different profile in one window, etc. For more details, consult the [Windows Terminal Official Documentation](https://learn.microsoft.com/en-us/windows/terminal/).
+The installation of Windows Terminal is very easy. The Windows Terminal is available through the [Microsoft Store](https://apps.microsoft.com/detail/9n0dx20hk701?hl=en-US&gl=US). By clicking on the download link, you will be brought to Microsoft Store on your browser. You can click download or view in store, and then you can follow Microsoft Store instructions to install Windows Terminal on your computer.
 
-## Customization
+## Configure Windows Terminal
+
+Work in Progress
+
+[Windows Terminal Official Documentation](https://learn.microsoft.com/en-us/windows/terminal/).

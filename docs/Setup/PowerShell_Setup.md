@@ -1,7 +1,6 @@
 # PowerShell Setup Guide
 
-This guide will help you set up latest PowerShell environment on Windows. If you would like to learn more about PowerShell before installation, please click the link and visit [A Brief Introduction on PowerShell](./../Intro/PowerShell_Intro.md). Or you can also visit Microsoft's Official PowerShell Documentation:
-👉 [What is PowerShell](https://learn.microsoft.com/en-us/powershell/scripting/overview?view=powershell-7.5)
+This guide will help you set up latest PowerShell environment on Windows. If you would like to learn more about PowerShell before installation, please click the link and visit [A Brief Introduction on PowerShell](./../Intro/PowerShell_Intro.md). Or you can also visit Microsoft's Official PowerShell Documentation [What is PowerShell?](https://learn.microsoft.com/en-us/powershell/scripting/overview?view=powershell-7.5)
 
 ---
 

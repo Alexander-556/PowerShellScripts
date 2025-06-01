@@ -2,7 +2,7 @@
 
 This guide provides a detailed walkthrough for setting up and customizing `oh-my-posh` on Windows, transforming the default PowerShell terminal into a visually appealing and personalized workspace. It covers installation via winget, configuring the `PATH` environment variable, installing Nerd Fonts for proper theme rendering, and modifying the PowerShell profile to enable `oh-my-posh`. Additionally, it explains how to change themes using the built-in theme gallery and provides troubleshooting tips for common issues. By following this guide, you can create a much more engaging and functional terminal experience.
 
-----
+---
 
 - [oh-my-posh Setup Guide](#oh-my-posh-setup-guide)
   - [Personalization with oh-my-posh](#personalization-with-oh-my-posh)
@@ -10,6 +10,9 @@ This guide provides a detailed walkthrough for setting up and customizing `oh-my
       - [Environment Variable](#environment-variable)
     - [Fonts](#fonts)
     - [Configuring Your PowerShell Profile with oh-my-posh](#configuring-your-powershell-profile-with-oh-my-posh)
+      - [IMPORTANT TROUBLESHOOT NOTICE](#important-troubleshoot-notice)
+        - [Method 1: Set-ExecutionPolicy](#method-1-set-executionpolicy)
+        - [Method 2: Sign your scripts](#method-2-sign-your-scripts)
     - [Change Your oh-my-posh Theme](#change-your-oh-my-posh-theme)
 
 ## Personalization with oh-my-posh
@@ -101,7 +104,7 @@ To use `oh-my-posh` from any terminal window, add this folder to the system `PAT
 11. Close and restart your terminal to load new environment variable
 12. Check again by running command `oh-my-posh`
 
-For more information about environment variables and the `PATH` mechanism, check out this helpful explanation: [SuperUser](https://superuser.com/questions/284342/what-are-path-and-other-environment-variables-and-how-can-i-set-or-use-them).
+For more information about environment variables and the `PATH` mechanism, check out this helpful explanation: [SuperUser](https://superuser.com/questions/284342/what-are-path-and-other-environment-variables-and-how-can-i-set-or-use-them). If you came from [PowerShell Setup Guide](./PowerShell_Setup.md#how-to-configure-powershell) to take a look at how to configure the environment variable, feel free to use the link to go back.
 
 ### Fonts
 
@@ -158,6 +161,50 @@ After you add the line, save the file, and then use
 ```
 
 to reload the profile for the changes to take effect. Now, you should be able to see that your terminal has a different appearance, which is the default `oh-my-posh` theme.
+
+#### IMPORTANT TROUBLESHOOT NOTICE
+
+When running scripts, you might encounter an error saying that your scripts cannot be executed because of the execution policy, an error message that might look like this:
+
+```powershell
+File C:\example.ps1 cannot be loaded because the execution of scripts is disabled on this system. Please see "get-help about_signing" for more details.
+At line:1 char:13
++ .\example.ps1 <<<<
++ CategoryInfo : NotSpecified: (:) [], PSSecurityException
++ FullyQualifiedErrorId : RuntimeException
+```
+
+This error is caused by the PowerShell execution policy. It only allows trusted (signed) scripts to be executed for security. There are two ways to bypass this error.
+
+##### Method 1: Set-ExecutionPolicy
+
+You can start Windows PowerShell with the "Run as Administrator" option, and then run the following command in your PowerShell:
+
+```powershell
+Get-ExecutionPolicy
+```
+
+This command will tell you which execution policy you are on. If you have the above error, you might see the output:
+
+```powershell
+> Get-ExecutionPolicy
+Restricted
+```
+
+To change the policy, run the following command:
+
+```powershell
+Set-ExecutionPolicy remotesigned
+```
+
+You have to run PowerShell as an admin because only members of the Administrators group on the computer can change the execution policy. This command will allow running unsigned scripts that you write on your local computer and signed scripts from Internet, and the command will change the policy permanently. For more details on execution policies on PowerShell, check out Microsoft's official documentation and the SuperUser discussion thread.
+👉 [About Execution Policies](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-7.5#restricted)
+👉 [SuperUser Discussion](https://superuser.com/questions/106360/how-to-enable-execution-of-powershell-scripts)
+
+##### Method 2: Sign your scripts
+
+Typically, the above commands should solve your problems. So, I might not dig too deep on how to sign your scripts. But if you want to take a step further and do that, please use the following link to Microsoft's official documentation:
+👉 [About Signing](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_signing?view=powershell-7.5)
 
 ### Change Your oh-my-posh Theme
 

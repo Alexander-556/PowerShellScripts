@@ -1,11 +1,13 @@
 # Understanding the Command Line: Operating System, Shell, and Terminal
 
+If you have ever felt confused by words like "shell", "terminal", or even "operating system", you are not alone. These terms get thrown around a lot, but they are actually not that complicated once you break them down. In this guide, I will walk you through what each of these core elements means and how they work together to let you communicate with your computer. Understanding these basics will make everything about scripting and using this project a lot less intimidating.
+
+---
+
 - [Understanding the Command Line: Operating System, Shell, and Terminal](#understanding-the-command-line-operating-system-shell-and-terminal)
   - [What is an Operating System (OS)?](#what-is-an-operating-system-os)
   - [What is a Shell?](#what-is-a-shell)
   - [What is a Terminal?](#what-is-a-terminal)
-
-If you have ever felt confused by words like "shell", "terminal", or even "operating system", you are not alone. These terms get thrown around a lot, but they are actually not that complicated once you break them down. In this guide, I will walk you through what each of these core elements means and how they work together to let you communicate with your computer. Understanding these basics will make everything about scripting and using this project a lot less intimidating.
 
 ## What is an Operating System (OS)?
 
@@ -55,7 +57,7 @@ Common shells include:
 
 Now that we’ve talked about the Shell and the OS, what exactly is the Terminal?
 
-The Terminal is the application that hosts the shell — it’s the window where the conversation between you and your computer happens. You type commands into the terminal, the shell interprets them, and the OS gets the job done.
+The Terminal is the application that hosts the shell - it’s the window where the conversation between you and your computer happens. You type commands into the terminal, the shell interprets them, and the OS gets the job done.
 
 In simple terms:
 
@@ -65,21 +67,23 @@ In simple terms:
 
 - The OS is what carries out the instructions.
 
-Terminal programs on Windows include:
+By default, Windows is shipped with conhost.exe, short for Console Host. This application is the default terminal application built into Windows that hosts command-line shells like Command Prompt and PowerShell, providing a basic interface for executing commands. First appeared in Windows 7, this terminal is super old, and in [this article](https://learn.microsoft.com/en-us/windows/console/definitions), Microsoft says that even though "conhost.exe will continue to be responsible for API call servicing and translation," "the user-interface components are intended to be delegated through a pseudoconsole to a terminal."
 
-- **Windows Terminal**
-  -- A modern, customizable terminal with tab support, _the modern all-in-one_.
+Anyway, my point is that if you want to do some proper scripting and interaction with the terminal, conhost.exe is not recommended. There are a lot more other options that are far better than conhost.exe, here is a incomplete list just for example:
 
-- **Command Prompt**
-  -- The traditional terminal that opens cmd.exe by default, _the classic choice_.
+- [Hyper](https://hyper.is)
+- [ConEmu](https://conemu.github.io)
+- [Cmder](https://cmder.app)
+- [ConsoleZ](https://github.com/cbucher/console)
+- [FluentTerminal](https://github.com/felixse/FluentTerminal)
+- [Windows Terminal](https://learn.microsoft.com/en-us/windows/terminal/)
 
-- **PowerShell Console**
-  -- PowerShell's default terminal window, _a bit boring_.
-
-In this project, I recommend you use Windows Terminal because of its customizability. It's always better to look into a modern window than the old-school black or blue ones.
+In this project, I am using Windows Terminal, and I recommend you to use it too, because of its simplicity and functionality. If you don't like it, feel free to try the other listed terminals above. Or explore on your own. But, the default conhost.exe is not a great option anymore. It's always better to look into a modern window than the old-school black or blue ones.
 
 ---
 
-Now that you have learned the basics about the operating system, shell, and terminal, you are ready to move on and start using the tools in this project. Don’t worry if you are still new - each tool comes with step-by-step setup guides to help you get started. You can use the following link to head back to the README.
+Now that you have learned the basics about the operating system, shell, and terminal. For more advanced information on related concepts, you can also visit Scott Hanselman's article: [What's the difference between a console, a terminal, and a shell?](https://www.hanselman.com/blog/whats-the-difference-between-a-console-a-terminal-and-a-shell)
 
-👉 [Tools Overview section](../README.md#-Tools-Overview)
+You are ready to move on and start using the tools in this project. Don’t worry if you are still new - each tool comes with step-by-step setup guides to help you get started. You can use the following link to head back to the README.
+
+👉 [Tools Overview section](../../README.md#tools-overview)

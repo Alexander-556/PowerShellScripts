@@ -48,7 +48,7 @@ This repository is a collection of PowerShell scripts I've created to explore Wi
 
 ```text
 PowerShellScripts/
-├── Collection_Simple-Functions/         # Small PowerShell utilities
+├── Collection_Simple-Functions/         # Small PowerShell utilities and fun scripts
 ├── Docs/                                # Setup tutorials and script documentation
 ├── Images/                              # Image assets
 ├── Project_Set-TouchFile/               # Implement unix touch in powershell with enhancements
@@ -66,7 +66,7 @@ If you're new to scripting or command-line tools, don't worry - you're not alone
 
 ## Tools Overview
 
-This section introduces the key tools used across the scripts and automation workflows in this repository. For detailed setup instructions, visit the `./Docs` folder or use the quick links below.
+This section introduces the key tools used across the scripts and automation workflows in this repository. For detailed setup instructions, use the quick links below, or visit the `./Docs` folder.
 
 If you are new to scripting, I recommend starting with the [PowerShell Setup Guide](./Docs/Setup/PowerShell_Setup.md) and following the tutorials sequentially until the environment is fully configured.
 
