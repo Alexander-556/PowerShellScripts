@@ -1,4 +1,6 @@
-# Windows Terminal
+# Windows Terminal Setup Guide
+
+This setup guide will help you install Windows Terminal on your computer
 
 ## Installation of Windows Terminal
 

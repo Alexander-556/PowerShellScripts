@@ -1,5 +1,10 @@
 # PowerShell Setup Guide
 
+This guide will help you set up latest PowerShell environment on Windows. If you would like to learn more about PowerShell before installation, please click the link and visit [A Brief Introduction on PowerShell](./../Intro/PowerShell_Intro.md). Or you can also visit Microsoft's Official PowerShell Documentation:
+👉 [What is PowerShell](https://learn.microsoft.com/en-us/powershell/scripting/overview?view=powershell-7.5)
+
+---
+
 - [PowerShell Setup Guide](#powershell-setup-guide)
   - [Installation of PowerShell 7.5](#installation-of-powershell-75)
     - [Verify Winget command](#verify-winget-command)
@@ -10,8 +15,6 @@
       - [PowerShell 5.1 and 7.5 Compatibility](#powershell-51-and-75-compatibility)
       - [Check PowerShell Version](#check-powershell-version)
       - [Launch Your Desired PowerShell Version](#launch-your-desired-powershell-version)
-
-This guide will help you set up latest PowerShell environment on Windows. If you would like to learn more about PowerShell before installation, please click the link and visit [A Brief Introduction on PowerShell](./../Intro/PowerShell_Intro.md).
 
 ## Installation of PowerShell 7.5
 

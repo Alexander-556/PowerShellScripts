@@ -20,6 +20,8 @@
 
 This repository is a collection of PowerShell scripts I've created to explore Windows-based automation and solve everyday problems in a practical way. My main goal with this project is to learn PowerShell by applying it to real-world tasks. Along the way, I hope to make these tools accessible and useful for others who are new to scripting or interested in automating their own workflows.
 
+----
+
 - [PowerShell Scripting Projects](#powershell-scripting-projects)
   - [Repository Structure Overview](#repository-structure-overview)
   - [Understanding the Command Line](#understanding-the-command-line)
@@ -74,11 +76,11 @@ If you are already familiar with some tools or only need specific setups, feel f
 
 #### PowerShell 7.5
 
-[PowerShell](https://learn.microsoft.com/en-us/powershell/) is a powerful, cross-platform shell and scripting language developed by Microsoft. It's designed for task automation, system configuration, and integrates deeply with Windows and the .NET runtime. This project uses PowerShell 7.5 on Windows.
+[PowerShell](https://learn.microsoft.com/en-us/powershell/scripting/overview?view=powershell-7.5) is a powerful, cross-platform shell and scripting language developed by Microsoft. It's designed for task automation, system configuration, and integrates deeply with Windows and the .NET runtime. This project uses PowerShell 7.5 on Windows.
 
 Compared to the traditional Command Prompt (cmd.exe), PowerShell offers:
 
-- Object-based output instead of plain text
+- Object-based input/output instead of plain text
 - More consistent syntax and naming conventions
 - Support for logic, loops, functions, and structured error handling
 - Built-in tools like `Get-Help` for discovering how commands work

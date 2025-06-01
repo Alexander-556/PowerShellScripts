@@ -1,11 +1,15 @@
 # oh-my-posh Setup Guide
 
+This guide provides a detailed walkthrough for setting up and customizing `oh-my-posh` on Windows, transforming the default PowerShell terminal into a visually appealing and personalized workspace. It covers installation via winget, configuring the `PATH` environment variable, installing Nerd Fonts for proper theme rendering, and modifying the PowerShell profile to enable `oh-my-posh`. Additionally, it explains how to change themes using the built-in theme gallery and provides troubleshooting tips for common issues. By following this guide, you can create a much more engaging and functional terminal experience.
+
+----
+
 - [oh-my-posh Setup Guide](#oh-my-posh-setup-guide)
   - [Personalization with oh-my-posh](#personalization-with-oh-my-posh)
     - [Installation](#installation)
       - [Environment Variable](#environment-variable)
     - [Fonts](#fonts)
-    - [Configuring Your PowerShell Profile with `oh-my-posh`](#configuring-your-powershell-profile-with-oh-my-posh)
+    - [Configuring Your PowerShell Profile with oh-my-posh](#configuring-your-powershell-profile-with-oh-my-posh)
     - [Change Your oh-my-posh Theme](#change-your-oh-my-posh-theme)
 
 ## Personalization with oh-my-posh
@@ -14,7 +18,7 @@ For me, in order to fully engage myself with a shell through a terminal, customi
 
 ### Installation
 
-Following the [official documentation on installation](https://ohmyposh.dev/docs/installation/windows), you can install oh-my-posh and a package of builtin themes via winget:
+Following the [official documentation on installation](https://ohmyposh.dev/docs/installation/windows), you can install `oh-my-posh` and a package of builtin themes via winget:
 
 ```powershell
 winget install JanDeDobbeleer.OhMyPosh -s winget
@@ -75,7 +79,7 @@ it likely means that the folder containing the `oh-my-posh.exe` binary was not a
 
 #### Environment Variable
 
-By default, oh-my-posh is installed to
+By default, `oh-my-posh` is installed to
 
 ```path
 C:\Users\<YourUsername>\AppData\Local\Programs\oh-my-posh\bin
@@ -101,7 +105,7 @@ For more information about environment variables and the `PATH` mechanism, check
 
 ### Fonts
 
-oh-my-posh themes often require a Nerd Font to render glyphs and icons properly. By default, oh-my-posh [official documentation on fonts](https://ohmyposh.dev/docs/installation/fonts) recommends installation of their recommended Meslo Nerd font through
+`oh-my-posh` themes often require a Nerd Font to render glyphs and icons properly. By default, `oh-my-posh` [official documentation on fonts](https://ohmyposh.dev/docs/installation/fonts) recommends installation of their recommended Meslo Nerd font through
 
 ```powershell
 oh-my-posh font install meslo
@@ -127,9 +131,9 @@ After the font is installed, you need to configure Windows Terminal to use it as
 
 Note: If Windows Terminal cannot find the font, it will silently fall back to the default one. So if nothing changed after you changed the settings, check if the font is installed and whether the "Font Face" settings entry is correct. The entry has to be verbatim.
 
-Once this is set, any oh-my-posh theme that relies on Nerd Fonts will display correctly across PowerShell and other shells running in Windows Terminal.
+Once this is set, any `oh-my-posh` theme that relies on Nerd Fonts will display correctly across PowerShell and other shells running in Windows Terminal.
 
-### Configuring Your PowerShell Profile with `oh-my-posh`
+### Configuring Your PowerShell Profile with oh-my-posh
 
 Now, `oh-my-posh` is almost ready, but your terminal window is still in its default shape. To enable `oh-my-posh` appearance, you can follow `oh-my-posh` [official documentation on prompt](https://ohmyposh.dev/docs/installation/prompt). Here is a summary for your convenience.
 
@@ -211,4 +215,6 @@ to reload. The terminal should display your chosen theme by this step.
 
 ---
 
-This is the end of `oh-my-posh` basic setup and configuration.
+This is the end of `oh-my-posh` basic setup and configuration. By now, you should already have a pretty good looking terminal window. Instead of looking into a boring black window, you can now customize the window that you are probably going to stare for hours. Hope you had fun during the setup process.
+
+If you want to create some PowerShell tools like me, you can go visit my [VScode setup guide](./VScode_Setup.md) to check out some recommended extensions, settings, testing, and debug settings.
