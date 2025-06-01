@@ -62,7 +62,7 @@ PowerShellScripts/
 
 If you're new to scripting or command-line tools, don't worry - you're not alone. Many people feel intimidated at first, staring into the deep abyss of black windows with blinking cursors. But once you understand the three core building blocks - **the Operating System, the Shell, and the Terminal** - you’ll see that it’s not as mysterious or deep as it seems. With just a bit of guidance, you'll be ready to explore scripting step by step.
 
-👉 [Understanding the Command Line - Core Elements](./Docs/Intro/CoreElements_Intro.md)
+👉 [Understanding the Command Line - Core Elements](./docs/Intro/CoreElements_Intro.md)
 
 ## Tools Overview
 
