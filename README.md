@@ -67,7 +67,7 @@ If you're new to scripting or command-line tools, don't worry - you're not alone
 
 ## Tools Overview
 
-This section introduces the key tools used across the scripts and automation workflows in this repository. For detailed setup instructions, use the quick links below, or visit the `./Docs` folder.
+This section introduces the key tools used across the scripts and automation workflows in this repository. For detailed setup instructions, use the quick links below, or visit the [Documentation Folder](./Docs/).
 
 If you are new to scripting, I recommend starting with the [PowerShell Setup Guide](./Docs/Setup/PowerShell_Setup.md) and following the tutorials sequentially until the environment is fully configured.
 
@@ -79,7 +79,7 @@ If you are already familiar with some tools or only need specific setups, feel f
 
 [PowerShell](https://learn.microsoft.com/en-us/powershell/scripting/overview?view=powershell-7.5) is a powerful, cross-platform shell and scripting language developed by Microsoft. It's designed for task automation, system configuration, and integrates deeply with Windows and the .NET runtime. This project uses PowerShell 7.5 on Windows.
 
-Compared to the traditional Command Prompt (cmd.exe), PowerShell offers:
+In general, compared to the traditional Command Prompt (cmd.exe), PowerShell offers:
 
 - Object-based input/output instead of plain text
 - More consistent syntax and naming conventions
@@ -116,15 +116,15 @@ _Work in Progress_
 
 Project Set-TouchFile is my implementation of the Unix touch command in PowerShell with additional enhancements. Key features include:
 
-- Creates a new file if it does not already exist, allowing users to specify the desired location and filename.
+- Creates a new file if it does not already exist.
 
 - Updates the last modified timestamp of an existing file without altering its contents.
 
 - Provides user-friendly prompts to confirm actions, such as opening files and specifying new filenames.
 
-- Includes validation helpers to ensure the filename and desired folder are valid before proceeding.
+- Includes validation helpers to ensure the filename and desired folder are valid under Windows rules before proceeding.
 
-- Allows users to specify relative or absolute paths for file operations, enhancing flexibility.
+- Allows users to specify either relative or absolute paths for file operations, enhancing flexibility.
 
 _Work in Progress_
 👉 Check out the [Set-TouchFile README](./Project_Set-TouchFile/README.md)
@@ -156,9 +156,10 @@ The SimpleFunctions folder contains a growing collection of lightweight, self-co
 
 Examples Include:
 
-- `./Build-PowerShellBanner`: Renders a ASCII art of PowerShell in different fonts and a scanner-style animation
-- Show-Triangle: Prints an expanding triangle row by row
-- Show-Spiner: Displays a small ASCII spiner that just spins!
+- `./RenderPowerShellBanner`:
+  Renders a ASCII art of PowerShell in different fonts and a scanner-style animation.
+- `./ShowShapes`:
+  Prints different shapes on to the terminal screen, including rectangle, triangle, cake, and spiner, etc.
 
 More fun and visual terminal scripts on the way!
 
@@ -173,46 +174,50 @@ This section presents current work-in-progress and some ideas for future develop
 
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable-next-line -->
-_Todo Last Updated: 2025-05-28_
+_Todo Last Updated: 2025-06-01_
 <!-- prettier-ignore-end -->
 
 ### Repo Documentation Enhancements
 
-- [ ] Complete this README structure for clarity
+- [x] Improve Repo README structure
   - [x] Find location to add table of contents
   - [x] Use link to documentation instead of listing the tutorials in the README
-- [ ] Complete documentation for necessary tool setup
+
+- [ ] Tool setup guides
   - [x] PowerShell Setup
   - [ ] Terminal Setup
   - [x] oh-my-posh Setup
   - [ ] VScode setup
-    - [ ] Extensions
-    - [ ] Debug `launch.json` `task.json`
-- [ ] Additional introduction to powershell information for information purposes
+
+- [ ] PowerShell Tutorial
   - [x] Introduce on shell, terminal, and OS
+
 - [ ] Make this repo README look more attractive
 
 ### Project Set-TouchFile
 
 - [ ] New features in Set-TouchFile
   - [ ] Silent mode toggle
-  - [ ] overwrite file toggle
-  - [ ] logging
+  - [ ] Overwrite file toggle
+  - [ ] Add logging
+
 - [ ] Better documentation for Set-TouchFile
   - [ ] Build-in help block
   - [ ] Set-TouchFile README
-    - [ ] Usage tutorial and demo with screenshots
 
 ### Project Start-FastCopy
 
 - [ ] New features in Start-FastCopy
   - [x] Edit path for FastCopy executable in a config.json file, instead of using hard coded path
-  - [ ] Write log files for operation, determine the location the information in the log
+  - [ ] Add logging
+
 - [ ] Better documentation for Start-FastCopy
+  - [ ] Start-FastCopy build-in help block
   - [ ] Start-FastCopy README
     - [ ] Usage tutorial and demo with screenshots
-  - [ ] Start-FastCopy build-in help block
+
 - [ ] Make Start-FastCopy more modular
+
 - [ ] Package Start-FastCopy as a PSmodule
 
 ### Collection of Simple Functions
@@ -220,19 +225,23 @@ _Todo Last Updated: 2025-05-28_
 - [ ] Better documentation in `./Collection_SimpleFunctions`
   - [ ] Add README for folder
   - [ ] Write documentation for current functions
+
 - [ ] More simple function ideas
 
 ### Future Project Plans
 
 - [ ] Automate backup of key folders using Task Scheduler + FreeFileSYnc
+
 - [ ] Automate journal logging
   - [ ] Create a journal file daily
   - [ ] Automate git pull several times per day
   - [ ] Automate git push changes at the end of day
+
 - [ ] Build a tool to monitor disk health status with `smartctl`.
   - [ ] Log disk status with smartctl output
   - [ ] Save key data history and create visualization
   - [ ] Alert user of critical events and potential drive failure
+
 - [ ] Disk Space Analyzer on command line
 
 ## Feedback
@@ -242,7 +251,7 @@ If you find these scripts useful or have ideas for improvements, feel free to [o
 
 ## Author
 
-**Jialiang Chang** — undergraduate student, currently self-learning PowerShell scripting.  
+**Jialiang Chang** - undergraduate student, currently self-learning PowerShell scripting.  
 This repository serves as both a learning log and a collection of practical scripts for everyday automation tasks.
 Feel free to explore, adapt, and reuse anything that helps your workflow.
 
