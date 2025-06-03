@@ -8,6 +8,7 @@ function Get-FolderParentInfo {
         [bool]$isFolderValid
     )
 
+    # Initialize two attributes with null values for ecc purposes
     $parentFolder = $null
     $folderName = $null
 
@@ -18,8 +19,9 @@ function Get-FolderParentInfo {
             $folderName = Split-Path -Path $inputFolderPath -Leaf
         }
         else {
-            # * Since we have prompted this before, no need to warn again.
-            Write-Verbose "Folder with path '$inputFolderPath' will be skipped."
+            # We have moved warning to here.
+            # ? Where to put the warning is the best
+            Write-Warning "Folder path '$inputFolderPath' will be skipped."
         }
     }
     catch {

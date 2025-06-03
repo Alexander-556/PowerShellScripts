@@ -1,5 +1,5 @@
 # * Main
-function Move-ChildItemsUp {
+function Move-ChildItemUp {
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true)]
@@ -7,7 +7,7 @@ function Move-ChildItemsUp {
     )
 
     # Step 1: 
-    # Validate input array
+    # Validate input array only, not the path
     Confirm-FolderArray $folderPathsArray
 
     # Step 2:
