@@ -12,6 +12,7 @@ function Deploy-UserAction {
         [PSCustomObject]$folderObj
     )
 
+    # Execute the rename operation
     if ($userAction -eq "rename") {
         $targetFileObj = Start-Rename $targetFileObj
         return $targetFileObj

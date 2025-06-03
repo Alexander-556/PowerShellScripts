@@ -18,23 +18,28 @@ function Move-ChildItemUp {
 
     # After collecting all pipeline input, process the array
     end {
-        # Step 1: 
-        # Validate input array only, not the path
-        Confirm-FolderArray $folderPathsArray
+        try {
+            # Step 1: 
+            # Validate input array only, not the path
+            Confirm-FolderArray $folderPathsArray
 
-        # Step 2:
-        # Assemble the folder object array for ease of process
-        $folderObjArray = Get-FolderInfo $folderPathsArray
+            # Step 2:
+            # Assemble the folder object array for ease of process
+            $folderObjArray = Get-FolderInfo $folderPathsArray
 
-        # Step 3:
-        # Do the actual moving
-        # ? Confusing name but not sure how to avoid
-        Move-FolderContents $folderObjArray
+            # Step 3:
+            # Do the actual moving
+            # ? Confusing name but not sure how to avoid
+            Move-FolderContents $folderObjArray
 
-        # Step 4: Clean up empty folder only
-        # Remove-Item -Path $source -Recurse -Force
-        Remove-EmptyFolder $folderObjArray
+            # Step 4: Clean up empty folder only
+            # Remove-Item -Path $source -Recurse -Force
+            Remove-EmptyFolder $folderObjArray
     
-        Write-Host "Action successful."
+            Write-Host "Program complete."
+        }
+        catch {
+            Write-Error "Unexpected Error, action unsuccessful."
+        }
     }
 }

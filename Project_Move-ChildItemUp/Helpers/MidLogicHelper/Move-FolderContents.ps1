@@ -35,7 +35,7 @@ function Move-FolderContents {
                 -Path $targetFileObj.Destination `
                 -ChildPath $targetFileObj.Filename
 
-            # Handle file name conflicts
+            # Handle file name conflicts inside the parent folder
             if (Test-Path $targetFilePath) {
                 Write-Warning "Conflict detected: '$($targetFileObj.Filename)' already exists in $($targetFileObj.Destination)."
 
@@ -57,10 +57,13 @@ function Move-FolderContents {
             }
             
             # Define moving source and target paths
+            # Notice that this code already deals with renames because of the following
+            # explanations provided
             $sourceFilePath = $fileObj.FullName
             $destinationFilePath = Join-Path `
-                -Path $targetFileObj.Destination -ChildPath $targetFileObj.Filename
- 
+                -Path $targetFileObj.Destination `
+                -ChildPath $targetFileObj.Filename
+
             # ! Notice:
             # moving a file to a destination with a new filename renames the file
             Move-Item -Path $sourceFilePath -Destination $destinationFilePath

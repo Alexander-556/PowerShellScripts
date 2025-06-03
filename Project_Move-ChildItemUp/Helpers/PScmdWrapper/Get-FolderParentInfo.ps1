@@ -36,6 +36,10 @@ function Get-FolderParentInfo {
         Name   = $folderName
         Valid  = $isFolderValid
     }
+    # Also notice that in the above code block, there is an option to also include the 
+    # full path to this folder. However, I finally decided to not to add this attribute
+    # because you can always assemble your own full path at any time, this prevents
+    # unnecessary use of obj attributes.
 
     return $folderObj
 }
