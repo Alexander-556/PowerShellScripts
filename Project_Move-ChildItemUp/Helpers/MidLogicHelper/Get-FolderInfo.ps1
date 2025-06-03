@@ -30,18 +30,18 @@ function Get-FolderInfo {
             $isFolderValid = $false
         }
 
-        # Setup folder object
-        $folderObj = Get-FolderParentInfo $folderPath $isFolderValid
-
-        # Add folder object to the array for return
-        $folderObjArray += $folderObj
-        
         # Update the previous folder path for next step duplication
         # To be clear, when executing this program inside an actual folder or a valid
         # working directory, a duplicate should not happen thanks to Windows,
         # but there might be a chance of user error in input, so it makes sense
         # to implement this additional error checking mechanism.
         $previousFolderPath = $folderPath
+
+        # Setup folder object
+        $folderObj = Get-FolderParentInfo $folderPath $isFolderValid
+
+        # Add folder object to the array for return
+        $folderObjArray += $folderObj
     }
 
     return $folderObjArray
