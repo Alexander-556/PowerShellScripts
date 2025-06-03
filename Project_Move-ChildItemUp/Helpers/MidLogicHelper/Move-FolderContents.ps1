@@ -16,8 +16,10 @@ function Move-FolderContents {
             continue
         }
         
+        $folderFullPath = Join-Path -Path $folderObj.Parent -ChildPath $folderObj.Name
+
         # Create an array of fileObj
-        $fileObjArray = Get-ChildItem -Path $folderObj.Parent -Force
+        $fileObjArray = Get-ChildItem -Path $folderFullPath -Force
 
         # Start actually moving the files
         foreach ($fileObj in $fileObjArray) {
@@ -58,7 +60,7 @@ function Move-FolderContents {
             $sourceFilePath = $fileObj.FullName
             $destinationFilePath = Join-Path `
                 -Path $targetFileObj.Destination -ChildPath $targetFileObj.Filename
-            
+ 
             # ! Notice:
             # moving a file to a destination with a new filename renames the file
             Move-Item -Path $sourceFilePath -Destination $destinationFilePath

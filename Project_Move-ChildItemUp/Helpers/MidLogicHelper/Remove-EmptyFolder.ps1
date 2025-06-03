@@ -24,12 +24,12 @@ function Remove-EmptyFolder {
         if ($childItems.Count -eq 0) {
             # Use ShouldProcess for confirmation
             if ($PSCmdlet.ShouldProcess("$folderPath", "Remove empty folder")) {
-                Remove-Item -Path $folderObj.Parent -Force
-                Write-Host "Removed empty folder: $folderPath)"
+                Remove-Item -Path $folderPath -Force
+                Write-Host "Removed empty folder: $folderPath"
             }
         }
         else {
-            Write-Host "Skipped non-empty folder: $folderPath)"
+            Write-Host "Skipped non-empty folder: $folderPath"
             continue
         }
     }
