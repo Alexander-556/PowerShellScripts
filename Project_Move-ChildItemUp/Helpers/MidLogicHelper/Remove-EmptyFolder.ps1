@@ -14,7 +14,7 @@ function Remove-EmptyFolder {
         $folderPath = Join-Path -Path $folderObj.Parent -ChildPath $folderObj.Name
 
         If (-not $folderObj.Valid) {
-            Write-Host "Skipped invalid folder: $folderPath)"
+            Write-Host "Skipped invalid folder: $folderPath"
             continue
         }
 

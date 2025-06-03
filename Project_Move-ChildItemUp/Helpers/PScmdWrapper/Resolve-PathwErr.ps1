@@ -13,6 +13,5 @@ function Resolve-PathwErr {
     catch {
         Write-Error "Resolve path '$inputFolderPath' failed!"
         return $null
-        throw
     }
 }

@@ -12,8 +12,9 @@ function Confirm-FolderArray {
         throw
     }
 
-    # Todo:
-    # [ ] Improve duplicate folders error handling
+    # Todo: Improve duplicate folders error handling
+    # Late in other functions implement a checking mechanism and store the names 
+    # of invalid folder in the folderObj
     Write-Verbose "Checking input folders for duplication..."
     if ($folderPathsArray.Count -ne ($folderPathsArray | Select-Object -Unique).Count) {
         # Current behavior, function stops when duplicate folders detected
