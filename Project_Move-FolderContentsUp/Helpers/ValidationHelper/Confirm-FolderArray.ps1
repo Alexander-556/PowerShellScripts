@@ -1,3 +1,4 @@
+# *  ValidationHelper
 function Confirm-FolderArray {
     [CmdletBinding()]
     param(
@@ -15,6 +16,7 @@ function Confirm-FolderArray {
     # [ ] Improve duplicate folders error handling
     Write-Verbose "Checking input folders for duplication..."
     if ($folderPathsArray.Count -ne ($folderPathsArray | Select-Object -Unique).Count) {
+        # Current behavior, function stops when duplicate folders detected
         Write-Error "Duplicate folders detected in the input."
         throw
     }

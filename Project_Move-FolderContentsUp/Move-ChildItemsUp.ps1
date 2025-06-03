@@ -1,3 +1,4 @@
+# * Main
 function Move-ChildItemsUp {
     [CmdletBinding()]
     param (
@@ -5,17 +6,22 @@ function Move-ChildItemsUp {
         [string[]]$folderPathsArray
     )
 
+    # Step 1: 
     # Validate input array
     Confirm-FolderArray $folderPathsArray
 
-    # Use assemble folder object array
+    # Step 2:
+    # Assemble the folder object array for ease of process
     $folderObjArray = Get-FolderInfo $folderPathsArray
 
+    # Step 3:
     # Do the actual moving
+    # ? Confusing name but not sure how to avoid
     Move-FolderContents $folderObjArray
 
-    # Step 3: Optional cleanup
+    # Step 4: Clean up empty folder only
     # Remove-Item -Path $source -Recurse -Force
+    Remove-EmptyFolder $folderObjArray
     
-    Write-Host "Successfully flattened $source into $parent"
+    Write-Host "Action successful."
 }

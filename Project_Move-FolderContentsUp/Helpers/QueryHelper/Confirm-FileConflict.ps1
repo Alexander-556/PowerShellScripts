@@ -8,8 +8,8 @@ function Confirm-FileConflict {
     )
 
     $skipKeyWords = @('S', 's', '')
-    # $overwriteKeyWords = @('O', 'o')
     $renameKeyWords = @('R', 'r')
+    # $overwriteKeyWords = @('O', 'o')
 
     Write-Warning "Action needed:"
     Write-Warning "To skip this file, type 'S' or 's' or 'Enter'."
@@ -21,11 +21,11 @@ function Confirm-FileConflict {
         $response = Read-Host "Enter your response"
         
         if ($skipKeyWords -contains $response) {                        
-            Write-Host "File '$($targetFileObj.Filename)' skipped."
+            Write-Host "File '$($targetFileObj.Filename)' will be skipped."
             return "skip"
         }
         elseif ($renameKeyWords -contains $response) {
-            Write-Host "Rename and move file '$($targetFileObj.Filename)' in '$($folderObj.Name)'..."
+            Write-Host "File '$($targetFileObj.Filename)' in '$($folderObj.Name)' will be renamed."
             return "rename"
         }
         else {

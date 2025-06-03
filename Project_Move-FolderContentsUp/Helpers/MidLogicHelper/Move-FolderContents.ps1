@@ -1,5 +1,6 @@
+# * MidLogicHelper
 function Move-FolderContents {
-    [CmdletBinding()]
+    [CmdletBinding(SupportsShouldProcess = $true)]
     param (
         [Parameter(Mandatory = $true, Position = 0)]
         [PScustomObject[]]$folderObjArray
@@ -46,8 +47,11 @@ function Move-FolderContents {
 
             # * Finally moved the file
             $sourceFilePath = $fileObj.FullName
-            Move-Item -Path $sourceFilePath -Destination $targetFileObj.Destination
-            Write-Verbose "Moved file '$sourceFilePath' to folder '$($targetFileObj.Destination)'."
+            $destinationFilePath = Join-Path `
+                -Path $targetFileObj.Destination -ChildPath $targetFileObj.Filename
+            
+            Move-Item -Path $sourceFilePath -Destination $destinationFilePath
+            Write-Verbose "Moved file '$sourceFilePath' to new path '$destinationFilePath'."
         }
     }
 }

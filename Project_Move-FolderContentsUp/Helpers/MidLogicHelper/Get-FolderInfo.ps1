@@ -1,3 +1,4 @@
+# * MidLogicHelper
 function Get-FolderInfo {
     [CmdletBinding()]
     param (
@@ -19,7 +20,7 @@ function Get-FolderInfo {
 
         # Setup folder object
         $folderObj = Get-FolderParentInfo $folderPath $isFolderValid
-        
+        # Add folder object to the array for return
         $folderObjArray += $folderObj
     }
 
