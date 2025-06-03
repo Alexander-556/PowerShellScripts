@@ -18,12 +18,13 @@ function Get-FolderInfo {
     foreach ($folderPath in $folderPathsArray) {
         # Resolve with ecc
         $folderPath = Resolve-PathwErr $folderPath
-        # Validate folder path
-        $isFolderValid = Confirm-FolderPath $folderPath
 
         # Check duplicates and skip the second one
         # For the first folder in the array, this code should never execute
-        if ($previousFolderPath -eq $folderPath) {
+        if ($null -eq $folderPath) {
+            Write-Verbose "Invalid folder due to failed path resolution."  
+        }
+        elseif ($previousFolderPath -eq $folderPath) {
             # If the previous folder path is the same as the current folder path
             Write-Warning "The folder '$folderPath' is the same as the previous folder."
             # add an additional false to the valid folder bool variable.
@@ -36,12 +37,31 @@ function Get-FolderInfo {
         # but there might be a chance of user error in input, so it makes sense
         # to implement this additional error checking mechanism.
         $previousFolderPath = $folderPath
+        
+        # Moved null detection logic here to make powershell happy
+        # If null is detected in input, this only means resolution failed
+        if ([string]::IsNullOrEmpty($folderPath)) {
+            Write-Verbose "Invalid folder due to failed path resolution."
+            $isFolderValid = $false
+        }
+        else {
+            # Validate folder path
+            $isFolderValid = Confirm-FolderPath $folderPath
 
-        # Setup folder object
-        $folderObj = Get-FolderParentInfo $folderPath $isFolderValid
+            # It only make sense to execute the following when input is not null
 
-        # Add folder object to the array for return
-        $folderObjArray += $folderObj
+            # Setup folder object
+            $folderObj = Get-FolderParentInfo $folderPath $isFolderValid
+
+            # Add folder object to the array for return
+            $folderObjArray += $folderObj
+        }              
+    }
+
+    # Checking output folder array for null to make powershell happy
+    if (-not $folderObjArray -or $folderObjArray.Count -eq 0) {
+        Write-Error "No valid folder can be processed."
+        throw
     }
 
     return $folderObjArray

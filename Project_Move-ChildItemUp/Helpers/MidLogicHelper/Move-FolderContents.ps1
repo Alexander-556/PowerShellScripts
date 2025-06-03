@@ -7,17 +7,17 @@ function Move-FolderContents {
     )
 
     # Start moving files in a folder
-    Write-Host "`nFile moving starts..."
+    Write-Host "File moving starts..." -ForegroundColor Cyan
     foreach ($folderObj in $folderObjArray) {
 
         # If the folder was marked invalid, skip this folder
         if (-not $folderObj.Valid) {
-            Write-Warning "Skipped a folder."
+            Write-Verbose "Skipped moving file in an invalid entry."
             continue
         }
         
         $folderFullPath = Join-Path -Path $folderObj.Parent -ChildPath $folderObj.Name
-
+        
         # Create an array of fileObj
         $fileObjArray = Get-ChildItem -Path $folderFullPath -Force
 
@@ -37,7 +37,7 @@ function Move-FolderContents {
 
             # Handle file name conflicts inside the parent folder
             if (Test-Path $targetFilePath) {
-                Write-Warning "Conflict detected: '$($targetFileObj.Filename)' already exists in $($targetFileObj.Destination)."
+                Write-Warning "Conflict detected: '$($targetFileObj.Filename)' already exists in `n$($targetFileObj.Destination)."
 
                 # Prompt user for response: skip, rename, (overwrite)...
                 $userAction = Confirm-FileConflict $targetFileObj $folderObj
@@ -66,6 +66,7 @@ function Move-FolderContents {
 
             # ! Notice:
             # moving a file to a destination with a new filename renames the file
+            # try to do error catching
             Move-Item -Path $sourceFilePath -Destination $destinationFilePath
             Write-Verbose "Moved file '$sourceFilePath' to new path '$destinationFilePath'."
         }

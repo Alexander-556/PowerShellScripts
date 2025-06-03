@@ -19,6 +19,8 @@ function Move-ChildItemUp {
     # After collecting all pipeline input, process the array
     end {
         try {
+            Write-Host "Program starts..." -ForegroundColor Cyan
+
             # Step 1: 
             # Validate input array only, not the path
             Confirm-FolderArray $folderPathsArray
@@ -36,10 +38,13 @@ function Move-ChildItemUp {
             # Remove-Item -Path $source -Recurse -Force
             Remove-EmptyFolder $folderObjArray
     
-            Write-Host "Program complete."
+            Write-Host "Program complete." -ForegroundColor Green
         }
         catch {
-            Write-Error "Unexpected Error, action unsuccessful."
+            # Improved error handling
+            Write-Error "Unexpected Error"
+            Write-Error "$($_.Exception.Message)"
+            Write-Error "Action unsuccessful. Please check the input and try again."
         }
     }
 }

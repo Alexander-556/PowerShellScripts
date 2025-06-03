@@ -21,7 +21,7 @@ function Get-FolderParentInfo {
         else {
             # We have moved warning to here.
             # ? Where to put the warning is the best
-            Write-Warning "Folder path '$inputFolderPath' will be skipped."
+            Write-Warning "Path '$inputFolderPath' will be skipped."
         }
     }
     catch {

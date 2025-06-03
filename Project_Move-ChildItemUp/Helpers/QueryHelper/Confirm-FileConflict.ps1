@@ -11,7 +11,6 @@ function Confirm-FileConflict {
     $renameKeyWords = @('R', 'r')
     # $overwriteKeyWords = @('O', 'o')
 
-    Write-Warning "Action needed:"
     Write-Warning "To skip this file, type 'S' or 's' or 'Enter'."
     Write-Warning "To rename this file, type 'R' or 'r'."
 
@@ -31,7 +30,7 @@ function Confirm-FileConflict {
         else {
             Write-Warning "Invalid response. Please follow the instructions:"
             Write-Warning "To skip this file, type 'S' or 's' or 'Enter'."
-            Write-Warning "To rename this file, type 'R' or 'r'."
+            Write-Warning "To rename this file, type 'R' or 'r'.`n"
         }
     }
 }

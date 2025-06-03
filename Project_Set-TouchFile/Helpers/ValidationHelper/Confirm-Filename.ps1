@@ -8,6 +8,14 @@ function Confirm-Filename {
         [string]$fileFolder
     )
 
+    # Ensure the new filename doesn't crash with existing file
+    Write-Verbose "Checking filename '$filename' for duplicates..."
+    $fullPath = Join-Path -Path $fileFolder -ChildPath $filename
+    if (Test-Path -Path $targetFilePath) {
+        Write-Warning "Your provided filename '$filename' already exists in '$filefolder'."
+        return $false
+    }
+
     # Ensure each filename is not null or empty
     Write-Verbose "Checking filename '$filename' for empty or white space..."
     if ([string]::IsNullOrWhiteSpace($filename)) {
@@ -36,7 +44,6 @@ function Confirm-Filename {
         return $false
     }
 
-    $fullPath = Join-Path $fileFolder $filename
     Write-Verbose "Checking length of path to the file: '$fullPath'..."
     if ($fullPath.Length -gt 260) {
         Write-Error "The path '$fullPath' exceeds the maximum allowed length."

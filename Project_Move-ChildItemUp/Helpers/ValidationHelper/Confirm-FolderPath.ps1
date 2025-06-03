@@ -9,12 +9,6 @@ function Confirm-FolderPath {
     # Initialize bool variable for ecc
     $isFolderValid = $true
 
-    # If null is detected in input, this only means resolution failed
-    if ($null -eq $inputFolderPath) {
-        Write-Warning "Path resolution failed!"
-        $isFolderValid = $false
-    }
-
     # Test the actual path
     if (-not (Test-Path -Path $inputFolderPath)) {
         Write-Warning "Folder '$inputFolderPath' does not exist!"

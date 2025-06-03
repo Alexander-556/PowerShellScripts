@@ -6,12 +6,12 @@ function Resolve-PathwErr {
         [string]$inputFolderPath
     )
 
-    try {
-        $inputFolderPath = Resolve-Path -Path $inputFolderPath
-        return $inputFolderPath
+    
+    $inputFolderPathResolved = Resolve-Path -Path $inputFolderPath -ErrorAction SilentlyContinue
+    if ($null -eq $inputFolderPathResolved) {
+        Write-Warning "Resolve path '$inputFolderPath' failed."
+        Write-Warning "The folder will be skipped."
     }
-    catch {
-        Write-Error "Resolve path '$inputFolderPath' failed!"
-        return $null
-    }
+    return $inputFolderPathResolved
+    
 }
