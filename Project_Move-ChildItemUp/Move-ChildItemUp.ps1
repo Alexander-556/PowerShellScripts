@@ -1,5 +1,41 @@
 # * Main
 function Move-ChildItemUp {
+    <#
+    .SYNOPSIS
+    Moves the contents of specified folders up one level and cleans up empty folders.
+
+    .DESCRIPTION
+    The `Move-ChildItemUp` function takes one or more folder paths as input, validates 
+    them, and moves the contents of each folder up one level. After moving the contents, 
+    it removes any empty folders left behind. This function also accepts pipeline input.
+
+    .PARAMETER folderPath
+    Specifies the path(s) of the folder(s) whose contents need to be moved up one level. 
+    This parameter accepts pipeline input.
+
+    .INPUTS
+    [string]
+    Accepts folder paths as pipeline input. Absolute and relative paths both acceptable.
+
+    .OUTPUTS
+    None. Outputs status messages to the console.
+
+    .EXAMPLE
+    Move-ChildItemUp "C:\Test"
+    Moves the contents of `C:\Test` up one level to "C:\" and removes the empty folder.
+
+    .EXAMPLE
+    "C:\Folder1", "C:\Folder2" | Move-ChildItemUp
+    Moves the contents of `C:\Folder1` and `C:\Folder2` up one level and removes the empty folders.
+
+    .EXAMPLE
+    Get-ChildItem ./ -Directory | Move-ChildItemUp
+    A very typical and useful case. Moves the contents of all folders in the current 
+    working directory up one level. 
+
+    .NOTES
+
+    #>
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]

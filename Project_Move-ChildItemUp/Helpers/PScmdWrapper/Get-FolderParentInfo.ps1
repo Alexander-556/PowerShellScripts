@@ -1,4 +1,42 @@
+# * PScmdWrapper
 function Get-FolderParentInfo {
+    <#
+    .SYNOPSIS
+    Splits a folder path into its parent folder and folder name, and returns a folder object.
+
+    .DESCRIPTION
+    The `Get-FolderParentInfo` function takes a folder path and a validity flag as input. 
+    If the folder is valid, it splits the path into its parent folder and folder name. 
+    It then creates and returns a custom PowerShell object containing the parent folder, 
+    folder name, and validity status. If the folder is invalid, it logs a warning and 
+    skips processing.
+
+    .PARAMETER inputFolderPath
+    The folder path to process. This can be an absolute or relative path.
+
+    .PARAMETER isFolderValid
+    A boolean flag indicating whether the folder path is valid. If `$false`, the function 
+    skips processing and logs a warning.
+
+    .INPUTS
+    [string[]]
+    Accepts a folder path as input.
+
+    [bool]
+    Accepts a validity flag as input.
+
+    .OUTPUTS
+    [PSCustomObject]
+    Returns a custom object `folderObj` with the following properties:
+    - `Parent`: The parent folder of the input folder path.
+    - `Name`: The name of the folder.
+    - `Valid`: A boolean indicating whether the folder is valid.
+
+    .NOTES
+    This is a helper function that should only be called in another function. 
+    This function should not be called by the user directly.
+
+    #>
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true, Position = 0)]

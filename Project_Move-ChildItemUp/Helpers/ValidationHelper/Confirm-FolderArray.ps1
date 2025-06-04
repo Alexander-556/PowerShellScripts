@@ -1,5 +1,30 @@
 # *  ValidationHelper
 function Confirm-FolderArray {
+    <#
+    .SYNOPSIS
+    Validates an array of folder paths to ensure they are suitable for processing.
+
+    .DESCRIPTION
+    The `Confirm-FolderArray` function checks an array of folder paths for null values and
+    duplicates. This function performs a very simple check on the input file array. 
+    Duplicate check work by compare length of array and the number of unique strings.
+    More detailed checks for duplicate is in another function.
+
+    .PARAMETER folderPathsArray
+    An array of folder paths to validate. The function checks for null values and duplicates.
+
+    .INPUTS
+    [string[]]
+    Accepts an array of folder paths as input.
+
+    .OUTPUTS
+    None. Outputs validation messages to the console.
+
+    .NOTES
+    This is a helper function that should only be called in another function. 
+    This function should not be called by the user directly.
+
+    #>
     [CmdletBinding()]
     param(
         [Parameter(Mandatory = $true, Position = 0)]

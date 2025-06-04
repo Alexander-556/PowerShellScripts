@@ -16,6 +16,7 @@ catch {
 
 # Dot source main function
 $expectedFunctions += 'Move-ChildItemUp'
+# Force means if already dot sourced, will remove and source again
 . "$PSScriptRoot\..\Move-ChildItemUp.ps1" -Force
 $loadedFunctions += 'Move-ChildItemUp'
 
@@ -43,7 +44,7 @@ foreach ($func in $expectedFunctions) {
         # Error logging
         Write-Error "[MoveChildItemUpTools.psm1] Function '$func' failed to load."
 
-        # Abort module loading if a critical function is missing
+        # Abort module loading if a function is missing
         throw "Aborting module load due to missing function: $func"
     }
 }

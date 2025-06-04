@@ -1,5 +1,36 @@
 # * MidLogicHelper
 function Get-FolderInfo {
+    <#
+    .SYNOPSIS
+    Resolves folder paths, validates them, and returns an array of folder objects.
+
+    .DESCRIPTION
+    The `Get-FolderInfo` function processes an array of folder paths, resolves each path, 
+    validates it, and creates folder objects containing relevant information. It performs 
+    duplicate checks, null checks, and ensures that only valid folder paths are included 
+    in the output.
+
+    .PARAMETER folderPathsArray
+    An array of folder paths to process. The function resolves each path, validates it, 
+    and creates folder objects.
+
+    .INPUTS
+    [string[]]
+    Accepts an array of folder paths as input.
+
+    .OUTPUTS
+    [PSCustomObject[]]
+    Returns an array of custom folder objects containing resolved paths and validation status.
+    The object `folderObj` contains the following properties
+    - `Parent`: The parent folder of the input folder path.
+    - `Name`: The name of the folder.
+    - `Valid`: A boolean indicating whether the folder is valid.
+
+    .NOTES
+    This is a helper function that should only be called in another function. 
+    This function should not be called by the user directly.
+
+    #>
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true, Position = 0)]

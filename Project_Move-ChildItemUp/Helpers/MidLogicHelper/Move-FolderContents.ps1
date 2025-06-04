@@ -1,5 +1,31 @@
 # * MidLogicHelper
 function Move-FolderContents {
+    <#
+    .SYNOPSIS
+    Moves the contents of specified folders to their parent folders and handles conflicts.
+
+    .DESCRIPTION
+    The `Move-FolderContents` function processes an array of folder objects, 
+    validates their contents,     and moves files from each folder to its parent folder. 
+    It handles file name conflicts by prompting the user for actions such as skipping and
+    renaming. In the future more features will be added. Invalid folders are skipped.
+
+    .PARAMETER folderObjArray
+    An array of folder objects containing folder metadata, including parent folder, folder name, 
+    and validity status.
+
+    .INPUTS
+    [PSCustomObject[]]
+    Accepts an array of folder objects as input.
+
+    .OUTPUTS
+    None. Outputs status messages to the console.
+    
+    .NOTES
+    This is a helper function that should only be called in another function. 
+    This function should not be called by the user directly.
+    
+    #>
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true, Position = 0)]
