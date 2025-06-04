@@ -1,4 +1,31 @@
+# * ValidationHelper
 function Confirm-DesiredFolder {
+    <#
+    .SYNOPSIS
+    Validates a folder path to ensure it is suitable for file operations.
+
+    .DESCRIPTION
+    The `Confirm-DesiredFolder` function performs a series of checks on a specified folder
+    path to ensure it is valid and suitable for file operations. It checks for empty or 
+    whitespace paths, folder existence, protected system folders, network paths, 
+    symbolic links, disk space, and write permissions. If any validation fails, 
+    the function throws an error, and the program will stop.
+
+    .PARAMETER desiredLocation
+    The folder path to validate. This can be an absolute or relative path.
+
+    .INPUTS
+    [string]
+    Accepts a single folder path as input.
+
+    .OUTPUTS
+    None. Outputs validation messages to the console.
+
+    .NOTES
+    This is a helper function that should only be called in another function. 
+    This function should not be called by the user directly.
+
+    #>
     [CmdletBinding()]
     param(
         [Parameter(Mandatory = $true)]

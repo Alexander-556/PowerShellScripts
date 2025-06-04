@@ -1,4 +1,37 @@
+# * ValidationHelper
 function Confirm-Filename {
+    <#
+    .SYNOPSIS
+    Validates a filename to ensure it is suitable for file operations.
+
+    .DESCRIPTION
+    The `Confirm-Filename` function performs a series of checks on a specified filename 
+    to ensure it is valid and suitable for file operations. It checks for duplicates, 
+    empty or whitespace names, prohibited characters, reserved Windows names, leading or 
+    trailing dots, and path length limits. If any validation fails, the function returns 
+    `$false`. Otherwise, it returns `$true`.
+
+    .PARAMETER filename
+    The name of the file to validate. Leading and trailing whitespace will be removed.
+
+    .PARAMETER fileFolder
+    The folder path where the file resides or will be created. Used to check for duplicate filenames.
+
+    .INPUTS
+    [string]
+    Accepts the filename and folder path as input.
+
+    .OUTPUTS
+    [bool]
+    Returns `$true` if the filename is valid; otherwise, returns `$false`.
+    
+    .NOTES
+    This is a helper function that should only be called in another function. 
+    This function should not be called by the user directly.
+
+    This function can be recycled for other purposes very easily.
+
+    #>
     [CmdletBinding()]
     param(
         [Parameter(Mandatory = $true)]

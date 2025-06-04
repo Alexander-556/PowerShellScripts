@@ -1,8 +1,4 @@
-<# 
-# Todo list:
-- [ ] Complete the documentation
-- [ ] Complete test scripts
-#>
+# * Main
 function Set-TouchFile {
     <#
     .SYNOPSIS

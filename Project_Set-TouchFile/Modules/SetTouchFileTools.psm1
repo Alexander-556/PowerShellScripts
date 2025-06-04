@@ -16,6 +16,7 @@ catch {
 
 # Dot source main function
 $expectedFunctions += 'Set-TouchFile'
+# Force means that if main is already sourced, it will be removed and sourced again
 . "$PSScriptRoot\..\Set-TouchFile.ps1" -Force
 $loadedFunctions += 'Set-TouchFile'
 
