@@ -34,6 +34,7 @@ function Move-ChildItemUp {
     working directory up one level. 
 
     .NOTES
+    This is the main function. User should call this function. An alias is recommended.
 
     #>
     [CmdletBinding()]
