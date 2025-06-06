@@ -25,6 +25,7 @@ This repository is a collection of PowerShell scripts I've created to explore Wi
 - [PowerShell Scripting Projects](#powershell-scripting-projects)
   - [Repository Structure Overview](#repository-structure-overview)
   - [Understanding the Command Line](#understanding-the-command-line)
+  - [Understanding the Shell and Scripting Language](#understanding-the-shell-and-scripting-language)
   - [Tools Overview](#tools-overview)
     - [Coding Environment](#coding-environment)
       - [PowerShell 7.5](#powershell-75)
@@ -52,6 +53,7 @@ PowerShellScripts/
 ├── Collection_Simple-Functions/         # Small PowerShell utilities and fun scripts
 ├── Docs/                                # Setup tutorials and script documentation
 ├── Images/                              # Image assets
+├── Project_Move-ChildItemUp/            # Moves everything in a folder/folders to the parent folder
 ├── Project_Set-TouchFile/               # Implement unix touch in powershell with enhancements
 ├── Project_Start-FastCopy/              # FastCopy automation wrapper for throttled copy tasks
 ├── .gitignore                           # Git ignore file
@@ -61,9 +63,13 @@ PowerShellScripts/
 
 ## Understanding the Command Line
 
-If you're new to scripting or command-line tools, don't worry - you're not alone. Many people feel intimidated at first, staring into the deep abyss of black windows with blinking cursors. But once you understand the three core building blocks - **the Operating System, the Shell, and the Terminal** - you’ll see that it’s not as mysterious or deep as it seems. With just a bit of guidance, you'll be ready to explore scripting step by step.
+If you're new to scripting or command-line tools, don't worry -- you're not alone. Many people feel intimidated at first, staring into the deep abyss of black windows with blinking cursors. But once you understand the three core building blocks -- **the Operating System, the Shell, and the Terminal** -- you’ll see that it’s not as mysterious or deep as it seems. With just a bit of guidance, you'll be ready to explore scripting step by step.
 
 👉 [Understanding the Command Line - Core Elements](./Docs/Intro/CoreElements_Intro.md)
+
+## Understanding the Shell and Scripting Language
+
+After reading about the core constituting elements of a command line interface
 
 ## Tools Overview
 
