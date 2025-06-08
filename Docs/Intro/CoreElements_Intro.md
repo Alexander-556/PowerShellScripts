@@ -55,7 +55,7 @@ Common shells include:
 
 ## What is a Terminal?
 
-Now that we’ve talked about the Shell and the OS, what exactly is the Terminal?
+Now that we have talked about the Shell and the OS, what exactly is the Terminal?
 
 The Terminal is the application that hosts the shell - it’s the window where the conversation between you and your computer happens. You type commands into the terminal, the shell interprets them, and the OS gets the job done.
 

@@ -65,11 +65,13 @@ PowerShellScripts/
 
 If you're new to scripting or command-line tools, don't worry -- you're not alone. Many people feel intimidated at first, staring into the deep abyss of black windows with blinking cursors. But once you understand the three core building blocks -- **the Operating System, the Shell, and the Terminal** -- you’ll see that it’s not as mysterious or deep as it seems. With just a bit of guidance, you'll be ready to explore scripting step by step.
 
-👉 [Understanding the Command Line - Core Elements](./Docs/Intro/CoreElements_Intro.md)
+👉 [Understanding the Command Line -- Core Elements](./Docs/Intro/CoreElements_Intro.md)
 
 ## Understanding the Shell and Scripting Language
 
-After reading about the core constituting elements of a command line interface
+After reading about the core elements of a command line interface, you might find yourself puzzled by a common description of PowerShell, that it’s “both a shell and a scripting language.” This claim might sound a bit confusing at first, but it actually reflects two distinct roles that PowerShell plays. And here’s where things get interesting: not every shell is a scripting language, and not every scripting language is a shell. The magic of PowerShell is that it combines the two into one powerful tool. In the following article, I will help you break down what each of these terms really means, and how they come together in PowerShell.
+
+👉 [Understanding the Shell and Scripting Language](./Docs/Intro/ShellScript_Intro.md)
 
 ## Tools Overview
 
