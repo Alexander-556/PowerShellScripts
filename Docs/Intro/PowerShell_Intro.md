@@ -24,6 +24,7 @@ This document is my attempt at providing a comprehensive introduction to PowerSh
       - [Error Handling](#error-handling)
   - [Cmdlets to try](#cmdlets-to-try)
     - [Basic Cmdlets](#basic-cmdlets)
+  - [Feedbacks](#feedbacks)
 
 ## What is PowerShell?
 
@@ -177,3 +178,9 @@ Set-Location C:\Users
 ```
 
 Navigates to a different folder (like cd in CMD or Bash).
+
+---
+
+## Feedbacks
+
+If you found something confusing, unclear, or even just a bit off, feel free to [open an issue](https://github.com/Alexander-556/PowerShellScripts/issues/new). Whether it's a small question or a big suggestion, your feedback helps me improve these articles for everyone. And I’m still learning too, and I really appreciate every opportunity to make things better.

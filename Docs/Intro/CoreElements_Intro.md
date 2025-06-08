@@ -8,6 +8,7 @@ If you have ever felt confused by words like "shell", "terminal", or even "opera
   - [What is an Operating System (OS)?](#what-is-an-operating-system-os)
   - [What is a Shell?](#what-is-a-shell)
   - [What is a Terminal?](#what-is-a-terminal)
+  - [Feedbacks](#feedbacks)
 
 ## What is an Operating System (OS)?
 
@@ -87,3 +88,9 @@ Now that you have learned the basics about the operating system, shell, and term
 You are ready to move on and start using the tools in this project. Don’t worry if you are still new - each tool comes with step-by-step setup guides to help you get started. You can use the following link to head back to the README.
 
 👉 [Tools Overview section](../../README.md#tools-overview)
+
+---
+
+## Feedbacks
+
+If you found something confusing, unclear, or even just a bit off, feel free to [open an issue](https://github.com/Alexander-556/PowerShellScripts/issues/new). Whether it's a small question or a big suggestion, your feedback helps me improve these articles for everyone. And I’m still learning too, and I really appreciate every opportunity to make things better.

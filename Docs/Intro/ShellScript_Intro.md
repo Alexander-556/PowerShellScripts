@@ -12,7 +12,8 @@ Understanding how shells and scripting languages work is essential for anyone wo
     - [...Are Shells but NOT Scripting Languages](#are-shells-but-not-scripting-languages)
     - [...Are Scripting Languages but NOT shells](#are-scripting-languages-but-not-shells)
   - [How PowerShell Blurs the Line (Just Like Bash)](#how-powershell-blurs-the-line-just-like-bash)
-  - [Final Thoughts](#final-thoughts)
+  - [Final Words](#final-words)
+  - [Feedbacks](#feedbacks)
 
 ## What Is a Shell?
 
@@ -79,26 +80,38 @@ Side note: “REPL” stands for Read-Eval-Print Loop. In the Python context, it
 
 So, next time you see “Python Interpreter,” “Python REPL,” or “Python Shell,” you can think of all of them as interactive environments for evaluating Python code, but not system-level shells.
 
-In short: Scripting languages are great for writing logic, and usually they rely on interpreters to communicate with operating system. Even an interactive interpreter also doesn't “speak” to your OS in the way an actual system shell does.
+In short: Scripting languages are great for writing logic, and usually they rely on interpreters to communicate with operating system. Even an interactive interpreter doesn't “speak” to your OS in the way an actual system shell does.
 
 ## How PowerShell Blurs the Line (Just Like Bash)
 
-At this point, you might be wondering: if shells and scripting languages are different, then where does something like PowerShell fits? It turns out that, similar to bash on Unix-like systems, PowerShell isn’t just one or the other. It’s both at the same time.
+At this point, you might be wondering: if shells and scripting languages are different, then where does something like PowerShell fit? It turns out that, similar to bash on Unix-like systems, PowerShell isn’t just one or the other. It’s both at the same time.
 
 When you launch powershell in Windows, a terminal window will pop up, and you're inside a shell environment. You can interactively type in commands, navigate the file system, launch programs, or inspect processes. It behaves just like a traditional shell in that sense, letting you interact with the operating system one command at a time.
 
 But if you want to take a step further, you can also write entire scripts using variables, loops, conditionals, functions, error handling, and even custom modules, all in PowerShell syntax. Just as I previously described, those scripts can automate complicated tasks, work with system APIs, parse structured data formats like JSON and XML, and more. Now, it’s not just a quick command runner, but a serious automation tool.
 
-This dual nature is what makes PowerShell, or any other shell/scripting language so powerful. You can write a one-liner to check disk space, or you can build a 200-line script to manage system backups across multiple machines. Same tool. Same language. Same environment.
+This dual nature is what makes PowerShell, or any other similar unified tool so powerful. You can write a one-liner to check disk space, or you can build a 200-line script to manage system backups across multiple machines. Same tool. Same language. Same environment.
 
 This is very similar to how Bash works on Unix-like systems. You can use it to run commands interactively, or you can drop into script mode and automate almost anything in a Linux environment. Both PowerShell and Bash live in that gray area between shell and scripting language.
 
 In short, tools like PowerShell and Bash blur the traditional boundaries. They're not either-or. They're both. And once you get comfortable with that idea, you'll start to appreciate just how much you can do with a single unified tool.
 
-## Final Thoughts
+## Final Words
+
+At first, the idea that something can be a shell and a scripting language might seem confusing. But once you understand the purpose of the design, it actually makes a lot of sense, especially when you start actually using those tools like PowerShell or Bash.
+
+Understanding the difference between the two concepts isn't just academic. It helps you choose the right tool for the task. Whether you're typing a quick command to get today's date, or you're building a full automation script to back up your data, knowing when you are "talking" to the OS versus "scripting" for it can make your workflow much smoother.
+
+If you are just starting out, don’t worry. You are not expected to master every command and concept in PowerShell. Start with the basics and explore interactively. You will gradually discover what commands matters the most to you, and then you can slowly move into scripting to see a live demo on how scripting makes your life easier. With time, you will find your rhythm and develop a style that works for you.
 
 ---
 
-Link back to:
+You can use the following link to go back to the main README and continue with the Tools Overview Section.
 
 👉 [Tools Overview section](../../README.md#tools-overview)
+
+---
+
+## Feedbacks
+
+If you found something confusing, unclear, or even just a bit off, feel free to [open an issue](https://github.com/Alexander-556/PowerShellScripts/issues/new). Whether it's a small question or a big suggestion, your feedback helps me improve these articles for everyone. And I’m still learning too, and I really appreciate every opportunity to make things better.
