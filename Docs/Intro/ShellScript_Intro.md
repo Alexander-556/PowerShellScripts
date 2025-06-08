@@ -90,7 +90,7 @@ When you launch powershell in Windows, a terminal window will pop up, and you're
 
 But if you want to take a step further, you can also write entire scripts using variables, loops, conditionals, functions, error handling, and even custom modules, all in PowerShell syntax. Just as I previously described, those scripts can automate complicated tasks, work with system APIs, parse structured data formats like JSON and XML, and more. Now, it’s not just a quick command runner, but a serious automation tool.
 
-This dual nature is what makes PowerShell, or any other similar unified tool so powerful. You can write a one-liner to check disk space, or you can build a 200-line script to manage system backups across multiple machines. Same tool. Same language. Same environment.
+This dual nature is what makes PowerShell, or any other similar unified tool so powerful. You can write a quick command to check disk status, or you can build a 200-line script to log your disk health. Same tool. Same language. Same environment.
 
 This is very similar to how Bash works on Unix-like systems. You can use it to run commands interactively, or you can drop into script mode and automate almost anything in a Linux environment. Both PowerShell and Bash live in that gray area between shell and scripting language.
 
@@ -100,7 +100,7 @@ In short, tools like PowerShell and Bash blur the traditional boundaries. They'r
 
 At first, the idea that something can be a shell and a scripting language might seem confusing. But once you understand the purpose of the design, it actually makes a lot of sense, especially when you start actually using those tools like PowerShell or Bash.
 
-Understanding the difference between the two concepts isn't just academic. It helps you choose the right tool for the task. Whether you're typing a quick command to get today's date, or you're building a full automation script to back up your data, knowing when you are "talking" to the OS versus "scripting" for it can make your workflow much smoother.
+Understanding the difference between the two concepts isn't just academic. It helps you choose the right tool for the right task. Further, knowing when you are "talking" to the OS versus "scripting" for it can also make your workflow much smoother.
 
 If you are just starting out, don’t worry. You are not expected to master every command and concept in PowerShell. Start with the basics and explore interactively. You will gradually discover what commands matters the most to you, and then you can slowly move into scripting to see a live demo on how scripting makes your life easier. With time, you will find your rhythm and develop a style that works for you.
 
