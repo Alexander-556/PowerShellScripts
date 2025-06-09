@@ -23,7 +23,7 @@ Just to recap what we discussed in the [Understanding the Command Line](./CoreEl
 
 A scripting language is a type of programming language. It is typically used to automate tasks that you would otherwise perform manually in a shell or through a graphical user interface (GUI) with a keyboard and mouse.
 
-Unlike compiled languages like C or C++, scripting languages do not require a compiler to run. Instead, they rely on an interpreter, which reads and executes the code line by line from top to bottom.
+Unlike compiled languages like C or C++, scripting languages do not require a compiler to run. This is to say that in order to run the program, scripting languages do not need to be compiled into an executable first. Instead, they rely on an interpreter, which reads and executes the code line by line from top to bottom.
 
 Just like any other programming language, a scripting language gives you control over the logic flow of your script or program. This allows you to automate tasks with complex decision-making and control structures such as loops, conditionals, and functions.
 
@@ -45,7 +45,7 @@ TL;DR: A scripting language allows you to give your OS a set of instructions to 
 | **Input Style** | Typed manually, live            | Predefined and saved in a file               |
 | **Examples**    | `cmd.exe`, `bash`, `PowerShell` | `Python`, `PowerShell`, `bash`               |
 
-TL;DR: Using a shell is like talking live to the OS; scripting is like writing it a set of instructions to follow later.
+TL;DR: Using a shell is like talking live to the OS; scripting is like writing it a set of instructions for the OS to follow later.
 
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable-next-line -->
@@ -74,7 +74,7 @@ Also yes! Many scripting languages don’t come with a native shell environment 
 
 For example:
 
-- Python, a popular general-purpose scripting language, is incredibly versatile and widely used in automation, data analysis, machine learning, and more. While Python has an interactive prompt (called a [REPL](https://realpython.com/python-repl/)), it’s not a system shell in the traditional sense. It doesn't directly provide commands for managing files, processes, or the OS environment the way Bash or PowerShell does.
+- Python, a popular general-purpose scripting language, is incredibly versatile and widely used in automation, data analysis, machine learning, and more. While Python has an interactive prompt (called a [REPL](https://realpython.com/python-repl/)), it’s not a system shell in the traditional sense. It doesn't directly provide commands for managing files, processes, or the OS environment the way bash or PowerShell does.
 
 Side note: “REPL” stands for Read-Eval-Print Loop. In the Python context, it allows you to run code interactively, which is super helpful when learning. In casual usage, people may refer to the Python REPL as the "Python shell," and that’s okay. But technically speaking, this kind of "shell" doesn't interact with the operating system in the same way a true system shell (e.g., PowerShell, bash, CMD) does.
 
@@ -86,19 +86,19 @@ In short: Scripting languages are great for writing logic, and usually they rely
 
 At this point, you might be wondering: if shells and scripting languages are different, then where does something like PowerShell fit? It turns out that, similar to bash on Unix-like systems, PowerShell isn’t just one or the other. It’s both at the same time.
 
-When you launch powershell in Windows, a terminal window will pop up, and you're inside a shell environment. You can interactively type in commands, navigate the file system, launch programs, or inspect processes. It behaves just like a traditional shell in that sense, letting you interact with the operating system one command at a time.
+When you launch PowerShell in Windows, a terminal window will pop up, and you're inside a shell environment. You can interactively type in commands, navigate the file system, launch programs, or inspect processes. It behaves just like a traditional shell in that sense, letting you interact with the operating system one command at a time.
 
 But if you want to take a step further, you can also write entire scripts using variables, loops, conditionals, functions, error handling, and even custom modules, all in PowerShell syntax. Just as I previously described, those scripts can automate complicated tasks, work with system APIs, parse structured data formats like JSON and XML, and more. Now, it’s not just a quick command runner, but a serious automation tool.
 
 This dual nature is what makes PowerShell, or any other similar unified tool so powerful. You can write a quick command to check disk status, or you can build a 200-line script to log your disk health. Same tool. Same language. Same environment.
 
-This is very similar to how Bash works on Unix-like systems. You can use it to run commands interactively, or you can drop into script mode and automate almost anything in a Linux environment. Both PowerShell and Bash live in that gray area between shell and scripting language.
+This is very similar to how bash works on Unix-like systems. You can use it to run commands interactively, or you can go into script mode and automate almost anything in a Linux environment. Both PowerShell and Bash live in that gray area between shell and scripting language.
 
 In short, tools like PowerShell and Bash blur the traditional boundaries. They're not either-or. They're both. And once you get comfortable with that idea, you'll start to appreciate just how much you can do with a single unified tool.
 
 ## Final Words
 
-At first, the idea that something can be a shell and a scripting language might seem confusing. But once you understand the purpose of the design, it actually makes a lot of sense, especially when you start actually using those tools like PowerShell or Bash.
+At first, the idea that something can be a shell and a scripting language might seem confusing. But once you understand the purpose of the design, it actually makes a lot of sense, especially when you start actually using those tools like PowerShell or bash.
 
 Understanding the difference between the two concepts isn't just academic. It helps you choose the right tool for the right task. Further, knowing when you are "talking" to the OS versus "scripting" for it can also make your workflow much smoother.
 
@@ -106,9 +106,9 @@ If you are just starting out, don’t worry. You are not expected to master ever
 
 ---
 
-You can use the following link to go back to the main README and continue with the Tools Overview Section.
+You can use the following link to go back to the main README.
 
-👉 [Tools Overview section](../../README.md#tools-overview)
+👉 [Continue from where you left](../../README.md#understanding-the-shell-and-scripting-language)
 
 ---
 

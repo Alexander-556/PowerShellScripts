@@ -70,7 +70,7 @@ In simple terms:
 
 By default, Windows is shipped with conhost.exe, short for Console Host. This application is the default terminal application built into Windows that hosts command-line shells like Command Prompt and PowerShell, providing a basic interface for executing commands. First appeared in Windows 7, this terminal is super old, and in [this article](https://learn.microsoft.com/en-us/windows/console/definitions), Microsoft says that even though "conhost.exe will continue to be responsible for API call servicing and translation," "the user-interface components are intended to be delegated through a pseudoconsole to a terminal."
 
-Anyway, my point is that if you want to do some proper scripting and interaction with the terminal, conhost.exe is not recommended. There are a lot more other options that are far better than conhost.exe, here is a incomplete list just for example:
+Anyway, my point is that if you want to do some proper scripting and interaction with the terminal, conhost.exe is not recommended. There are a lot more other options that are far better than conhost.exe, here is an incomplete list just for example:
 
 - [Hyper](https://hyper.is)
 - [ConEmu](https://conemu.github.io)
@@ -85,9 +85,9 @@ In this project, I am using Windows Terminal, and I recommend you to use it too,
 
 Now that you have learned the basics about the operating system, shell, and terminal. For more advanced information on related concepts, you can also visit Scott Hanselman's article: [What's the difference between a console, a terminal, and a shell?](https://www.hanselman.com/blog/whats-the-difference-between-a-console-a-terminal-and-a-shell)
 
-You are ready to move on and start using the tools in this project. Don’t worry if you are still new - each tool comes with step-by-step setup guides to help you get started. You can use the following link to head back to the README.
+You are ready to move on and start using the tools in this project. Don’t worry if you are still new. Each tool comes with step-by-step setup guides to help you get started. You can use the following link to head back to the main README.
 
-👉 [Tools Overview section](../../README.md#tools-overview)
+👉 [Continue from where you left](../../README.md#understanding-the-command-line)
 
 ---
 

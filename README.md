@@ -1,4 +1,4 @@
-<!-- prettier-ignore-start -->
+
 <!-- markdownlint-disable-next-line MD041 -->
 ![HeaderGIF](./Images/ReadmeHeader/WindowsTerminal_7DcFt7URrF.gif)
 <!-- prettier-ignore-end -->
