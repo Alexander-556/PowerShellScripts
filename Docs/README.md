@@ -36,14 +36,6 @@ The `./Setup` folder contains the setup guides for the necessary tools involved 
 - **VScode_Setup.md**  
   Recommended setup for Visual Studio Code, including useful extensions and debugging configuration for PowerShell development.
 
-### Usage
-
-The `./Usage` folder contains usage guides for specific functions and scripts.
-
-- **Move-ChildItemUp_Usage.md**
-- **Set-TouchFile_Usage.md**
-- **Start-FastCopy_Usage.md**
-
 ## How to Use
 
 Browse the relevant markdown files for setup instructions, tips, and usage examples.  
