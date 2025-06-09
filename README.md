@@ -33,6 +33,7 @@ This repository is a collection of PowerShell scripts I've created to explore Wi
     - [oh-my-posh](#oh-my-posh)
       - [Visual Studio Code](#visual-studio-code)
   - [Projects \& Modules](#projects--modules)
+    - [Move-ChildItemUp - Moves Everything in a Folder to its Parent Folder](#move-childitemup---moves-everything-in-a-folder-to-its-parent-folder)
     - [Set-TouchFile - Unix Touch Implementation in PowerShell with UX enhancements](#set-touchfile---unix-touch-implementation-in-powershell-with-ux-enhancements)
     - [Start-FastCopy – Controlled Folder-by-Folder Copying via FastCopy](#start-fastcopy--controlled-folder-by-folder-copying-via-fastcopy)
     - [Simple-Functions - Collection of Small Scripts for Terminal Fun \& Utility](#simple-functions---collection-of-small-scripts-for-terminal-fun--utility)
@@ -120,6 +121,21 @@ _Work in Progress_
 
 ## Projects & Modules
 
+### Move-ChildItemUp - Moves Everything in a Folder to its Parent Folder
+
+Project Move-ChildItemUp is created to solve one of my computer annoyance: there's no quick way to move everything inside a folder out of it. Typically, we just compromise and double click on the folder. Then we use `Ctrl + A` to select every object and use `Ctrl + X` to cut those objects. Finally we navigate to the parent folder where we want to pasts those files and hit `Ctrl + V`. To me, this is too much. Therefore, I wrote a script that does just that. Key features include:
+
+- Accepts pipeline input. You can use `Get-ChildItem` to obtain every subfolder in the folder of your choice and pipe it into `Move-ChildItemUp`. Every file in every subfolder will be moved to their parent folder.
+
+- Automatic deletion of empty folders.
+
+- Accepts both relative and absolute path.
+
+- Flexible logic when filename conflicts occur, including: rename, skip, and overwrite (coming soon).
+
+_Work in Progress_
+👉 Check out the [Move-ChildItemUp README](./Project_Move-ChildItemUp/README.md)
+
 ### Set-TouchFile - Unix Touch Implementation in PowerShell with UX enhancements
 
 Project Set-TouchFile is my implementation of the Unix touch command in PowerShell with additional enhancements. Key features include:
@@ -132,7 +148,7 @@ Project Set-TouchFile is my implementation of the Unix touch command in PowerShe
 
 - Includes validation helpers to ensure the filename and desired folder are valid under Windows rules before proceeding.
 
-- Allows users to specify either relative or absolute paths for file operations, enhancing flexibility.
+- Accepts both relative and absolute path.
 
 _Work in Progress_
 👉 Check out the [Set-TouchFile README](./Project_Set-TouchFile/README.md)
@@ -199,6 +215,8 @@ _Todo Last Updated: 2025-06-01_
 
 - [ ] PowerShell Tutorial
   - [x] Introduce on shell, terminal, and OS
+  - [x] Introduce shell and scripting language
+  - [ ] Introduction on PowerShell
 
 - [ ] Make this repo README look more attractive
 
@@ -255,11 +273,11 @@ _Todo Last Updated: 2025-06-01_
 ## Feedback
 
 Questions, issues, or suggestions are welcome!
-If you find these scripts useful or have ideas for improvements, feel free to [open an issue](https://github.com/Alexander-556/PowerShellScripts/issues) or submit a pull request.
+If you find these scripts useful or have ideas for improvements, feel free to [open an issue](https://github.com/Alexander-556/PowerShellScripts/issues/new) or submit a pull request.
 
 ## Author
 
-**Jialiang Chang** - undergraduate student, currently self-learning PowerShell scripting.  
+**Jialiang Chang** -- undergraduate student, currently self-learning PowerShell scripting.  
 This repository serves as both a learning log and a collection of practical scripts for everyday automation tasks.
 Feel free to explore, adapt, and reuse anything that helps your workflow.
 

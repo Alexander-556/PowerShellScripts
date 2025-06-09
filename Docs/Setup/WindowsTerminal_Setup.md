@@ -8,6 +8,6 @@ The installation of Windows Terminal is very easy. The Windows Terminal is avail
 
 ## Configure Windows Terminal
 
-Work in Progress
+_Work in Progress..._
 
 [Windows Terminal Official Documentation](https://learn.microsoft.com/en-us/windows/terminal/).
