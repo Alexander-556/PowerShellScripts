@@ -75,7 +75,7 @@ function Get-Config {
 
     [CmdletBinding()]
     param(
-        [string]$configFilePath = (Join-Path -Path $PSScriptRoot -ChildPath "..\config.json")
+        [string]$configFilePath = (Join-Path -Path $PSScriptRoot -ChildPath ".\..\..\config.json")
     )
     
     # Start reading the configuration file
@@ -137,7 +137,7 @@ function Get-Config {
         catch {
             # Catch error during file creation
             Write-Error "Failed to create new config file: $($_.Exception.Message)"
-            throw "Cannot proceed: Config file missing and default could not be created."
+            throw "Cannot proceed: Config file missing and default could not be created." 
         }
 
         # This throw is to make sure that the function does not work on a default config file

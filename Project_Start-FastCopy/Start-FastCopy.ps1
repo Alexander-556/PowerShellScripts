@@ -71,7 +71,7 @@ function Start-FastCopy {
 
     .EXAMPLE
     Start-FastCopy -SourceFolder "D:\Data" -TargetFolder "G:\Backup" `
-        -Mode "custom" -Speed 5 -Delay 60 -Verify 1 -Exec 1
+        -Mode "custom" -Speed 5 -Delay 60 -Verify -Exec
 
     .NOTES
     This function is the main function for the FastCopyTools module.
@@ -114,11 +114,9 @@ function Start-FastCopy {
         [int]$delaySeconds = 0,
 
         [Parameter(Mandatory = $false)]
-        [Alias("Verify")]
         [switch]$Verify,
 
         [Parameter(Mandatory = $false)]
-        [Alias("Exec")]
         [switch]$Exec
     )
 
@@ -140,7 +138,7 @@ function Start-FastCopy {
     $target = "Path: $targetFolderPath"
     $config = Get-Config
 
-    # Apply override logic
+    # Apply override logic for fast copy path
     if ($PSBoundParameters.ContainsKey("fastCopyPath")) {
         Confirm-FCpath -inputPath $fastCopyPath
         $FCPath = $fastCopyPath
@@ -153,6 +151,7 @@ function Start-FastCopy {
 
     # Only continue if confirmed via ShouldProcess (or WhatIf not used)
     if ($PSCmdlet.ShouldProcess($target, $action)) {
+        
         Write-Host "`nExecuting copy...`n"
 
         # Get immediate subfolders to copy
