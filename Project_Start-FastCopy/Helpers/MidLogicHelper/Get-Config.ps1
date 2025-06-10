@@ -98,7 +98,7 @@ function Get-Config {
         }
 
         # Validate value is not null/empty/whitespace
-        if (Test-IsNullOrWhiteSpace $config.FastCopyPath) {
+        if ([string]::IsNullOrWhiteSpace($config.FastCopyPath)) {
             throw "Missing or empty 'FastCopyPath' in config file: $configFilePath"
         }
 

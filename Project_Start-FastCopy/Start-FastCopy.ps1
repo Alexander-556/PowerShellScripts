@@ -15,15 +15,15 @@ function Start-FastCopy {
     - Dry run simulation with windowed FastCopy execution
     - Optional delay between subfolder copies for thermal throttling
     - Interactive confirmation via PowerShell's ShouldProcess
-    - Setup FastCopy executable path in a config file instead of digging inside the code
+    - Setup FastCopy executable path in a config file instead
 
     .PARAMETER sourceFolderPath
     The root source directory. Each immediate subfolder will be copied individually.
-    Alias: SourceFolder
+    Argument alias:  SourceFolder
 
     .PARAMETER targetFolderPath
     The root destination directory. Each subfolder will be copied as a new folder here.
-    Alias: TargetFolder
+    Argument alias:  TargetFolder
 
     .PARAMETER fastCopyPath
     Optional override of the default and configured path to FastCopy.exe executable,
@@ -32,23 +32,34 @@ function Start-FastCopy {
     .PARAMETER strMode
     Speed mode to use. Acceptable values: full, autoslow, suspend, custom.
     When 'custom' is selected, -intSpeed must be specified.
-    Alias: Mode
+    Argument alias:  Mode
 
     .PARAMETER intSpeed
     Custom integer transfer speed (1–9). Only required when -strMode is 'custom'.
-    Alias: Speed
+    Argument alias:  Speed
 
     .PARAMETER delaySeconds
     Optional delay (in seconds) to wait between copying each subfolder.
-    Alias: Delay
+    Argument alias:  Delay
 
-    .PARAMETER verifyDigit
-    1 to enable post-copy verification (default), 0 to disable.
-    Alias: Verify
+    .PARAMETER Verify
+    Specifies whether to enable file verification after the copy operation. 
+    When this switch is present, verification will be performed to ensure 
+    the integrity of the copied files. Omit this switch to skip verification.
 
-    .PARAMETER execDigit
-    1 to execute FastCopy (default), 0 to simulate using /no_exec.
-    Alias: Exec
+    Example:
+    - To enable verification: `-Verify`
+    - To skip verification: (do not include `-Verify`)
+
+    .PARAMETER Exec
+    Specifies whether to execute the copy operation. 
+    When this switch is present, the copy operation will be performed. 
+    Omit this switch to simulate the operation without actually copying files 
+    (useful for testing or dry runs).
+
+    Example:
+    - To execute the copy: `-Exec`
+    - To simulate the copy: (do not include `-Exec`)
 
     .INPUTS
     Accepts parameters for source and target folder paths, FastCopy executable path,
@@ -104,12 +115,15 @@ function Start-FastCopy {
 
         [Parameter(Mandatory = $false)]
         [Alias("Verify")]
-        [int]$verifyDigit = 1,
+        [switch]$Verify,
 
         [Parameter(Mandatory = $false)]
         [Alias("Exec")]
-        [int]$execDigit = 1
+        [switch]$Exec
     )
+
+    $verifyDigit = if ($Verify.IsPresent) { 1 } else { 0 }
+    $execDigit = if ($Exec.IsPresent) { 1 } else { 0 }
 
     Confirm-SFCArgs `
         -sourceFolderPath $sourceFolderPath `
