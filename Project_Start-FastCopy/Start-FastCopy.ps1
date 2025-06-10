@@ -107,7 +107,7 @@ function Start-FastCopy {
         
         [Parameter(Mandatory = $false)]
         [Alias("Speed")]
-        [int]$intSpeed, 
+        [int]$intSpeed = 0, 
 
         [Parameter(Mandatory = $false)]
         [Alias("Delay")]
@@ -135,7 +135,7 @@ function Start-FastCopy {
 
     # Define action description for WhatIf/Confirm support
     $action = "Copy data from $sourceFolderPath"
-    $target = "Path: $targetFolderPath"
+    $target = "$targetFolderPath"
     $config = Get-Config
 
     # Apply override logic for fast copy path

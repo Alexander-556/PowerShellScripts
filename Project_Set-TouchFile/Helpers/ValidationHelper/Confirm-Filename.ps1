@@ -44,7 +44,7 @@ function Confirm-Filename {
     # Ensure the new filename doesn't crash with existing file
     Write-Verbose "Checking filename '$filename' for duplicates..."
     $fullPath = Join-Path -Path $fileFolder -ChildPath $filename
-    if (Test-Path -Path $targetFilePath) {
+    if (Test-Path -Path $fullPath) {
         Write-Warning "Your provided filename '$filename' already exists in '$filefolder'."
         return $false
     }

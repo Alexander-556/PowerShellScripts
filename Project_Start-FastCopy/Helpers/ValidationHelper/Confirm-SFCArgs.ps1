@@ -41,7 +41,7 @@ function Confirm-SFCArgs {
     parameter descriptions.
         
     .OUTPUTS
-    None. Writes progress and status messages to host.
+    
 
     #>
     
