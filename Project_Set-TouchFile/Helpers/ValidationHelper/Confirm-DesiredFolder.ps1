@@ -32,25 +32,25 @@ function Confirm-DesiredFolder {
         [string]$desiredLocation
     )
 
-    Write-Verbose "Checking folder '$desiredLocation' for empty or whitespace..."
+    # When location is empty, cannot proceed
     if ([string]::IsNullOrWhiteSpace($desiredLocation)) {
         Write-Error "File location path cannot be empty or whitespace."
         throw
     }
 
-    Write-Verbose "Checking folder '$desiredLocation' validity..."
-    if (-not (Test-Path $desiredLocation -PathType Container -IsValid)) {
-        Write-Error "The specified folder path is not valid."
+    # When syntax is not valid, cannot proceed
+    if (-not (Test-Path -Path $desiredLocation -IsValid)) {
+        Write-Error "The specified path syntax is not valid."
         throw
     }
 
-    Write-Verbose "Checking folder '$desiredLocation' for folder property..."
+    # When input folder path is not a folder, cannot proceed
     if (-not (Test-Path $desiredLocation -PathType Container)) {
         Write-Error "The specified folder does not exist or is not a directory."
         throw
     }
 
-    Write-Verbose "Checking folder '$desiredLocation'for Windows protected folders..."
+    # When input folder is Windows protected folder, cannot proceed
     $protectedFolders = @(
         [Environment]::GetFolderPath('Windows'),
         [Environment]::GetFolderPath('ProgramFiles'),
@@ -59,40 +59,42 @@ function Confirm-DesiredFolder {
         [Environment]::GetFolderPath('SystemX86'),
         [Environment]::GetFolderPath('UserProfile')
     )
+
     if ($protectedFolders -contains (Resolve-Path $desiredLocation).Path) {
         Write-Error "Cannot create files in protected or system folders."
         throw
     }
     
-    Write-Verbose "Checking folder '$desiredLocation' for network paths..."
+    # When input folder is network path, cannot proceed
     if ($desiredLocation -like '\\*') {
         Write-Error"The desired folder is a network path, currently not supported."
         throw
     }
 
-    Write-Verbose "Checking folder '$desiredLocation' for symbolic links and junctions..."
+    # When input folder is a symbolic link or junction, cannot proceed
     $item = Get-Item $desiredLocation
     if ($item.Attributes -band [IO.FileAttributes]::ReparsePoint) {
         Write-Warning "The target folder is a symbolic link or junction."
     }
 
-    Write-Verbose "Checking folder '$desiredLocation' for remaining disk space..."
+    # When the target disk doesn't have enough space, cannot proceed
     $drive = Get-PSDrive -Name ([System.IO.Path]::GetPathRoot($desiredLocation) -replace '[:\\]', '')
     if ($drive.Free -lt 1MB) {
         Write-Error "Not enough disk space in the desired location."
         throw
     }
 
-    Write-Verbose "Checking folder '$desiredLocation' for read only..."
-    try {
-        $tempFile = [System.IO.Path]::Combine($desiredLocation, [System.IO.Path]::GetRandomFileName())
+    # This check cannot be enforced
+    # Write-Verbose "Checking folder '$desiredLocation' for read only..."
+    # try {
+    #     $tempFile = [System.IO.Path]::Combine($desiredLocation, [System.IO.Path]::GetRandomFileName())
         
-        New-Item -Path $tempFile -ItemType File -Force -ErrorAction Stop | Remove-Item
-    }
-    catch {
-        Write-Error "Unable to write files to '$desiredLocation'."
-        throw
-    }
+    #     New-Item -Path $tempFile -ItemType File -Force -ErrorAction Stop | Remove-Item
+    # }
+    # catch {
+    #     Write-Error "Unable to write files to '$desiredLocation'."
+    #     throw
+    # }
     
     Write-Verbose "Desired folder check passed."
 }

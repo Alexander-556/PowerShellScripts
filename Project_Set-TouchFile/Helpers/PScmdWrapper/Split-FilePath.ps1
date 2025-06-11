@@ -34,27 +34,26 @@ function Split-FilePath {
         [Parameter(Mandatory = $true)]
         [string]$inputPath
     )
-    
-    if ((Test-Path $inputPath)) {
-        # Resolve the full path (handles relative paths)
-        $outputPath = Resolve-PathwErr -inputPath $inputPath
-    }
-    else {
-        $creationFolder = Split-Path -Path $inputPath -Parent
-        $resolvedCreationFolder = Resolve-PathwErr -inputPath $creationFolder
 
-        $creationFilename = Split-Path -Path $inputPath -Leaf
-        $outputPath = Join-Path -Path $resolvedCreationFolder -ChildPath $creationFilename
+    $inputPathObj = [PSCustomObject]@{
+        FileFolder = $null
+        Filename   = $null
     }
 
-    # Set folder and filenames
-    $fileFolder = Split-Path -Path $outputPath -Parent
-    $filename = Split-Path -Path $outputPath -Leaf
-
-    $fileObj = [PSCustomObject]@{
-        FileFolder = $fileFolder
-        Filename   = $filename
+    # Check user input
+    # Optional: Separate this into a different validation helper
+    # just in case if we have a lot of checks
+    if ((Test-Path -Path $inputPath -PathType Container)) {
+        # if the user typed a folder path in quick access mode, 
+        # program should stop
+        # Optional: prompt user for new filename input
+        Write-Error "In quick access mode, a file path is expected."
+        Write-Error "However, path '$inputPath' is a folder path."
+        throw
     }
 
-    return $fileObj
+    $inputPathObj.FileFolder = Split-Path -Path $inputPath -Parent
+    $inputPathObj.Filename = Split-Path -Path $inputPath -Leaf
+
+    return $inputPathObj
 }
