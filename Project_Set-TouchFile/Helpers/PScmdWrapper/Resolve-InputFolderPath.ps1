@@ -30,20 +30,27 @@ function Resolve-InputFolderPath {
         }
     }
     else {
-        $desiredLocationObj.Valid = $false
+        try {
+            $desiredLocationObj.Valid = $false
+            Write-Warning "Your input path '$inputPath' does not exist."
+            if (Split-Path -Path $inputPath -IsAbsolute) {
+                # If the path is absolute, no need to resolve
+                $desiredLocationObj.Path = $inputPath
+            }
+            else {
+                # If the path is relative, manually resolve\
+                $childPath = $inputPath.TrimStart("\.")
 
-        if (Split-Path -Path $inputPath -IsAbsolute) {
-            # If the path is absolute, no need to resolve
-            $desiredLocationObj.Path = $inputPath
+                $scriptPath = (Get-Location).Path
+
+                $desiredLocationObj.Path = Join-Path `
+                    -Path $scriptPath `
+                    -ChildPath $childPath
+            }
         }
-        else {
-            # If the path is relative, manually resolve\
-            $childPath = $inputPath.TrimStart("\.")
-
-            $scriptPath = (Get-Location).Path
-
-            $desiredLocationObj.Path = Join-Path `
-                -Path $scriptPath -ChildPath $childPath
+        catch {
+            Write-Error "Error in manual Resolve-Path operation for '$inputPath'. Error: $_"
+            throw
         }
     }
 

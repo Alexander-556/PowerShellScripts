@@ -42,7 +42,7 @@ function Split-FilePath {
 
     # Check user input
     # Optional: Separate this into a different validation helper
-    # just in case if we have a lot of checks
+    #           just in case if we have a lot of checks
     if ((Test-Path -Path $inputPath -PathType Container)) {
         # if the user typed a folder path in quick access mode, 
         # program should stop

@@ -45,25 +45,25 @@ function Confirm-DesiredFolder {
     }
 
     # When input folder path is not a folder, cannot proceed
-    if (-not (Test-Path $desiredLocation -PathType Container)) {
-        Write-Error "The specified folder does not exist or is not a directory."
-        throw
-    }
+    # if (-not (Test-Path $desiredLocation -PathType Container)) {
+    #     Write-Error "The specified folder does not exist or is not a directory."
+    #     throw
+    # }
 
     # When input folder is Windows protected folder, cannot proceed
-    $protectedFolders = @(
-        [Environment]::GetFolderPath('Windows'),
-        [Environment]::GetFolderPath('ProgramFiles'),
-        [Environment]::GetFolderPath('ProgramFilesX86'),
-        [Environment]::GetFolderPath('System'),
-        [Environment]::GetFolderPath('SystemX86'),
-        [Environment]::GetFolderPath('UserProfile')
-    )
+    # $protectedFolders = @(
+    #     [Environment]::GetFolderPath('Windows'),
+    #     [Environment]::GetFolderPath('ProgramFiles'),
+    #     [Environment]::GetFolderPath('ProgramFilesX86'),
+    #     [Environment]::GetFolderPath('System'),
+    #     [Environment]::GetFolderPath('SystemX86'),
+    #     [Environment]::GetFolderPath('UserProfile')
+    # )
 
-    if ($protectedFolders -contains (Resolve-Path $desiredLocation).Path) {
-        Write-Error "Cannot create files in protected or system folders."
-        throw
-    }
+    # if ($protectedFolders -contains (Resolve-Path $desiredLocation).Path) {
+    #     Write-Error "Cannot create files in protected or system folders."
+    #     throw
+    # }
     
     # When input folder is network path, cannot proceed
     if ($desiredLocation -like '\\*') {
@@ -71,11 +71,11 @@ function Confirm-DesiredFolder {
         throw
     }
 
-    # When input folder is a symbolic link or junction, cannot proceed
-    $item = Get-Item $desiredLocation
-    if ($item.Attributes -band [IO.FileAttributes]::ReparsePoint) {
-        Write-Warning "The target folder is a symbolic link or junction."
-    }
+    # # When input folder is a symbolic link or junction, cannot proceed
+    # $item = Get-Item $desiredLocation
+    # if ($item.Attributes -band [IO.FileAttributes]::ReparsePoint) {
+    #     Write-Warning "The target folder is a symbolic link or junction."
+    # }
 
     # When the target disk doesn't have enough space, cannot proceed
     $drive = Get-PSDrive -Name ([System.IO.Path]::GetPathRoot($desiredLocation) -replace '[:\\]', '')

@@ -6,22 +6,37 @@ function Set-TouchFile {
     
     [CmdletBinding(DefaultParameterSetName = 'ByName')]
     param (
-        [Parameter(Mandatory = $true, Position = 0, ParameterSetName = 'ByName', ValueFromPipeline = $true)]
-        [Alias("Filename")]
+        [Parameter(
+            Mandatory = $true, 
+            Position = 0, 
+            ParameterSetName = 'ByName', 
+            ValueFromPipeline = $true)
+        ]
         [string]$filename,
 
-        [Parameter(Mandatory = $false, Position = 1, ParameterSetName = 'ByName')]
+        [Parameter(
+            Mandatory = $false, 
+            Position = 1, 
+            ParameterSetName = 'ByName')
+        ]
         [Alias("Location")]
         [string]$desiredLocation,
 
-        [Parameter(Mandatory = $true, Position = 0, ParameterSetName = 'ByFullPath')]
+        [Parameter(
+            Mandatory = $true, 
+            Position = 0, 
+            ParameterSetName = 'ByFullPath')
+        ]
         [Alias("FullPath")]
         [string]$fullInputPath
     )
 
+    # * The following begin, process, and end blocks are for pipeline purposes
+
     # Before accepting pipeline input, initialize an array to collect filenames
     begin {
-        $filenameArray = New-Object System.Collections.Generic.List[string]
+        $filenameArray = 
+        New-Object System.Collections.Generic.List[string]
     }
 
     # Process the pipeline input
@@ -31,20 +46,21 @@ function Set-TouchFile {
 
     # After collecting all pipeline input, process the array
     end {
+        # General Error Handling
         try {
-            # Touch mode selection
+            # Touch mode selection, determine by checking the input argument
             if ($PSBoundParameters.ContainsKey("fullInputPath")) {
                 # If quick access mode selected
 
-                # Step 1: parse the input path into parent and leaf
+                # Step 1: Parse the input path into parent and leaf
                 #         store the result in a path obj
-                $fullInputPathObj = Split-FilePath `
-                    -inputPath $fullInputPath
+                $fullInputPathObj = 
+                Split-FilePath -inputPath $fullInputPath
 
-                # Step 2: feed them back into Set-TouchFile, recurse
+                # Step 2: Feed them back into Set-TouchFile, recurse
                 Set-TouchFile `
-                    -Filename $fullInputPathObj.FileFolder`
-                    -Location $fullInputPathObj.Filename
+                    -Filename $fullInputPathObj.Filename `
+                    -Location $fullInputPathObj.FileFolder
                     
                 # Step 3: after recurse call, program ends
                 return
@@ -52,96 +68,67 @@ function Set-TouchFile {
             else {
                 # If normal mode selected
 
-                # check validity of 
-                # input filename array, this should remain the same
+                # * Preprocessing
+
+                # Step 1: Check validity of input filename array
                 Confirm-FilenameArray `
                     -filenameArray $filenameArray
-
                 
+                # Step 2: Resolve the input folder path regardless of path validity
+                # This is used for implementation of creating new folder feature
+                $desiredLocationObj = 
+                Resolve-InputFolderPath `
+                    -inputPath $desiredLocation
 
-                # desiredLocation
+                # Step 3: Check validity of the resolved desired folder
                 Confirm-DesiredFolder `
-                    -desiredLocation $desiredLocation
+                    -desiredLocation $desiredLocationObj.Path
 
-                # query on d
+                # Initialize a bool variable that determines whether program continues
+                $programCont = $null
 
+                # Check if the path exists or not
+                if ($desiredLocationObj.Valid) {
+                    # If the path already exists, no extra action needed, 
+                    # program proceed
+                    $programCont = $true
+                }
+                else {
+                    # If the path doesn't exist, prompt user on whether to create
+                    # the specified path
+                    $programCont = Confirm-NewFileFolder `
+                        -inputPath $desiredLocationObj.Path
+                }
 
-                
+                # * Main Logic Process
+
+                # Check if the program can proceed or not
+                if ($programCont) {
+                    # If program can proceed, then execute touch logic
+                    Start-TouchSequence `
+                        -filenameArray $filenameArray `
+                        -desiredLocationObj $desiredLocationObj
+                }
+                else {
+                    # If program cannot proceed, program terminates
+                    Write-Host "Program terminates."
+                    return
+                }
             } 
+            # End of try block
         }
         catch {
             # Improved error handling
             Write-Error "Unexpected Error"
             Write-Error "$($_.Exception.Message)"
             Write-Error "Action unsuccessful. Please check the input and try again."
-        }
 
-        
-        # ! Previous Code
-
-            # In normal mode, check filename array validity
-            Confirm-FilenameArray -filenameArray $filenameArray
-
-            # Check desired folder validity only when provided
-            if ($PSBoundParameters.ContainsKey("desiredLocation")) {            
-                # Resolve the full path for safety
-                $resolvedFullPath = Resolve-PathwErr -inputPath $desiredLocation
-                Confirm-DesiredFolder -desiredLocation $resolvedFullPath
-            }
-        }
-
-    
-
-        # Enable processing array input of filenames
-        foreach ($filename in $filenameArray) {
-        
-            $location = if ($PSBoundParameters.ContainsKey("desiredLocation")) {
-                $desiredLocation
-            }
-            else {
-                (Get-Location).Path
-            }
-
-            $fileObj = Get-FileObj `
-                -filename $filename `
-                -desiredLocation $location
-
-            $isValidFilename = Confirm-Filename `
-                -filename $fileObj.Filename `
-                -fileFolder $fileObj.FileFolder
-        
-            if (-not $isValidFilename) {
-                Write-Verbose "In folder '$($fileObj.FileFolder)',"
-                Write-Warning "file '$($fileObj.Filename)' is invalid and will be skipped."
-                continue
-            }
-
-            # Custom logic to handle the touch behavior, similar to unix touch, but different
-            # This try block handles unexpected errors in the whole process
-            try {
-                # If the file is not there, create new file
-                if (-not (Test-Path $fileObj.FullPath)) {
-                    Invoke-CreationFile `
-                        -filename $fileObj.Filename`
-                        -fileFolder $fileObj.FileFolder`
-                        -fullPath $fileObj.FullPath
-                }
-                # If the file already exists, 
-                else {
-                    Invoke-UpdateFile `
-                        -filename $fileObj.Filename`
-                        -fileFolder $fileObj.FileFolder`
-                        -fullPath $fileObj.FullPath
-                }
-            }
-            catch {
-                Write-Error "Unexpected Error: $_"
-            }
+            # End of catch block
         }
     
-        # Return for recursion
-        return
+        # End of end block
     }
 
+    # End of Function
 }
     
