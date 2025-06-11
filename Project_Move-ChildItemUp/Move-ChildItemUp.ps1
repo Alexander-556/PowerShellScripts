@@ -45,12 +45,12 @@ function Move-ChildItemUp {
 
     # Before accepting pipeline input, initialize an array to collect folder paths
     begin {
-        $folderPathsArray = @()
+        $folderPathsArray = New-Object System.Collections.Generic.List[string]
     }
 
     # Process pipeline input
     process {
-        $folderPathsArray += $folderPath
+        $folderPathsArray.Add($folderPath)
     }
 
     # After collecting all pipeline input, process the array
