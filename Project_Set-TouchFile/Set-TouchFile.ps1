@@ -35,13 +35,17 @@ function Set-TouchFile {
 
     # Before accepting pipeline input, initialize an array to collect filenames
     begin {
-        $filenameArray = 
-        New-Object System.Collections.Generic.List[string]
+        if (-not $PSBoundParameters.ContainsKey('fullInputPath')) {
+            $filenameArray = 
+            New-Object System.Collections.Generic.List[string]
+        }
     }
 
     # Process the pipeline input
     process {
-        $filenameArray.Add($filename)
+        if (-not $PSBoundParameters.ContainsKey('fullInputPath')) {
+            $filenameArray.Add($filename)
+        }
     }
 
     # After collecting all pipeline input, process the array
@@ -51,18 +55,7 @@ function Set-TouchFile {
             # Touch mode selection, determine by checking the input argument
             if ($PSBoundParameters.ContainsKey("fullInputPath")) {
                 # If quick access mode selected
-
-                # Step 1: Parse the input path into parent and leaf
-                #         store the result in a path obj
-                $fullInputPathObj = 
-                Split-FilePath -inputPath $fullInputPath
-
-                # Step 2: Feed them back into Set-TouchFile, recurse
-                Set-TouchFile `
-                    -Filename $fullInputPathObj.Filename `
-                    -Location $fullInputPathObj.FileFolder
-                    
-                # Step 3: after recurse call, program ends
+                Invoke-RecurseSTF -fullInputPath $fullInputPath
                 return
             }
             else {
@@ -111,16 +104,19 @@ function Set-TouchFile {
                 }
                 else {
                     # If program cannot proceed, program terminates
-                    Write-Host "Program terminates."
+                    Write-Host "Program terminates." `
+                        -ForegroundColor Red
                     return
                 }
+
             } 
             # End of try block
         }
+
         catch {
             # Improved error handling
             Write-Error "Unexpected Error"
-            Write-Error "$($_.Exception.Message)"
+            Write-Error $_
             Write-Error "Action unsuccessful. Please check the input and try again."
 
             # End of catch block
