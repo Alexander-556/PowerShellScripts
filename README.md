@@ -277,11 +277,11 @@ If you find these scripts useful or have ideas for improvements, feel free to [o
 
 ## Author
 
-**Jialiang Chang** -- undergraduate student, currently self-learning PowerShell scripting.  
+**Jialiang Chang** -- undergraduate student, currently self-learning PowerShell scripting.
 This repository serves as both a learning log and a collection of practical scripts for everyday automation tasks.
 Feel free to explore, adapt, and reuse anything that helps your workflow.
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).  
+This project is licensed under the [MIT License](LICENSE).
 You're free to use, modify, and share this code — just include attribution when you do.

@@ -93,8 +93,15 @@ function Move-FolderContents {
             # ! Notice:
             # moving a file to a destination with a new filename renames the file
             # try to do error catching
-            Move-Item -Path $sourceFilePath -Destination $destinationFilePath
-            Write-Verbose "Moved file '$sourceFilePath' to new path '$destinationFilePath'."
+            
+            # Move the file, ensuring paths with spaces are handled correctly
+            try {
+                Move-Item -LiteralPath "$sourceFilePath" -Destination "$destinationFilePath"
+                Write-Verbose "Moved file '$sourceFilePath' to new path '$destinationFilePath'."
+            }
+            catch {
+                Write-Warning "Failed to move file '$sourceFilePath' to '$destinationFilePath'. Error: $_"
+            }
         }
     }
 }

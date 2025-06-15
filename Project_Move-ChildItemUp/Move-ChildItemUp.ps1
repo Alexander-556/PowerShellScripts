@@ -5,12 +5,12 @@ function Move-ChildItemUp {
     Moves the contents of specified folders up one level and cleans up empty folders.
 
     .DESCRIPTION
-    The `Move-ChildItemUp` function takes one or more folder paths as input, validates 
-    them, and moves the contents of each folder up one level. After moving the contents, 
+    The `Move-ChildItemUp` function takes one or more folder paths as input, validates
+    them, and moves the contents of each folder up one level. After moving the contents,
     it removes any empty folders left behind. This function also accepts pipeline input.
 
     .PARAMETER folderPath
-    Specifies the path(s) of the folder(s) whose contents need to be moved up one level. 
+    Specifies the path(s) of the folder(s) whose contents need to be moved up one level.
     This parameter accepts pipeline input.
 
     .INPUTS
@@ -30,8 +30,8 @@ function Move-ChildItemUp {
 
     .EXAMPLE
     Get-ChildItem ./ -Directory | Move-ChildItemUp
-    A very typical and useful case. Moves the contents of all folders in the current 
-    working directory up one level. 
+    A very typical and useful case. Moves the contents of all folders in the current
+    working directory up one level.
 
     .NOTES
     This is the main function. User should call this function. An alias is recommended.
@@ -58,7 +58,7 @@ function Move-ChildItemUp {
         try {
             Write-Host "Program starts..." -ForegroundColor Cyan
 
-            # Step 1: 
+            # Step 1:
             # Validate input array only, not the path
             Confirm-FolderArray $folderPathsArray
 
@@ -74,7 +74,7 @@ function Move-ChildItemUp {
             # Step 4: Clean up empty folder only
             # Remove-Item -Path $source -Recurse -Force
             Remove-EmptyFolder $folderObjArray
-    
+
             Write-Host "Program complete." -ForegroundColor Green
         }
         catch {
