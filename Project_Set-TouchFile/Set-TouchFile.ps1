@@ -51,6 +51,7 @@ function Set-TouchFile {
     # After collecting all pipeline input, process the array
     end {
         # General Error Handling
+        # ? Unsure on what's the best way of error handling
         try {
             # Touch mode selection, determine by checking the input argument
             if ($PSBoundParameters.ContainsKey("fullInputPath")) {
