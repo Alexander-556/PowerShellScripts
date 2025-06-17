@@ -19,9 +19,6 @@ function Set-TouchFile {
             Position = 1, 
             ParameterSetName = 'ByName')
         ]
-
-        [ArgumentCompleter({ Invoke-AutoComplete @args })]
-        [Alias("Location")]
         [string]$desiredLocation,
 
         [Parameter(
