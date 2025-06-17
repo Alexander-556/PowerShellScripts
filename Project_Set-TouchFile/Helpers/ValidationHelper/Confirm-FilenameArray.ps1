@@ -34,17 +34,21 @@ function Confirm-FilenameArray {
         [System.Collections.Generic.List[string]]$filenameArray
     )
 
+    Write-Verbose "Start checking input filename array..."
+
     Write-Verbose "Checking file input for null..."
     if (-not $filenameArray -or $filenameArray.Count -eq 0) {
-        Write-Error "No filename provided. Please specify a filename."
-        throw
+        Show-ErrorMsg `
+            -FunctionName $MyInvocation.MyCommand.Name `
+            -CustomMessage "No filename provided. Please specify a filename."
     }
 
     Write-Verbose "Checking file input for duplication..."
     if ($filenameArray.Count -ne ($filenameArray | Select-Object -Unique).Count) {
-        Write-Error "Duplicate filenames detected in the input."
-        throw
+        Show-ErrorMsg `
+            -FunctionName $MyInvocation.MyCommand.Name `
+            -CustomMessage "Duplicate filenames detected in the input."
     }
 
-    Write-Verbose "Filename input check passed."
+    Write-Verbose "Filename input check passed.`n"
 }

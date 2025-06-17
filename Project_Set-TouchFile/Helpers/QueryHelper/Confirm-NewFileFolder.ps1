@@ -10,23 +10,27 @@ function Confirm-NewFileFolder {
 
     # Ask user whether to create the folder
     Write-Host "Do you want to create your specified folder? (Y/N, Enter=Yes)" `
-        -ForegroundColor Yellow
-    Write-Host "`nPath '$inputPath'"
+        -ForegroundColor Cyan
+    Write-Host "Resolved Path '$inputPath'"
 
     # Loop for continuous prompting
     while ($true) {
         # Read user input
         $response = Read-Host "Enter your response"
         
-        # Check if the user wants to open the file
+        # Check if the user wants to create the folder
         if ($yesKeyWords -contains $response) {
-            
+            Write-Verbose "For path '$inputPath',"
+            Write-Verbose "New folder creation in progress..."
+
             New-Item -Path $inputPath -ItemType Directory -Force
-            Write-Verbose "New folder created"
+            Write-Verbose "New folder has been created at the specified location above."
             return $true
         }
         elseif ($nooKeyWords -contains $response) {
-            Write-Host "Create a new folder cancelled, program will terminate."
+            Write-Verbose "For path '$inputPath',"
+            
+            Write-Host "New folder creation cancelled, program will terminate."
             return $false
         }
         else {

@@ -33,16 +33,19 @@ function Resolve-PathwErr {
         [string]$inputPath
     )
 
+    Write-Verbose "Resolving path for '$inputPath'."
+
     # Catch any error during Resolve-Path operation
     try {
-        Write-Verbose "Resolving path for '$inputPath'."
         $outputPath = (Resolve-Path -Path $inputPath -ErrorAction Stop).Path
-        Write-Verbose "Resolve-Path operation successful for '$inputPath',"
-        Write-Verbose "output path: '$outputPath'."
+        Write-Verbose "Resolve operation successful for '$inputPath',"
+        Write-Verbose "output path: '$outputPath'.`n"
         return $outputPath
     }
     catch {
-        Write-Warning "Error in Resolve-Path operation for '$inputPath'. Error: $_"
-        throw
+        Show-ErrorMsg `
+            -FunctionName $MyInvocation.MyCommand.Name `
+            -CustomMessage "Failed to resolve input path '$inputPath'." `
+            -Exception $_.Exception
     }
 }

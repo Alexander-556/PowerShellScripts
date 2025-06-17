@@ -27,7 +27,7 @@ function Set-TouchFile {
             Position = 0, 
             ParameterSetName = 'ByFullPath')
         ]
-        [Alias("FullPath")]
+        [Alias("f")]
         [string]$fullInputPath
     )
 
@@ -52,80 +52,70 @@ function Set-TouchFile {
     end {
         # General Error Handling
         # ? Unsure on what's the best way of error handling
-        try {
-            # Touch mode selection, determine by checking the input argument
-            if ($PSBoundParameters.ContainsKey("fullInputPath")) {
-                # If quick access mode selected
-                Invoke-RecurseSTF -fullInputPath $fullInputPath
-                return
+    
+        # Touch mode selection, determine by checking the input argument
+        if ($PSBoundParameters.ContainsKey("fullInputPath")) {
+            # If quick access mode selected
+            Invoke-RecurseSTF -fullInputPath $fullInputPath
+            return
+        }
+        else {
+            # If normal mode selected
+
+            # * Preprocessing
+
+            # Step 1: Check validity of input filename array
+            Confirm-FilenameArray `
+                -filenameArray $filenameArray
+                
+            # Step 2: Resolve the input folder path regardless of path validity
+            # This is used for implementation of creating new folder feature
+            if ($PSBoundParameters.ContainsKey("desiredLocation")) {
+                $desiredLocationObj = Resolve-InputFolderPath `
+                    -inputPath $desiredLocation
             }
             else {
-                # If normal mode selected
-
-                # * Preprocessing
-
-                # Step 1: Check validity of input filename array
-                Confirm-FilenameArray `
-                    -filenameArray $filenameArray
+                $desiredLocationObj = Get-LocationObj   
+            }
                 
-                # Step 2: Resolve the input folder path regardless of path validity
-                # This is used for implementation of creating new folder feature
-                $desiredLocationObj = 
-                Resolve-InputFolderPath `
-                    -inputPath $desiredLocation
+            
+            # Step 3: Check validity of the resolved desired folder
+            Confirm-DesiredFolder `
+                -desiredLocation $desiredLocationObj.Path
 
-                # Step 3: Check validity of the resolved desired folder
-                Confirm-DesiredFolder `
-                    -desiredLocation $desiredLocationObj.Path
+            # Initialize a bool variable that determines whether program continues
+            $programCont = $null
 
-                # Initialize a bool variable that determines whether program continues
-                $programCont = $null
+            # Check if the path exists or not
+            if ($desiredLocationObj.Valid) {
+                # If the path already exists, no extra action needed, 
+                # program proceed
+                $programCont = $true
+            }
+            else {
+                # If the path doesn't exist, prompt user on whether to create
+                # the specified path
+                $programCont = Confirm-NewFileFolder `
+                    -inputPath $desiredLocationObj.Path
+            }
 
-                # Check if the path exists or not
-                if ($desiredLocationObj.Valid) {
-                    # If the path already exists, no extra action needed, 
-                    # program proceed
-                    $programCont = $true
-                }
-                else {
-                    # If the path doesn't exist, prompt user on whether to create
-                    # the specified path
-                    $programCont = Confirm-NewFileFolder `
-                        -inputPath $desiredLocationObj.Path
-                }
+            # * Main Logic Process
 
-                # * Main Logic Process
-
-                # Check if the program can proceed or not
-                if ($programCont) {
-                    # If program can proceed, then execute touch logic
-                    Start-TouchSequence `
-                        -filenameArray $filenameArray `
-                        -desiredLocationObj $desiredLocationObj
-                }
-                else {
-                    # If program cannot proceed, program terminates
-                    Write-Host "Program terminates." `
-                        -ForegroundColor Red
-                    return
-                }
-
-            } 
-            # End of try block
-        }
-
-        catch {
-            # Improved error handling
-            Write-Error "Unexpected Error"
-            Write-Error $_
-            Write-Error "Action unsuccessful. Please check the input and try again."
-
-            # End of catch block
-        }
-    
+            # Check if the program can proceed or not
+            if ($programCont) {
+                # If program can proceed, then execute touch logic
+                Start-TouchSequence `
+                    -filenameArray $filenameArray `
+                    -desiredLocationObj $desiredLocationObj
+            }
+            else {
+                # If program cannot proceed, program terminates
+                Write-Host "Program terminates." `
+                    -ForegroundColor Red
+                return
+            }
+        } 
         # End of end block
     }
-
     # End of Function
 }
-    

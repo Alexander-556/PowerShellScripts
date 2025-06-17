@@ -47,20 +47,26 @@ function Invoke-UpdateFile {
     # First update file timestamp
     # This try block checks errors in the update timestamp process
     try {
+        Write-Verbose "In folder '$fileFolder',"
+        Write-Verbose "updating file '$filename' timestamp."
+
         # Update the file's last write time to the current time
         (Get-Item $fullPath).LastWriteTime = Get-Date
+
         # Notify the user of the update
-        Write-Verbose "In folder '$fileFolder',"
-        Write-Host "File '$filename' already exists, updating its timestamp." `
+        Write-Host "File '$filename' timestamp updated." `
             -ForegroundColor Green
     }
     catch {
         # Catch if update fails
-        Write-Verbose "In folder '$fileFolder',"
-        Write-Warning "Failed to update timestamp for file '$filename'. Error: $_"
+        Show-ErrorMsg `
+            -FunctionName $MyInvocation.MyCommand.Name `
+            -CustomMessage "In folder '$fileFolder', failed to update timestamp for file '$filename'." `
+            -Exception $_.Exception
     }
 
     $fullPath = Join-Path -Path $fileFolder -ChildPath $filename
+    
     # Then start new filename query
     $isFileOpen = Confirm-OpenFile `
         -filename $filename `
@@ -70,6 +76,7 @@ function Invoke-UpdateFile {
 
     if ($isFileOpen) {
         Write-Verbose "In folder '$fileFolder,'"
-        Write-Verbose "file '$filename' opened."
+        Write-Host "File '$filename' opened." `
+            -ForegroundColor Green
     }
 }

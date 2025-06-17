@@ -16,8 +16,7 @@ function Confirm-OpenFile {
 
     $validModes = @('Clean', 'NewName')
     if (-not ($validModes -contains $mode)) {
-        Write-Error "Query mode selection error, check code."
-        throw
+        throw "Query mode selection error, check code."
     }
 
     $yesKeyWords = @('Y', 'y', '')
@@ -25,7 +24,7 @@ function Confirm-OpenFile {
 
     # Prompt user to open the file or not
     Write-Host "Do you want to open the file now? (Y/N, Enter=Yes)" `
-        -ForegroundColor Yellow
+        -ForegroundColor Cyan
 
     # Loop for continuous prompting
     while ($true) {
@@ -37,19 +36,19 @@ function Confirm-OpenFile {
             # Open the file in the default editor
             # This try block checks error in file opening process
             try { 
-                Start-Process $fullPath -ErrorAction Stop 
+                Start-Process $fullPath -ErrorAction Stop
                 return $true
             }
             catch {
-                Write-Verbose "In folder '$fileFolder',"
-                Write-Warning "Failed to open file '$filename'. Error: $_"
+                Write-Warning "In folder '$fileFolder',"
+                Write-Warning "failed to open file '$filename'."
                 return $false
             }
         }
         elseif ($nooKeyWords -contains $response) {
             Write-Verbose "In folder '$fileFolder',"
             Write-Host "Open file '$filename' cancelled." `
-                -ForegroundColor Yellow
+                -ForegroundColor DarkYellow
 
             if ($mode -eq "NewName") {
                 Write-Verbose "Start NewName query..."

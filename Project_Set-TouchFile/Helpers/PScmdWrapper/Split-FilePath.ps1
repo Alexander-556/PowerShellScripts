@@ -40,18 +40,6 @@ function Split-FilePath {
         Filename   = $null
     }
 
-    # Check user input
-    # Optional: Separate this into a different validation helper
-    #           just in case if we have a lot of checks
-    if ((Test-Path -Path $inputPath -PathType Container)) {
-        # if the user typed a folder path in quick access mode, 
-        # program should stop
-        # Optional: prompt user for new filename input
-        Write-Error "In quick access mode, a file path is expected."
-        Write-Error "However, path '$inputPath' is a folder path."
-        throw
-    }
-
     $inputPathObj.FileFolder = Split-Path -Path $inputPath -Parent
     $inputPathObj.Filename = Split-Path -Path $inputPath -Leaf
 

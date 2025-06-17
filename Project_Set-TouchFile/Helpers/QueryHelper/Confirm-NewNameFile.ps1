@@ -6,8 +6,10 @@ function Confirm-NewNameFile {
     )
     
     # Skip file creation, ask for NewName
-    Write-Host "If you still want to create this file, enter a different name below." `
-        -ForegroundColor Green
+    Write-Host "If you still want to create this file, please enter a different name below." `
+        -ForegroundColor Cyan
+    Write-Host "Press Enter to skip creating this file." `
+        -ForegroundColor Cyan
 
     while ($true) {
         # Prompt user for a new filename
@@ -15,8 +17,18 @@ function Confirm-NewNameFile {
 
         if ([string]::IsNullOrWhiteSpace($newFilename)) {
             # If empty string is received, abort action
-            Write-Warning "Empty string input, new file creation cancelled."
+            Write-Host "Empty string input, new file creation cancelled." `
+                -ForegroundColor DarkYellow
             break
+        }
+        elseif (
+            -not 
+            (Confirm-Filename `
+                -filename $newFilename `
+                -fileFolder $desiredLocation
+            )
+        ) {
+            Write-Warning "Invalid filename, please try again."
         }
         else {
             # If a string is received, start new name action 

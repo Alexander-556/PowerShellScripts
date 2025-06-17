@@ -32,16 +32,33 @@ function Confirm-DesiredFolder {
         [string]$desiredLocation
     )
 
+    Write-Verbose "Start checking input folder validity..."
+    Write-Verbose "Input path: '$desiredLocation'"
+
     # When location is empty, cannot proceed
     if ([string]::IsNullOrWhiteSpace($desiredLocation)) {
-        Write-Error "File location path cannot be empty or whitespace."
-        throw
+        # Handle paths that are empty or contain only whitespace
+        Show-ErrorMsg `
+            -FunctionName $MyInvocation.MyCommand.Name `
+            -CustomMessage "File location path cannot be empty or white space."
+    }
+    else {
+        # Split the path into components and check for invalid segments
+        $pathSegments = $desiredLocation -split '[\\/]'  # Split on '\' or '/'
+        foreach ($segment in $pathSegments) {
+            if ([string]::IsNullOrWhiteSpace($segment)) {
+                Show-ErrorMsg `
+                    -FunctionName $MyInvocation.MyCommand.Name `
+                    -CustomMessage "One or more File location path segment contains white space only."
+            }
+        }
     }
 
     # When syntax is not valid, cannot proceed
     if (-not (Test-Path -Path $desiredLocation -IsValid)) {
-        Write-Error "The specified path syntax is not valid."
-        throw
+        Show-ErrorMsg `
+            -FunctionName $MyInvocation.MyCommand.Name `
+            -CustomMessage "The specified path syntax is not valid."
     }
 
     # When input folder path is not a folder, cannot proceed
@@ -67,8 +84,9 @@ function Confirm-DesiredFolder {
     
     # When input folder is network path, cannot proceed
     if ($desiredLocation -like '\\*') {
-        Write-Error"The desired folder is a network path, currently not supported."
-        throw
+        Show-ErrorMsg `
+            -FunctionName $MyInvocation.MyCommand.Name `
+            -CustomMessage "The desired folder is a network path, currently not supported."
     }
 
     # # When input folder is a symbolic link or junction, cannot proceed
@@ -80,8 +98,9 @@ function Confirm-DesiredFolder {
     # When the target disk doesn't have enough space, cannot proceed
     $drive = Get-PSDrive -Name ([System.IO.Path]::GetPathRoot($desiredLocation) -replace '[:\\]', '')
     if ($drive.Free -lt 1MB) {
-        Write-Error "Not enough disk space in the desired location."
-        throw
+        Show-ErrorMsg `
+            -FunctionName $MyInvocation.MyCommand.Name `
+            -CustomMessage "Not enough disk space in the desired location."
     }
 
     # This check cannot be enforced
@@ -96,5 +115,5 @@ function Confirm-DesiredFolder {
     #     throw
     # }
     
-    Write-Verbose "Desired folder check passed."
+    Write-Verbose "Input folder check passed.`n"
 }

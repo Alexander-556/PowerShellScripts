@@ -63,12 +63,15 @@ function Invoke-CreationFile {
                     
         if ($isFileOpen) {
             Write-Verbose "In folder '$fileFolder,'"
-            Write-Verbose "file '$filename' opened."
+            Write-Host "File '$filename' opened." `
+                -ForegroundColor Green
         }
     }
     catch {
-        Write-Verbose "In folder '$fileFolder',"
-        Write-Error "Failed to create file '$filename'. Error: $_"
+        Show-ErrorMsg `
+            -FunctionName $MyInvocation.MyCommand.Name `
+            -CustomMessage "In folder '$fileFolder', failed to create file '$filename'." `
+            -Exception $_.Exception
     }   
 }
 

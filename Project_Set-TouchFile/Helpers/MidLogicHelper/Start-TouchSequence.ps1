@@ -25,30 +25,25 @@ function Start-TouchSequence {
         
         if (-not $isValidFilename) {
             Write-Verbose "In folder '$($fileObj.FileFolder)',"
-            Write-Warning "file '$($fileObj.Filename)' is invalid and will be skipped."
+            Write-Host "File '$($fileObj.Filename)' is invalid and will be skipped." `
+                -ForegroundColor DarkYellow
             continue
         }
 
         # Custom logic to handle the touch behavior, similar to unix touch, but different
-        # This try block handles unexpected errors in the whole process
-        try {
-            # If the file is not there, create new file
-            if (-not (Test-Path $fileObj.FullPath)) {
-                Invoke-CreationFile `
-                    -filename $fileObj.Filename`
-                    -fileFolder $fileObj.FileFolder`
-                    -fullPath $fileObj.FullPath
-            }
-            # If the file already exists, 
-            else {
-                Invoke-UpdateFile `
-                    -filename $fileObj.Filename`
-                    -fileFolder $fileObj.FileFolder`
-                    -fullPath $fileObj.FullPath
-            }
+        # If the file is not there, create new file
+        if (-not (Test-Path $fileObj.FullPath)) {
+            Invoke-CreationFile `
+                -filename $fileObj.Filename`
+                -fileFolder $fileObj.FileFolder`
+                -fullPath $fileObj.FullPath
         }
-        catch {
-            Write-Error "Unexpected Error: $_"
+        # If the file already exists, 
+        else {
+            Invoke-UpdateFile `
+                -filename $fileObj.Filename`
+                -fileFolder $fileObj.FileFolder`
+                -fullPath $fileObj.FullPath
         }
     }
 }
