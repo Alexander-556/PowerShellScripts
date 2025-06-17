@@ -43,6 +43,8 @@ function Confirm-DesiredFolder {
             -CustomMessage "File location path cannot be empty or white space."
     }
     else {
+        # Trim end slashes to allow trailing slashes
+        $desiredLocation = $desiredLocation.TrimEnd('\', '/')
         # Split the path into components and check for invalid segments
         $pathSegments = $desiredLocation -split '[\\/]'  # Split on '\' or '/'
         foreach ($segment in $pathSegments) {
