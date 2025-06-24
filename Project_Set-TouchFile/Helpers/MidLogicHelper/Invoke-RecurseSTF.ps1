@@ -13,7 +13,7 @@ function Invoke-RecurseSTF {
     # Step 2: Feed them back into Set-TouchFile, recurse
     Set-TouchFile `
         -Filename $fullInputPathObj.Filename `
-        -Location $fullInputPathObj.FileFolder
+        -desiredLocation $fullInputPathObj.FileFolder
 
     # Step 3: after recurse call, program ends
 }

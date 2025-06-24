@@ -80,11 +80,11 @@ function Confirm-Filename {
         $isValidFilename = $false
     }
 
-    Write-Verbose "Checking filename '$filename' for leading or trailing dots..."
-    if ($filename.StartsWith('.') -or $filename.EndsWith('.')) {
-        Write-Warning "Filename '$filename' cannot start or end with a dot."
-        $isValidFilename = $false
-    }
+    # Write-Verbose "Checking filename '$filename' for leading or trailing dots..."
+    # if ($filename.StartsWith('.') -or $filename.EndsWith('.')) {
+    #     Write-Warning "Filename '$filename' cannot start or end with a dot."
+    #     $isValidFilename = $false
+    # }
 
     Write-Verbose "Checking length of path to the file:"
     Write-Verbose "'$fullPath'"
