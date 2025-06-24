@@ -2,36 +2,44 @@
 function Invoke-UpdateFile {
     <#
     .SYNOPSIS
-    Updates the timestamp of an existing file and prompts the user for further actions.
+    Updates the last write timestamp of an existing file and optionally prompts the user to open or rename it.
 
     .DESCRIPTION
-    The `Invoke-UpdateFile` function updates the last write time of an existing file to 
-    the current time.  It validates the input parameters and handles errors during the 
-    timestamp update process. After updating the file, it prompts the user to decide 
-    whether to open the file or perform additional actions. The function uses `Get-Item`
-    to update the timestamp and `Confirm-OpenFile` to handle the file opening prompt.
+    The Invoke-UpdateFile function updates the last write time of a specified file to the current system time. 
+    It is typically used when the target file already exists and does not require creation.
+
+    The function uses `Get-Item` to retrieve the file and update its timestamp. The update process is 
+    wrapped in a `try/catch` block to handle and report any exceptions.
+
+    After the timestamp is updated, the function prompts the user (via `Confirm-OpenFile`) to optionally 
+    open the file or proceed with renaming it. This interaction supports the interactive behavior of the 
+    Set-TouchFile module.
 
     .PARAMETER filename
-    The name of the file to update.
+    The name of the file to update. This must refer to an existing file.
 
     .PARAMETER fileFolder
-    The folder path where the file resides.
+    The directory in which the file resides. Used for messaging and path reconstruction.
 
     .PARAMETER fullPath
-    The full path to the file, combining the folder path and filename.
+    The complete path to the file, combining the filename and folder path. Used for timestamp update and user prompts.
 
     .INPUTS
-    [string]
-    Accepts the filename, folder path, and full path as input.
+    [string] Accepts strings for filename, folder path, and full file path.
 
     .OUTPUTS
-    None. Outputs status messages to the console.
+    None. Performs file operations and writes status messages to the console.
 
     .NOTES
-    This is a helper function that should only be called in another function. 
-    This function should not be called by the user directly.
+    Private helper function for the Set-TouchFile module.  
+    Not intended for direct use by end users.
 
+    Scope:         Private  
+    Author:        Jialiang Chang  
+    Version:       1.0.0  
+    Last Updated:  2025-06-24
     #>
+
     [CmdletBinding()]
     param(
         [Parameter(Mandatory = $true)]

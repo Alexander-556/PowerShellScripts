@@ -2,36 +2,45 @@
 function Invoke-CreationFile {
     <#
     .SYNOPSIS
-    Creates a new file in the specified folder and handles file creation errors.
+    Creates a new file in the specified folder and optionally prompts the user to open it.
 
     .DESCRIPTION
-    The `Invoke-CreationFile` function creates a new file with the specified name in 
-    the given folder. It validates the input parameters and handles errors during file 
-    creation. After creating the file, it prompts the user to decide whether to open the 
-    file. The function uses `New-Item` to create the file and `Confirm-OpenFile` to 
-    handle the file opening prompt.
+    The Invoke-CreationFile function is responsible for safely creating a new file at the 
+    specified location. It uses the full path to perform file creation via `New-Item` and 
+    wraps the operation in a `try/catch` block to handle and report any errors.
+
+    After a successful file creation, the user is prompted (via `Confirm-OpenFile`) to 
+    decide whether to open the file. If the user agrees, the file is opened using the default 
+    system editor.
+
+    This function is intended for internal use in the Set-TouchFile module and is not 
+    meant to be called directly by end users.
 
     .PARAMETER filename
-    The name of the file to create.
+    The name of the file to create. This should not contain invalid characters and must be a valid filename.
 
     .PARAMETER fileFolder
-    The folder path where the file will be created.
+    The folder in which the file should be created. This should be a valid and accessible directory path.
 
     .PARAMETER fullPath
-    The full path to the file, combining the folder path and filename.
+    The full resolved path to the file, combining the folder and filename. Used for both file creation and open-file prompt.
 
     .INPUTS
-    [string]
-    Accepts the filename, folder path, and full path as input.
+    [string] Accepts strings representing filename, folder path, and full path.
 
     .OUTPUTS
-    None. Outputs status messages to the console.
+    None. Performs file creation and writes status messages to the console.
 
     .NOTES
-    This is a helper function that should only be called in another function. 
-    This function should not be called by the user directly.
+    Private helper function for the Set-TouchFile module.  
+    Not exposed publicly and should only be used internally.
 
+    Scope:         Private  
+    Author:        Jialiang Chang  
+    Version:       1.0.0  
+    Last Updated:  2025-06-24
     #>
+
     [CmdletBinding()]
     param(
         [Parameter(Mandatory = $true)]

@@ -1,4 +1,41 @@
+# * QueryHelper
 function Confirm-NewFileFolder {
+    <#
+    .SYNOPSIS
+    Prompts the user to confirm folder creation for a specified path.
+
+    .DESCRIPTION
+    The Confirm-NewFileFolder function interactively prompts the user to decide 
+    whether to create a specified folder that does not currently exist. 
+
+    If the user responds with 'Y', 'y', or presses Enter, the folder is created at the given path.  
+    If the user responds with 'N' or 'n', the operation is cancelled and the function returns `$false`.  
+    Any other input will trigger a warning and reprompt the user.
+
+    This function is intended for internal use in user-facing workflows that 
+    involve conditional folder creation, such as in the Set-TouchFile module.
+
+    .PARAMETER inputPath
+    The full path to the folder that may need to be created. Must be a string representing 
+    a valid filesystem path.
+
+    .INPUTS
+    [string] Accepts a string representing a folder path.
+
+    .OUTPUTS
+    [bool] Returns `$true` if the folder was created, or `$false` if the operation 
+    was cancelled by the user.
+
+    .NOTES
+    Private helper function for the Set-TouchFile module.
+    Not exposed publicly and should only be used internally.
+
+    Scope:         Private
+    Author:        Jialiang Chang
+    Version:       1.0.0
+    Last Updated:  2025-06-24
+    #>
+
     [CmdletBinding()]
     param(
         [Parameter(Mandatory = $true)]

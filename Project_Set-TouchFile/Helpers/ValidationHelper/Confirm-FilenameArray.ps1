@@ -5,29 +5,37 @@ function Confirm-FilenameArray {
     Validates an array of filenames to ensure they are suitable for processing.
 
     .DESCRIPTION
-    The `Confirm-FilenameArray` function checks an array of filenames for null values 
-    and duplicates. It ensures that the input array contains valid filenames before 
-    proceeding with further operations. If invalid filenames are detected, the function 
-    throws an error.
+    The Confirm-FilenameArray function validates a list of filenames prior to file creation.
+    It performs two critical checks:
 
-    Important Notice:
-    Duplication is checked by comparing the length of the input array and the number
-    of unique filenames.
+    1. Ensures the array is not null or empty.
+    2. Detects duplicate entries by comparing the input count to the count of unique values.
+
+    If the input fails either check, an error is thrown using the internal Show-ErrorMsg utility. 
+    This helps prevent unintended behavior during touch operations.
+
+    This function is intended for internal use only and is used by Set-TouchFile 
+    to enforce input correctness before proceeding with file operations.
 
     .PARAMETER filenameArray
-    An array of filenames to validate. The function checks for null values and duplicates.
+    The list of filenames to validate. Must not be null, empty, or contain duplicates.
 
     .INPUTS
-    [string[]]
-    Accepts an array of filenames as input.
+    [string[]] Accepts an array of strings representing filenames.
 
     .OUTPUTS
-    None. Outputs validation messages to the console.
-    
+    None. The function writes verbose output and throws terminating errors when validation fails.
+
     .NOTES
-    This is a helper function that should only be called in another function. 
-    This function should not be called by the user directly.
+    Private helper function for the Set-TouchFile module.
+    This function is not intended for direct use by end users.
+
+    Scope:         Private
+    Author:        Jialiang Chang
+    Version:       1.0.0
+    Last Updated:  2025-06-24
     #>
+
     [CmdletBinding()]
     param(
         [Parameter(Mandatory = $true)]

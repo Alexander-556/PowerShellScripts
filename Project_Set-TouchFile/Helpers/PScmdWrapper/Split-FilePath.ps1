@@ -2,33 +2,42 @@
 function Split-FilePath {
     <#
     .SYNOPSIS
-    Splits a file path into its folder path and filename.
+    Splits a file path into its directory (parent folder) and filename components.
 
     .DESCRIPTION
-    The `Split-FilePath` function processes a given file path and splits it into its 
-    folder path and filename. If the input path is valid, it resolves the full path 
-    using `Resolve-PathwErr`. For invalid paths, it attempts to resolve the parent 
-    folder and combines it with the filename to construct the full path. The function 
-    returns a custom object containing the folder path and filename.
+    The Split-FilePath function takes a file path as input and splits it into two parts:
+    - `FileFolder`: The parent directory of the file.
+    - `Filename`:   The name of the file, including its extension.
+
+    This function does not perform validation or resolve the physical path on disk. It uses 
+    `Split-Path` to perform basic parsing of the input path. The resulting values are returned 
+    as a custom PowerShell object with clearly named properties.
+
+    This helper function is typically used internally in the Set-TouchFile module for parsing 
+    user-supplied paths into structured components.
 
     .PARAMETER inputPath
-    The file path to process. This can be an absolute or relative path.
+    The full file path to process. Can be absolute or relative. This value is parsed but not 
+    validated or resolved.
 
     .INPUTS
-    [string]
-    Accepts a single file path as input.
+    [string] Accepts a single string representing a file path.
 
     .OUTPUTS
-    [PSCustomObject]
-    Returns a custom object containing the following properties:
-    - `FileFolder`: The folder path where the file resides.
-    - `Filename`: The name of the file.
+    [PSCustomObject] Returns an object with the following properties:
+    - `FileFolder` [string] : The folder path (parent directory).
+    - `Filename`   [string] : The file name extracted from the path.
 
     .NOTES
-    This is a helper function that should only be called in another function. 
-    This function should not be called by the user directly.
+    Private helper function for the Set-TouchFile module.  
+    Not intended for direct use by end users.
 
+    Scope:         Private  
+    Author:        Jialiang Chang  
+    Version:       1.0.0  
+    Last Updated:  2025-06-24
     #>
+
     [CmdletBinding()]
     param(
         [Parameter(Mandatory = $true)]

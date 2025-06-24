@@ -2,32 +2,42 @@
 function Get-FileObj {
     <#
     .SYNOPSIS
-    Creates a file object containing metadata such as folder path, filename, and full path.
+    Creates a structured file object containing folder, filename, and full path metadata.
 
     .DESCRIPTION
-    The `Get-FileObj` function generates a custom PowerShell object representing a file. 
-    It normalizes the filename by trimming whitespace and combines it with the specified 
-    folder path to create the full file path. The resulting object contains the folder path, 
-    filename, and full path.
+    The Get-FileObj function generates a PowerShell custom object that represents a file's 
+    location and name. It trims leading and trailing whitespace from the provided filename 
+    and combines it with the specified folder path to compute the full file path.
+
+    This helper function is used internally by the Set-TouchFile module to standardize 
+    how file references are stored and passed between logic and validation layers.
 
     .PARAMETER filename
-    The name of the file to process. Leading and trailing whitespace will be removed.
+    The name of the file to process. Leading and trailing whitespace will be trimmed automatically.
 
     .PARAMETER desiredLocation
-    The folder path where the file resides or will be created. If not specified, the function 
-    uses the current working directory.
+    The folder path where the file resides or will be created. If omitted, the function is expected 
+    to receive a valid path from the caller. No resolution or validation is performed in this function.
 
     .INPUTS
-    [string]
-    Accepts the filename and optional folder path as input.
+    [string] Accepts a filename and optional folder path as string input.
 
     .OUTPUTS
-    [PSCustomObject]
-    Returns a custom object `fileObj` containing the following properties:
-    - `FileFolder`: The folder path where the file resides.
-    - `Filename`: The name of the file.
-    - `FullPath`: The full path to the file.
+    [PSCustomObject] Returns an object with the following properties:
+    - `FileFolder` [string] : The folder path.
+    - `Filename`   [string] : The cleaned filename.
+    - `FullPath`   [string] : The combined full file path.
+
+    .NOTES
+    Private helper function for the Set-TouchFile module.  
+    Not intended for direct use by end users.
+
+    Scope:         Private  
+    Author:        Jialiang Chang  
+    Version:       1.0.0  
+    Last Updated:  2025-06-24
     #>
+
     [CmdletBinding()]
     param(
         [Parameter(Mandatory = $true)]

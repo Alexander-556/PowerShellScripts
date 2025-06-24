@@ -2,31 +2,36 @@
 function Resolve-PathwErr {
     <#
     .SYNOPSIS
-    Resolves a folder path and handles errors gracefully.
+    Resolves a folder path using Resolve-Path and handles errors gracefully.
 
     .DESCRIPTION
-    The `Resolve-PathwErr` function attempts to resolve a given folder path using the 
-    `Resolve-Path` cmdlet. If the resolution fails, it logs warnings and stops the program.
-    
-    Important Notice:
-    If path resolution failed, the program cannot continue.
+    The Resolve-PathwErr function is a private wrapper around the built-in `Resolve-Path` cmdlet. 
+    It attempts to resolve a given folder path to its full canonical form. If the resolution 
+    succeeds, the resolved path is returned. If it fails, the function throws a terminating error 
+    using the internal `Show-ErrorMsg` utility and halts execution.
+
+    This function improves error transparency and unifies error handling within the Set-TouchFile module.
 
     .PARAMETER inputPath
-    The folder path to resolve. This can be an absolute or relative path.
+    The raw folder path to resolve. This can be an absolute or relative path.
 
     .INPUTS
-    [string]
-    Accepts a single folder path as input.
+    [string] Accepts a single string representing the folder path.
 
     .OUTPUTS
-    [string]
-    Returns the resolved folder path if successful; otherwise, stops the program.
-    
+    [string] Returns the resolved folder path as a string if successful.
+
     .NOTES
-    This is a helper function that should only be called in another function. 
-    This function should not be called by the user directly.
-    
+    Private helper function for the Set-TouchFile module.  
+    Not intended for direct use by end users.
+
+    Scope:         Private  
+    Author:        Jialiang Chang  
+    Version:       1.0.0  
+    Last Updated:  2025-06-24
     #>
+
+    
     [CmdletBinding()]
     param(
         [Parameter(Mandatory = $true)]

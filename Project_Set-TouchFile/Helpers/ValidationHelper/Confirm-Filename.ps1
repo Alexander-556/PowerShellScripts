@@ -2,36 +2,46 @@
 function Confirm-Filename {
     <#
     .SYNOPSIS
-    Validates a filename to ensure it is suitable for file operations.
+    Validates a filename to ensure it complies with Windows file system rules.
 
     .DESCRIPTION
-    The `Confirm-Filename` function performs a series of checks on a specified filename 
-    to ensure it is valid and suitable for file operations. It checks for duplicates, 
-    empty or whitespace names, prohibited characters, reserved Windows names, leading or 
-    trailing dots, and path length limits. If any validation fails, the function returns 
-    `$false`. Otherwise, it returns `$true`.
+    The Confirm-Filename function performs a comprehensive series of checks on a given filename 
+    to ensure it is valid for file creation or update operations. The checks include:
+
+    - Empty or whitespace-only names
+    - Presence of invalid characters (`< > : " / \ | ? *`)
+    - Reserved Windows device names (e.g., CON, NUL, COM1)
+    - Trailing dots
+    - Path length limits (max 260 characters)
+    - Optional existence check (used to detect duplicates)
+
+    This function returns `$true` if the filename passes all checks, or `$false` if any condition fails. 
+    Warnings are written to the host for any validation failure, but the function does not throw errors.
 
     .PARAMETER filename
-    The name of the file to validate. Leading and trailing whitespace will be removed.
+    The name of the file to validate. Leading and trailing whitespace should be trimmed prior to this check.
+    Used in all validation steps.
 
     .PARAMETER fileFolder
-    The folder path where the file resides or will be created. Used to check for duplicate filenames.
+    The folder where the file resides or will be created. Combined with the filename to form a full path 
+    used for duplicate and length checks.
 
     .INPUTS
-    [string]
-    Accepts the filename and folder path as input.
+    [string] Accepts the filename and folder path as input strings.
 
     .OUTPUTS
-    [bool]
-    Returns `$true` if the filename is valid; otherwise, returns `$false`.
-    
+    [bool] Returns `$true` if the filename is valid; otherwise, returns `$false`.
+
     .NOTES
-    This is a helper function that should only be called in another function. 
-    This function should not be called by the user directly.
+    Private helper function for the Set-TouchFile module.  
+    Not intended for direct use by end users.
 
-    This function can be recycled for other purposes very easily.
-
+    Scope:         Private  
+    Author:        Jialiang Chang  
+    Version:       1.0.0  
+    Last Updated:  2025-06-24
     #>
+
     [CmdletBinding()]
     param(
         [Parameter(Mandatory = $true)]

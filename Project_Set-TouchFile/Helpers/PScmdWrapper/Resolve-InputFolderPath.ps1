@@ -1,11 +1,42 @@
 # * PScmdWrapper
 function Resolve-InputFolderPath {
-    <#    
+    <#
+    .SYNOPSIS
+    Resolves a user-supplied input path and returns a standardized object describing its validity.
+
+    .DESCRIPTION
+    The Resolve-InputFolderPath function is a private helper designed to validate and resolve 
+    user-provided folder paths. If the input path exists, it uses `Resolve-PathwErr`
+    for accurate resolution. If the path does not exist, it attempts to interpret whether 
+    the path is absolute or relative, and then manually constructs the full path string accordingly.
+
+    This function is intended to support interactive folder creation in Set-TouchFile by 
+    returning a standardized object that includes:
+    - `Path`  : The resolved or interpreted folder path
+    - `Valid` : A Boolean indicating whether the original path existed
+
+    .PARAMETER inputPath
+    The raw folder path provided by the user. This can be either absolute or relative. 
+    The function resolves it into a full path and determines whether the original path exists.
+
+    .INPUTS
+    [string] Accepts a single string representing a folder path.
+
+    .OUTPUTS
+    [PSCustomObject] Returns an object with two properties:
+    - `Path`  [string] : The resolved or interpreted full path
+    - `Valid` [bool]   : Indicates whether the original path exists
+
     .NOTES
-    This is a helper function that should only be called in another function. 
-    This function should not be called by the user directly.
-    
+    Private helper function for the Set-TouchFile module.
+    This function is not intended to be called directly by end users.
+
+    Scope:         Private  
+    Author:        Jialiang Chang  
+    Version:       1.0.0  
+    Last Updated:  2025-06-24
     #>
+
     [CmdletBinding()]
     param(
         [Parameter(Mandatory = $true)]
@@ -58,10 +89,10 @@ function Resolve-InputFolderPath {
                 Write-Verbose "Manual path resolve successful.`n"
             }
             catch {
-                    Show-ErrorMsg `
-                        -FunctionName $MyInvocation.MyCommand.Name `
-                        -CustomMessage "Manual path resolve failed for '$inputPath'." `
-                        -Exception $_.Exception
+                Show-ErrorMsg `
+                    -FunctionName $MyInvocation.MyCommand.Name `
+                    -CustomMessage "Manual path resolve failed for '$inputPath'." `
+                    -Exception $_.Exception
             }
         }
         

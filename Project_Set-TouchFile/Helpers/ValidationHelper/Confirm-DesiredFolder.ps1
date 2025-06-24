@@ -5,27 +5,41 @@ function Confirm-DesiredFolder {
     Validates a folder path to ensure it is suitable for file operations.
 
     .DESCRIPTION
-    The `Confirm-DesiredFolder` function performs a series of checks on a specified folder
-    path to ensure it is valid and suitable for file operations. It checks for empty or 
-    whitespace paths, folder existence, protected system folders, network paths, 
-    symbolic links, disk space, and write permissions. If any validation fails, 
-    the function throws an error, and the program will stop.
+    The Confirm-DesiredFolder function performs comprehensive validation on a user-specified 
+    folder path. It checks for:
+
+    - Null or whitespace-only values
+    - Empty or invalid path segments
+    - Invalid syntax
+    - Network paths (e.g., UNC paths like \\server\share)
+    - Disk space availability (requires at least 1 MB free)
+
+    If any check fails, the function throws a terminating error using the internal Show-ErrorMsg utility. 
+    This validation helps prevent issues during file creation or touch operations.
+
+    This function is designed for internal use within the Set-TouchFile module and is 
+    not intended for direct invocation by end users.
 
     .PARAMETER desiredLocation
-    The folder path to validate. This can be an absolute or relative path.
+    The folder path to validate. May be absolute or relative. The path will be trimmed 
+    and parsed to ensure it conforms to the required structure and rules.
 
     .INPUTS
-    [string]
-    Accepts a single folder path as input.
+    [string] Accepts a single string representing a folder path.
 
     .OUTPUTS
-    None. Outputs validation messages to the console.
+    None. This function writes verbose output and throws errors when validation fails.
 
     .NOTES
-    This is a helper function that should only be called in another function. 
-    This function should not be called by the user directly.
+    Private helper function for the Set-TouchFile module.
+    Not exposed publicly and should only be used internally.
 
+    Scope:         Private  
+    Author:        Jialiang Chang  
+    Version:       1.0.0  
+    Last Updated:  2025-06-24
     #>
+
     [CmdletBinding()]
     param(
         [Parameter(Mandatory = $true)]
