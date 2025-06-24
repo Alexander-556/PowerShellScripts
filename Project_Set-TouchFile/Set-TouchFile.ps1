@@ -12,6 +12,7 @@ function Set-TouchFile {
             ParameterSetName = 'ByName', 
             ValueFromPipeline = $true)
         ]
+        [Alias("n")]
         [string]$filename,
 
         [Parameter(
@@ -19,6 +20,7 @@ function Set-TouchFile {
             Position = 1, 
             ParameterSetName = 'ByName')
         ]
+        [Alias("l")]
         [string]$desiredLocation,
 
         [Parameter(
