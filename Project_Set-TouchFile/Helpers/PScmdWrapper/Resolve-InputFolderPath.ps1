@@ -49,7 +49,7 @@ function Resolve-InputFolderPath {
             Write-Verbose "Your path is relative."
             try {
                 # If the path is relative, manually resolve
-                $childPath = $inputPath.TrimStart("\.")
+                $childPath = $inputPath.TrimStart(".")
                 $scriptPath = (Get-Location).Path
                 $desiredLocationObj.Path = 
                 Join-Path `
