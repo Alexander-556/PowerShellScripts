@@ -35,7 +35,7 @@ function Confirm-NewNameFile {
             # Define hash table for input params
             $recurseParams = @{ Filename = $newFilename }
             if ($PSBoundParameters.ContainsKey("desiredLocation")) {
-                $recurseParams.Location = $desiredLocation
+                $recurseParams.desiredLocation = $desiredLocation
             }
             
             # Recursively call the touch function with the new filename and location
