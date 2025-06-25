@@ -15,8 +15,7 @@ function Get-FolderParentInfo {
     The folder path to process. This can be an absolute or relative path.
 
     .INPUTS
-    [string[]]
-    Accepts a folder path as input.
+    [string] Accepts a folder path as input.
 
     .OUTPUTS
     [PSCustomObject]
@@ -27,12 +26,11 @@ function Get-FolderParentInfo {
     .NOTES
     This is a helper function that should only be called in another function. 
     This function should not be called by the user directly.
-
     #>
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true, Position = 0)]
-        [string[]]$inputFolderPath
+        [string]$inputFolderPath
     )
 
     # Initialize two attributes with null values for ecc purposes
@@ -47,7 +45,7 @@ function Get-FolderParentInfo {
     catch {
         Show-ErrorMsg `
             -FunctionName $MyInvocation.MyCommand.Name
-            -CustomMessage "`nError in splitting folder path '$inputFolderPath'."
+            -CustomMessage "Error in splitting folder path '$inputFolderPath'."
             -Exception $_.Exception
     }
         

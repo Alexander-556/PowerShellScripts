@@ -33,7 +33,6 @@ function Confirm-FolderArray {
     Version:       1.0.0  
     Last Updated:  2025-06-25
     #>
-
     [CmdletBinding()]
     param(
         [Parameter(Mandatory = $true, Position = 0)]
@@ -46,10 +45,6 @@ function Confirm-FolderArray {
             -FunctionName $MyInvocation.MyCommand.Name
             -CustomMessage "No folders provided."
     }
-
-    # Todo: Improve duplicate folders error handling, COMPLETED
-    # Late in other functions implement a checking mechanism and store the names 
-    # of invalid folder in the folderObj
     
     # Checking for duplication in a simple manner through counting
     if ($folderPathsArray.Count -ne ($folderPathsArray | Select-Object -Unique).Count) {

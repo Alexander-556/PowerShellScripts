@@ -75,7 +75,8 @@ function Move-ChildItemUp {
 
         # Step 2:
         # Assemble the folder object array for ease of process
-        $folderObjArray = Get-FolderInfo $folderPathsArray
+        [System.Collections.Generic.List[pscustomobject]]$folderObjArray = 
+        Get-FolderInfo $folderPathsArray
 
         # Step 3:
         # Do the actual moving

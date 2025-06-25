@@ -24,7 +24,6 @@ function Get-FolderInfo {
     The object `folderObj` contains the following properties
     - `Parent`: The parent folder of the input folder path.
     - `Name`:   The name of the folder.
-    - `Valid`:  A boolean indicating whether the folder is valid.
 
     .NOTES
     Private helper function for internal validation in the Move-ChildItemUp module.  
@@ -35,7 +34,6 @@ function Get-FolderInfo {
     Version:       1.0.0  
     Last Updated:  2025-06-25
     #>
-    [OutputType([System.Collections.Generic.List[pscustomobject]])]
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true, Position = 0)]
@@ -86,7 +84,7 @@ function Get-FolderInfo {
             }
 
             # Add the resolved path to the seen list
-            $seenPaths.Add($resolvedPath)
+            [void]$seenPaths.Add($resolvedPath)
 
             # Setup folder object
             $folderObj = Get-FolderParentInfo $resolvedPath
@@ -107,8 +105,6 @@ function Get-FolderInfo {
             -FunctionName $MyInvocation.MyCommand.Name `
             -CustomMessage "No valid folder can be processed."
     }
-
-    Write-Host "DEBUG: First item type in folderObjArray: $($folderObjArray[0].GetType().FullName)"
 
     return $folderObjArray
 }

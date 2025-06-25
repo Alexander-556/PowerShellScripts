@@ -35,16 +35,18 @@ function Confirm-FolderPath {
         [string]$inputFolderPath
     )
 
+    $isFolderValid = $true
+
     # Suppress intermediate output to avoid leaking into the pipeline
     if (-not (Test-Path -Path $inputFolderPath -ErrorAction SilentlyContinue)) {
         Write-Warning "Folder '$inputFolderPath' does not exist!"
-        return $false
+        $isFolderValid = $false
     }
 
     if (-not (Test-Path -Path $inputFolderPath -PathType Container -ErrorAction SilentlyContinue)) {
         Write-Warning "Path '$inputFolderPath' is not a folder, likely a file!"
-        return $false
+        $isFolderValid = $false
     }
 
-    return $true
+    return $isFolderValid
 }
