@@ -67,14 +67,17 @@ function Move-ChildItemUp {
 
     # After collecting all pipeline input, process the array
     end {
-        Write-Host "Program starts..." -ForegroundColor Green
+        Write-Host "Program starts...`n" `
+            -ForegroundColor Green
 
         # Step 1:
         # Validate input array only, not the path
+        Write-Verbose "Start input folder array check..."
         Confirm-FolderArray $folderPathsArray
 
         # Step 2:
         # Assemble the folder object array for ease of process
+        Write-Verbose "Start collecting folder relevant info..."
         [System.Collections.Generic.List[pscustomobject]]$folderObjArray = 
         Get-FolderInfo $folderPathsArray
 
@@ -86,6 +89,7 @@ function Move-ChildItemUp {
         # Remove-Item -Path $source -Recurse -Force
         Remove-EmptyFolder $folderObjArray
 
-        Write-Host "Program complete." -ForegroundColor Green
+        Write-Host "`nAction complete." `
+            -ForegroundColor Green
     }
 }

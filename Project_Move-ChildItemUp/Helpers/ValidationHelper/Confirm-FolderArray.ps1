@@ -18,7 +18,8 @@ function Confirm-FolderArray {
     contains only unique entries.
 
     .INPUTS
-    [string[]] Accepts an array of folder paths as input.
+    [System.Collections.Generic.List[string]]
+    Accepts an array of folder paths as input.
 
     .OUTPUTS
     None. This function does not return output objects, but may write warning or verbose messages
@@ -40,6 +41,7 @@ function Confirm-FolderArray {
     )
 
     # Checking input folder array for null
+    Write-Verbose "Checking for null or empty input..."
     if (-not $folderPathsArray -or $folderPathsArray.Count -eq 0) {
         Show-ErrorMsg `
             -FunctionName $MyInvocation.MyCommand.Name
@@ -47,6 +49,7 @@ function Confirm-FolderArray {
     }
     
     # Checking for duplication in a simple manner through counting
+    Write-Verbose "Checking for duplicate items..."
     if ($folderPathsArray.Count -ne ($folderPathsArray | Select-Object -Unique).Count) {
         # Current behavior, function continues and warns user about the skipping
         Write-Warning "Duplicate folders detected in the input."

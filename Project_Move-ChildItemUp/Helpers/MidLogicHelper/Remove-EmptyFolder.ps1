@@ -51,11 +51,13 @@ function Remove-EmptyFolder {
             # Use ShouldProcess for confirmation
             if ($PSCmdlet.ShouldProcess("$folderPath", "Remove empty folder")) {
                 Remove-Item -Path $folderPath -Force
-                Write-Host "Removed empty folder:`n$folderPath" -ForegroundColor Red
+                Write-Host "Removed empty folder:`n$folderPath" `
+                    -ForegroundColor Red
             }
         }
         else {
-            Write-Host "Skipped non-empty folder:`n$folderPath" -ForegroundColor Magenta
+            Write-Host "Skipped non-empty folder:`n$folderPath" `
+            -ForegroundColor DarkYellow
             continue
         }
     }

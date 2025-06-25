@@ -41,7 +41,7 @@ function Resolve-PathwErr {
     try {
         $outputPath = (Resolve-Path -Path $inputFolderPath -ErrorAction Stop).Path
         Write-Verbose "Resolve operation successful for '$inputFolderPath',"
-        Write-Verbose "output path: '$outputPath'.`n"
+        Write-Verbose "Output path: '$outputPath'."
     }
     catch {
         $outputPath = $null
