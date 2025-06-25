@@ -38,7 +38,8 @@ function Get-FolderInfo {
     )
 
     # Initialize array of objects
-    $folderObjArray = @()
+    # Use the more efficient list instead of the PowerShell array
+    $folderObjArray = New-Object System.Collections.Generic.List[string]
     
     # Initialize the previous folder path for skipping duplicates
     $previousFolderPath = $null
@@ -85,14 +86,15 @@ function Get-FolderInfo {
             $folderObj = Get-FolderParentInfo $folderPath $isFolderValid
 
             # Add folder object to the array for return
-            $folderObjArray += $folderObj
+            $folderObjArray.Add($folderObj)
         }              
     }
 
     # Checking output folder array for null to make powershell happy
     if (-not $folderObjArray -or $folderObjArray.Count -eq 0) {
-        Write-Error "No valid folder can be processed."
-        throw
+        Show-ErrorMsg `
+            -FunctionName $MyInvocation.MyCommand.Name
+            -CustomMessage "No valid folder can be processed."
     }
 
     return $folderObjArray

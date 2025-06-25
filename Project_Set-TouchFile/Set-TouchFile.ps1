@@ -91,7 +91,7 @@ function Set-TouchFile {
 
     .NOTES
     This is the main public function in the Set-TouchFile utility.
-    To use this function, dot source or import the module `SetTouchFileTools.psd1`
+    To use this function, import the module `SetTouchFileTools.psd1`
     to ensure all dependencies are loaded.
 
     To create a convenient alias similar to Unix, run:
@@ -100,7 +100,7 @@ function Set-TouchFile {
     Scope:         Public
     Author:        Jialiang Chang
     Version:       1.0.0
-    Last Updated:  2025-06-24
+    Last Updated:  2025-06-25
     #>
 
     [CmdletBinding(DefaultParameterSetName = 'ByName')]

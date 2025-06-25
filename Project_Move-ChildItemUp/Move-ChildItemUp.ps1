@@ -34,8 +34,17 @@ function Move-ChildItemUp {
     working directory up one level.
 
     .NOTES
-    This is the main function. User should call this function. An alias is recommended.
+    This is the main public function in the Move-ChildItemUp utility.
+    To use this function, import the module `MoveChildItemUp.psd1`
+    to ensure all dependencies are loaded.
 
+    To create a convenient alias, run:
+    Set-Alias -Name ungroup -Value Move-ChildItemUp
+
+    Scope:         Public
+    Author:        Jialiang Chang
+    Version:       1.0.0
+    Last Updated:  2025-06-25
     #>
     [CmdletBinding()]
     param (
@@ -55,33 +64,25 @@ function Move-ChildItemUp {
 
     # After collecting all pipeline input, process the array
     end {
-        try {
-            Write-Host "Program starts..." -ForegroundColor Cyan
+        Write-Host "Program starts..." -ForegroundColor Cyan
 
-            # Step 1:
-            # Validate input array only, not the path
-            Confirm-FolderArray $folderPathsArray
+        # Step 1:
+        # Validate input array only, not the path
+        Confirm-FolderArray $folderPathsArray
 
-            # Step 2:
-            # Assemble the folder object array for ease of process
-            $folderObjArray = Get-FolderInfo $folderPathsArray
+        # Step 2:
+        # Assemble the folder object array for ease of process
+        $folderObjArray = Get-FolderInfo $folderPathsArray
 
-            # Step 3:
-            # Do the actual moving
-            # ? Confusing name but not sure how to avoid
-            Move-FolderContents $folderObjArray
+        # Step 3:
+        # Do the actual moving
+        # ? Confusing name but not sure how to avoid
+        Move-FolderContents $folderObjArray
 
-            # Step 4: Clean up empty folder only
-            # Remove-Item -Path $source -Recurse -Force
-            Remove-EmptyFolder $folderObjArray
+        # Step 4: Clean up empty folder only
+        # Remove-Item -Path $source -Recurse -Force
+        Remove-EmptyFolder $folderObjArray
 
-            Write-Host "Program complete." -ForegroundColor Green
-        }
-        catch {
-            # Improved error handling
-            Write-Error "Unexpected Error"
-            Write-Error "$($_.Exception.Message)"
-            Write-Error "Action unsuccessful. Please check the input and try again."
-        }
+        Write-Host "Program complete." -ForegroundColor Green
     }
 }

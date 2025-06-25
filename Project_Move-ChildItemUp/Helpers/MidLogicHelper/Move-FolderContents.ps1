@@ -100,7 +100,7 @@ function Move-FolderContents {
                 Write-Verbose "Moved file '$sourceFilePath' to new path '$destinationFilePath'."
             }
             catch {
-                Write-Warning "Failed to move file '$sourceFilePath' to '$destinationFilePath'. Error: $_"
+                Write-Warning "Failed to move file '$sourceFilePath' to '$destinationFilePath'. Error: $($_.Exception.Message)"
             }
         }
     }

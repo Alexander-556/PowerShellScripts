@@ -33,8 +33,9 @@ function Confirm-FolderArray {
 
     # Checking input folder array for null
     if (-not $folderPathsArray -or $folderPathsArray.Count -eq 0) {
-        Write-Error "No folders provided."
-        throw
+        Show-ErrorMsg `
+            -FunctionName $MyInvocation.MyCommand.Name
+            -CustomMessage "No folders provided."
     }
 
     # Todo: Improve duplicate folders error handling, COMPLETED

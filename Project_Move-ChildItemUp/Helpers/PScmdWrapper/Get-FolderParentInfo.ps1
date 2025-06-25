@@ -63,8 +63,10 @@ function Get-FolderParentInfo {
         }
     }
     catch {
-        Write-Error "`nError in splitting folder path '$inputFolderPath'."
-        Write-Error "$($_.Exception.Message)"
+        Show-ErrorMsg `
+            -FunctionName $MyInvocation.MyCommand.Name
+            -CustomMessage "`nError in splitting folder path '$inputFolderPath'."
+            -Exception $_.Exception
     }
         
     # Create a PS object with Parent and Name properties
