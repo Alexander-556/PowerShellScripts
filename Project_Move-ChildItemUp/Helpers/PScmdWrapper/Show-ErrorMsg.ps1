@@ -41,7 +41,11 @@ function Show-ErrorMsg {
     [YourFunctionName] Manual resolve failed. Reason: <Exception.Message>
 
     .INPUTS
-    [string], [System.Exception]
+    [string]
+    The name of the function to display, and the custom message
+
+    [System.Exception]
+    The error exception object
 
     .OUTPUTS
     None. The function throws a terminating exception.

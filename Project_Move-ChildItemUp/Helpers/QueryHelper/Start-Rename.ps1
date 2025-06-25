@@ -23,9 +23,13 @@ function Start-Rename {
     Returns the updated target file object with the new filename.
 
     .NOTES
-    This is a helper function that should only be called in another function. 
-    This function should not be called by the user directly.
+    Private helper function for internal validation in the Move-ChildItemUp module.  
+    Not intended for direct use by end users.
 
+    Scope:         Private  
+    Author:        Jialiang Chang  
+    Version:       1.0.0  
+    Last Updated:  2025-06-25
     #>
     [CmdletBinding()]
     param(
@@ -50,7 +54,7 @@ function Start-Rename {
         }
         else {
             # If filename not valid, repeat query...
-            Write-Error "Invalid filename: '$newFilename'. Please enter a new name below..."
+            Write-Warning "Invalid filename: '$newFilename'. Please enter a new name below..."
         }                            
     }
 }

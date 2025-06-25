@@ -27,9 +27,13 @@ function Confirm-FileConflict {
     Returns the user-selected action (`skip` or `rename`).
 
     .NOTES
-    This is a helper function that should only be called in another function. 
-    This function should not be called by the user directly.
+    Private helper function for internal validation in the Move-ChildItemUp module.  
+    Not intended for direct use by end users.
 
+    Scope:         Private  
+    Author:        Jialiang Chang  
+    Version:       1.0.0  
+    Last Updated:  2025-06-25
     #>
     [CmdletBinding()]
     param(
@@ -43,8 +47,10 @@ function Confirm-FileConflict {
     $renameKeyWords = @('R', 'r')
     # $overwriteKeyWords = @('O', 'o')
 
-    Write-Warning "To skip this file, type 'S' or 's' or 'Enter'."
-    Write-Warning "To rename this file, type 'R' or 'r'."
+    Write-Host "To skip this file, type 'S' or 's' or 'Enter'." `
+        -ForegroundColor DarkYellow
+    Write-Host "To rename this file, type 'R' or 'r'." `
+        -ForegroundColor DarkYellow
 
     # Loop for continuous prompting
     while ($true) {
@@ -61,8 +67,10 @@ function Confirm-FileConflict {
         }
         else {
             Write-Warning "Invalid response. Please follow the instructions:"
-            Write-Warning "To skip this file, type 'S' or 's' or 'Enter'."
-            Write-Warning "To rename this file, type 'R' or 'r'.`n"
+            Write-Host "To skip this file, type 'S' or 's' or 'Enter'." `
+                -ForegroundColor DarkYellow
+            Write-Host "To rename this file, type 'R' or 'r'." `
+                -ForegroundColor DarkYellow
         }
     }
 }

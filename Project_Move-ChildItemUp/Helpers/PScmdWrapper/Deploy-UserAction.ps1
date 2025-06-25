@@ -35,9 +35,13 @@ function Deploy-UserAction {
     Returns the modified target file object after applying the user action.
 
     .NOTES
-    This is a helper function that should only be called in another function. 
-    This function should not be called by the user directly.
+    Private helper function for internal validation in the Move-ChildItemUp module.  
+    Not intended for direct use by end users.
 
+    Scope:         Private  
+    Author:        Jialiang Chang  
+    Version:       1.0.0  
+    Last Updated:  2025-06-25
     #>
     [CmdletBinding()]
     param(
