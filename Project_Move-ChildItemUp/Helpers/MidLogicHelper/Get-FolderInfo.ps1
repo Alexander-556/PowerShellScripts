@@ -46,8 +46,6 @@ function Get-FolderInfo {
     # Initialize the seenPaths for skipping duplicates
     $seenPaths = [System.Collections.Generic.HashSet[string]]::new()
 
-    $isFolderValid = $null
-
     # Start main loop
     foreach ($folderPath in $folderPathsArray) {
 
@@ -68,35 +66,27 @@ function Get-FolderInfo {
             # Skip the path
             continue
         }
-
+        
         # Step 3: Validate folder path
         #         validates the path exists and is a folder
         #         potential duplicate validation logic
-        $isFolderValid = Confirm-FolderPath $resolvedPath
-
-        # Check if the folder path is valid
-        if ($isFolderValid) {
-            # If the folder path is valid
-            # Check for duplicate
-            if ($seenPaths.Contains($resolvedPath)) {
-                Write-Warning "Duplicate folder detected: '$resolvedPath'. Skipping..."
-                continue
-            }
-
-            # Add the resolved path to the seen list
-            [void]$seenPaths.Add($resolvedPath)
-
-            # Setup folder object
-            $folderObj = Get-FolderParentInfo $resolvedPath
-
-            # Add folder object to the array for return
-            $folderObjArray.Add($folderObj)
-        }
-        else {
+        if (-not (Confirm-FolderPath $resolvedPath)) {
             # If the folder path is not valid (likely a file)
             Write-Warning "The path '$folderPath' is not valid (likely a file). Skipping..."
             continue
         }
+    
+        # Step 4: Check for duplicates
+        if (-not $seenPaths.Add($resolvedPath)) {
+            Write-Warning "Duplicate folder detected: '$resolvedPath'. Skipping..."
+            continue
+        }
+        
+        # Step 5: Setup folder object
+        $folderObj = Get-FolderParentInfo $resolvedPath
+
+        # Step 6: Add to return list
+        $folderObjArray.Add($folderObj)
     }
 
     # Checking output folder array for null to make powershell happy
