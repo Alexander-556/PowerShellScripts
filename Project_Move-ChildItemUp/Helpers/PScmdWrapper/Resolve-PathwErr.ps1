@@ -15,30 +15,37 @@ function Resolve-PathwErr {
     The folder path to resolve. This can be an absolute or relative path.
 
     .INPUTS
-    [string]
-    Accepts a single folder path as input.
+    [string] Accepts a single folder path as input.
 
     .OUTPUTS
-    [string]
-    Returns the resolved folder path if successful; otherwise, returns `$null`.
+    [string] Returns the resolved folder path if successful; otherwise, returns `$null`.
     
     .NOTES
-    This is a helper function that should only be called in another function. 
-    This function should not be called by the user directly.
-    
+    Private helper function for internal validation in the Move-ChildItemUp module.  
+    Not intended for direct use by end users.
+
+    Scope:         Private  
+    Author:        Jialiang Chang  
+    Version:       1.0.0  
+    Last Updated:  2025-06-25    
     #>
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true, Position = 0)]
         [string]$inputFolderPath
     )
+    
+    Write-Verbose "Resolving path for '$inputFolderPath'."
 
-    
-    $inputFolderPathResolved = Resolve-Path -Path $inputFolderPath -ErrorAction SilentlyContinue
-    if ($null -eq $inputFolderPathResolved) {
-        Write-Warning "Resolve path '$inputFolderPath' failed."
-        Write-Warning "The folder will be skipped."
+    # Catch any error during Resolve-Path operation
+    try {
+        $outputPath = (Resolve-Path -Path $inputFolderPath -ErrorAction Stop).Path
+        Write-Verbose "Resolve operation successful for '$inputFolderPath',"
+        Write-Verbose "output path: '$outputPath'.`n"
     }
-    return $inputFolderPathResolved
+    catch {
+        $outputPath = $null
+    }
     
+    return $outputPath
 }

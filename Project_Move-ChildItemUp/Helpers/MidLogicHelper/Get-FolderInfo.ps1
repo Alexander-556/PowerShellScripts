@@ -15,87 +15,100 @@ function Get-FolderInfo {
     and creates folder objects.
 
     .INPUTS
-    [string[]]
+    [System.Collections.Generic.List[string]]
     Accepts an array of folder paths as input.
 
     .OUTPUTS
-    [PSCustomObject[]]
+    [System.Collections.Generic.List[pscustomobject]]
     Returns an array of custom folder objects containing resolved paths and validation status.
     The object `folderObj` contains the following properties
     - `Parent`: The parent folder of the input folder path.
-    - `Name`: The name of the folder.
-    - `Valid`: A boolean indicating whether the folder is valid.
+    - `Name`:   The name of the folder.
+    - `Valid`:  A boolean indicating whether the folder is valid.
 
     .NOTES
-    This is a helper function that should only be called in another function. 
-    This function should not be called by the user directly.
+    Private helper function for internal validation in the Move-ChildItemUp module.  
+    Not intended for direct use by end users.
 
+    Scope:         Private  
+    Author:        Jialiang Chang  
+    Version:       1.0.0  
+    Last Updated:  2025-06-25
     #>
+    [OutputType([System.Collections.Generic.List[pscustomobject]])]
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true, Position = 0)]
-        [string[]]$folderPathsArray
+        [System.Collections.Generic.List[string]]$folderPathsArray
     )
 
-    # Initialize array of objects
-    # Use the more efficient list instead of the PowerShell array
-    $folderObjArray = New-Object System.Collections.Generic.List[string]
+    # Initialize array of objects to return
+    $folderObjArray = [System.Collections.Generic.List[pscustomobject]]::new()
     
-    # Initialize the previous folder path for skipping duplicates
-    $previousFolderPath = $null
+    # Initialize the seenPaths for skipping duplicates
+    $seenPaths = [System.Collections.Generic.HashSet[string]]::new()
 
-    # Resolve path with ecc and validation
-    # Split path into parent and name
-    # Store info in a folder object
+    $isFolderValid = $null
+
+    # Start main loop
     foreach ($folderPath in $folderPathsArray) {
-        # Resolve with ecc
-        $folderPath = Resolve-PathwErr $folderPath
 
-        # Check duplicates and skip the second one
-        # For the first folder in the array, this code should never execute
-        if ($null -eq $folderPath) {
-            Write-Verbose "Invalid folder due to failed path resolution."  
-        }
-        elseif ($previousFolderPath -eq $folderPath) {
-            # If the previous folder path is the same as the current folder path
-            Write-Warning "The folder '$folderPath' is the same as the previous folder."
-            # add an additional false to the valid folder bool variable.
-            $isFolderValid = $false
+        # Step 0: Check for empty input
+        if ([string]::IsNullOrWhiteSpace($folderPath)) {
+            Write-Verbose "Empty or whitespace folder path. Skipping..."
+            continue
         }
 
-        # Update the previous folder path for next step duplication
-        # To be clear, when executing this program inside an actual folder or a valid
-        # working directory, a duplicate should not happen thanks to Windows,
-        # but there might be a chance of user error in input, so it makes sense
-        # to implement this additional error checking mechanism.
-        $previousFolderPath = $folderPath
-        
-        # Moved null detection logic here to make powershell happy
-        # If null is detected in input, this only means resolution failed
-        if ([string]::IsNullOrEmpty($folderPath)) {
-            Write-Verbose "Invalid folder due to failed path resolution."
-            $isFolderValid = $false
-        }
-        else {
-            # Validate folder path
-            $isFolderValid = Confirm-FolderPath $folderPath
+        # Step 1: Resolve the folder path for consistency
+        #         when resolution failed, fall back to `$null`
+        $resolvedPath = Resolve-PathwErr $folderPath
 
-            # It only make sense to execute the following when input is not null
+        # Step 2: Check if the resolved path is `$null`
+        if ([string]::IsNullOrEmpty($resolvedPath)) {
+            # If the resolved path is `$null` then the path is invalid
+            Write-Warning "Path resolution failed for '$folderPath'. Skipping..."
+            # Skip the path
+            continue
+        }
+
+        # Step 3: Validate folder path
+        #         validates the path exists and is a folder
+        #         potential duplicate validation logic
+        $isFolderValid = Confirm-FolderPath $resolvedPath
+
+        # Check if the folder path is valid
+        if ($isFolderValid) {
+            # If the folder path is valid
+            # Check for duplicate
+            if ($seenPaths.Contains($resolvedPath)) {
+                Write-Warning "Duplicate folder detected: '$resolvedPath'. Skipping..."
+                continue
+            }
+
+            # Add the resolved path to the seen list
+            $seenPaths.Add($resolvedPath)
 
             # Setup folder object
-            $folderObj = Get-FolderParentInfo $folderPath $isFolderValid
+            $folderObj = Get-FolderParentInfo $resolvedPath
 
             # Add folder object to the array for return
             $folderObjArray.Add($folderObj)
-        }              
+        }
+        else {
+            # If the folder path is not valid (likely a file)
+            Write-Warning "The path '$folderPath' is not valid (likely a file). Skipping..."
+            continue
+        }
     }
 
     # Checking output folder array for null to make powershell happy
     if (-not $folderObjArray -or $folderObjArray.Count -eq 0) {
         Show-ErrorMsg `
-            -FunctionName $MyInvocation.MyCommand.Name
+            -FunctionName $MyInvocation.MyCommand.Name `
             -CustomMessage "No valid folder can be processed."
     }
+
+    Write-Host "DEBUG: First item type in folderObjArray: $($folderObjArray[0].GetType().FullName)"
 
     return $folderObjArray
 }

@@ -21,9 +21,13 @@ function Confirm-FolderPath {
     Returns `$true` if the path is a valid folder; otherwise, returns `$false`.
     
     .NOTES
-    This is a helper function that should only be called in another function. 
-    This function should not be called by the user directly.
-    
+    Private helper function for internal validation in the Move-ChildItemUp module.  
+    Not intended for direct use by end users.
+
+    Scope:         Private  
+    Author:        Jialiang Chang  
+    Version:       1.0.0  
+    Last Updated:  2025-06-25
     #>
     [CmdletBinding()]
     param (
@@ -31,18 +35,16 @@ function Confirm-FolderPath {
         [string]$inputFolderPath
     )
 
-    # Initialize bool variable for ecc
-    $isFolderValid = $true
-
-    # Test the actual path
-    if (-not (Test-Path -Path $inputFolderPath)) {
+    # Suppress intermediate output to avoid leaking into the pipeline
+    if (-not (Test-Path -Path $inputFolderPath -ErrorAction SilentlyContinue)) {
         Write-Warning "Folder '$inputFolderPath' does not exist!"
-        $isFolderValid = $false
+        return $false
     }
-    elseif (-not (Test-Path -Path $inputFolderPath -PathType Container)) {
+
+    if (-not (Test-Path -Path $inputFolderPath -PathType Container -ErrorAction SilentlyContinue)) {
         Write-Warning "Path '$inputFolderPath' is not a folder, likely a file!"
-        $isFolderValid = $false
+        return $false
     }
-    
-    return $isFolderValid
+
+    return $true
 }

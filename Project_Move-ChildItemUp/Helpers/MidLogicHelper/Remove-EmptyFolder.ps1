@@ -32,16 +32,12 @@ function Remove-EmptyFolder {
     )]
     param(
         [Parameter(Mandatory = $true, Position = 0)]
-        [PSCustomObject[]]$folderObjArray
+        [System.Collections.Generic.List[pscustomobject]]$folderObjArray
     )
 
     foreach ($folderObj in $folderObjArray) {
-        
-        If (-not $folderObj.Valid) {
-            Write-Verbose "Skipping removal of an invalid entry..."
-            continue
-        }
 
+        # Construct full path
         $folderPath = Join-Path -Path $folderObj.Parent -ChildPath $folderObj.Name
 
         # Check if the folder is empty

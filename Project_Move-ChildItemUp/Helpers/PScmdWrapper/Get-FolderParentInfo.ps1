@@ -14,23 +14,15 @@ function Get-FolderParentInfo {
     .PARAMETER inputFolderPath
     The folder path to process. This can be an absolute or relative path.
 
-    .PARAMETER isFolderValid
-    A boolean flag indicating whether the folder path is valid. If `$false`, the function 
-    skips processing and logs a warning.
-
     .INPUTS
     [string[]]
     Accepts a folder path as input.
-
-    [bool]
-    Accepts a validity flag as input.
 
     .OUTPUTS
     [PSCustomObject]
     Returns a custom object `folderObj` with the following properties:
     - `Parent`: The parent folder of the input folder path.
     - `Name`: The name of the folder.
-    - `Valid`: A boolean indicating whether the folder is valid.
 
     .NOTES
     This is a helper function that should only be called in another function. 
@@ -40,10 +32,7 @@ function Get-FolderParentInfo {
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true, Position = 0)]
-        [string[]]$inputFolderPath,
-        
-        [Parameter(Mandatory = $true, Position = 1)]
-        [bool]$isFolderValid
+        [string[]]$inputFolderPath
     )
 
     # Initialize two attributes with null values for ecc purposes
@@ -51,16 +40,9 @@ function Get-FolderParentInfo {
     $folderName = $null
 
     try {
-        if ($isFolderValid) {
-            # Split the path into parent folder and folder name
-            $parentFolder = Split-Path -Path $inputFolderPath -Parent
-            $folderName = Split-Path -Path $inputFolderPath -Leaf
-        }
-        else {
-            # We have moved warning to here.
-            # ? Where to put the warning is the best
-            Write-Warning "Path '$inputFolderPath' will be skipped."
-        }
+        # Split the path into parent folder and folder name
+        $parentFolder = Split-Path -Path $inputFolderPath -Parent
+        $folderName = Split-Path -Path $inputFolderPath -Leaf
     }
     catch {
         Show-ErrorMsg `
@@ -70,11 +52,9 @@ function Get-FolderParentInfo {
     }
         
     # Create a PS object with Parent and Name properties
-    # Store folder validity, will skip invalid folder later
     $folderObj = [PSCustomObject]@{
         Parent = $parentFolder
         Name   = $folderName
-        Valid  = $isFolderValid
     }
     # Also notice that in the above code block, there is an option to also include the 
     # full path to this folder. However, I finally decided to not to add this attribute
