@@ -15,7 +15,8 @@ function Move-ChildItemUp {
     This parameter accepts pipeline input.
 
     .INPUTS
-    [string] Accepts folder paths as pipeline input. Absolute and relative paths both acceptable.
+    [string] 
+    Accepts folder paths as pipeline input. Absolute and relative paths both acceptable.
 
     .OUTPUTS
     None. This function performs file operations and outputs status messages to the console.
@@ -67,17 +68,18 @@ function Move-ChildItemUp {
 
     # After collecting all pipeline input, process the array
     end {
-        Write-Host "Program starts...`n" `
-            -ForegroundColor Green
+        
+        Write-Bounds `
+            -FunctionName $MyInvocation.MyCommand.Name `
+            -Mode "Enter"
+        Write-Verbose "Program starts..." `
 
         # Step 1:
         # Validate input array only, not the path
-        Write-Verbose "Start input folder array check..."
         Confirm-FolderArray $folderPathsArray
 
         # Step 2:
         # Assemble the folder object array for ease of process
-        Write-Verbose "Start collecting folder relevant info..."
         [System.Collections.Generic.List[pscustomobject]]$folderObjArray = 
         Get-FolderInfo $folderPathsArray
 
@@ -89,7 +91,11 @@ function Move-ChildItemUp {
         # Remove-Item -Path $source -Recurse -Force
         Remove-EmptyFolder $folderObjArray
 
-        Write-Host "`nAction complete." `
+        Write-Host "Action complete." `
             -ForegroundColor Green
+        
+        Write-Bounds `
+            -FunctionName $MyInvocation.MyCommand.Name `
+            -Mode "Exit"
     }
 }

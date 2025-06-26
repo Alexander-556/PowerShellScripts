@@ -37,17 +37,26 @@ function Move-FolderContents {
     )
 
     # Start moving files in a folder
+    Write-Bounds `
+        -FunctionName $MyInvocation.MyCommand.Name `
+        -Mode "Enter"
+    
     Write-Host "File moving starts..." -ForegroundColor Cyan
     foreach ($folderObj in $folderObjArray) {
         
         # Construct full path
+        Write-Verbose "Constructing full path..."
         $folderFullPath = Join-Path -Path $folderObj.Parent -ChildPath $folderObj.Name
         
         # Create an array of fileObj
+        Write-Verbose "Obtaining all available files in the folder..."
         $fileObjArray = Get-ChildItem -Path $folderFullPath -Force
 
         # Start actually moving the files
+        Write-Verbose "Start moving loop..."
         foreach ($fileObj in $fileObjArray) {
+
+            Write-Verbose "Setup move target..."
 
             # Set targetFileObj
             $targetFileObj = [PSCustomObject]@{
@@ -60,25 +69,30 @@ function Move-FolderContents {
                 -Path $targetFileObj.Destination `
                 -ChildPath $targetFileObj.Filename
 
-            # Handle file name conflicts inside the parent folder
+            Write-Verbose "Check for filename conflicts..."
+
+            # Handle filename conflicts inside the parent folder
             if (Test-Path $targetFilePath) {
                 Write-Warning "Conflict detected: '$($targetFileObj.Filename)' already exists in `n$($targetFileObj.Destination)."
 
                 # Prompt user for response: skip, rename, (overwrite)...
-                $userAction = Confirm-FileConflict $targetFileObj $folderObj
+                $userAction = 
+                Confirm-FileConflict $targetFileObj $folderObj
 
                 # Handles skipping
                 if ($userAction -eq "skip") {
                     # For simplicity, the continue is called here
                     # If future more options that requires continue comes, 
                     # consider change this to a bool condition.
+                    Write-Verbose "File skipped."
                     continue
                 }
                 
                 # This line carries out the user action, 
                 # right now there is only one, but if there are more in the future
                 # consider adding here.
-                $targetFileObj = Deploy-UserAction $userAction $targetFileObj $folderObj
+                $targetFileObj = 
+                Deploy-UserAction $userAction $targetFileObj $folderObj
             }
             
             # Define moving source and target paths
@@ -96,11 +110,16 @@ function Move-FolderContents {
             # Move the file, ensuring paths with spaces are handled correctly
             try {
                 Move-Item -LiteralPath "$sourceFilePath" -Destination "$destinationFilePath"
-                Write-Verbose "Moved file '$sourceFilePath' to new path '$destinationFilePath'."
+                Write-Verbose "Moved file '$sourceFilePath' to `n'$destinationFilePath'."
             }
             catch {
                 Write-Warning "Failed to move file '$sourceFilePath' to '$destinationFilePath'. Error: $($_.Exception.Message)"
+                continue
             }
         }
     }
+    
+    Write-Bounds `
+        -FunctionName $MyInvocation.MyCommand.Name `
+        -Mode "Exit"
 }

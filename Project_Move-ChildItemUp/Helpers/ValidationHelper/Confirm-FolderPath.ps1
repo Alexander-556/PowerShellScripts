@@ -35,6 +35,11 @@ function Confirm-FolderPath {
         [string]$inputFolderPath
     )
 
+    Write-Bounds `
+        -FunctionName $MyInvocation.MyCommand.Name `
+        -Mode "Enter"
+    Write-Verbose "Validating folder path '$inputFolderPath'..."
+
     $isFolderValid = $true
 
     # Suppress intermediate output to avoid leaking into the pipeline
@@ -47,6 +52,11 @@ function Confirm-FolderPath {
         Write-Warning "Path '$inputFolderPath' is not a folder, likely a file!"
         $isFolderValid = $false
     }
+
+    Write-Verbose "Validation complete."
+    Write-Bounds `
+        -FunctionName $MyInvocation.MyCommand.Name `
+        -Mode "Exit"
 
     return $isFolderValid
 }

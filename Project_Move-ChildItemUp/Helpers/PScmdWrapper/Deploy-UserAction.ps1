@@ -54,10 +54,20 @@ function Deploy-UserAction {
         [Parameter(Mandatory = $true, Position = 2)]
         [PSCustomObject]$folderObj
     )
+    
+    Write-Bounds `
+        -FunctionName $MyInvocation.MyCommand.Name `
+        -Mode "Enter"
+    Write-Verbose "Carrying out user action..."
 
     # Execute the rename operation
     if ($userAction -eq "rename") {
         $targetFileObj = Start-Rename $targetFileObj
         return $targetFileObj
     }
+
+    Write-Verbose "User action completed."
+    Write-Bounds `
+        -FunctionName $MyInvocation.MyCommand.Name `
+        -Mode "Exit"
 }

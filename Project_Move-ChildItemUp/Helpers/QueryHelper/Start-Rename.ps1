@@ -36,9 +36,12 @@ function Start-Rename {
         [Parameter(Mandatory = $true, Position = 0)]
         [PSCustomObject]$targetFileObj
     )
+    Write-Verbose "[$($MyInvocation.MyCommand.Name)]"
+    Write-Verbose "Start rename action..."
 
     while ($true) {
         # Prompt user for a new filename
+        Write-Verbose "Prompt for new filename"
         $newFilename = Read-Host "Enter new filename"
 
         # Reuse old ValidationHelpers
@@ -49,6 +52,8 @@ function Start-Rename {
 
         If ($isFilenameValid) {
             # If filename is valid, then update the target filename
+            Write-Verbose "Updating target based on new filename..."
+            Write-Verbose "[$($MyInvocation.MyCommand.Name)]"
             $targetFileObj.Filename = $newFilename
             return $targetFileObj
         }

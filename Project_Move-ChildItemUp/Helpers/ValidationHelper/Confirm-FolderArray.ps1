@@ -40,6 +40,11 @@ function Confirm-FolderArray {
         [System.Collections.Generic.List[string]]$folderPathsArray
     )
 
+    Write-Bounds `
+        -FunctionName $MyInvocation.MyCommand.Name `
+        -Mode "Enter"
+    Write-Verbose "Start input folder array check..."
+
     # Checking input folder array for null
     Write-Verbose "Checking for null or empty input..."
     if (-not $folderPathsArray -or $folderPathsArray.Count -eq 0) {
@@ -57,4 +62,7 @@ function Confirm-FolderArray {
     }
 
     Write-Verbose "Folder path array input check passed."
+    Write-Bounds `
+        -FunctionName $MyInvocation.MyCommand.Name `
+        -Mode "Exit"
 }

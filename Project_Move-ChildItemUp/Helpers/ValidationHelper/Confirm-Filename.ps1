@@ -43,6 +43,9 @@ function Confirm-Filename {
         [string]$fileFolder
     )
 
+    Write-Verbose "[$($MyInvocation.MyCommand.Name)]"
+    Write-Verbose "Start checking for filename..."
+
     # Ensure the new filename doesn't crash with existing file
     Write-Verbose "Checking filename '$filename' for duplicates..."
     $fullPath = Join-Path -Path $fileFolder -ChildPath $filename
@@ -86,5 +89,6 @@ function Confirm-Filename {
     }
     
     Write-Verbose "File '$filename' in folder '$fileFolder' check passed."
+    Write-Verbose "[$($MyInvocation.MyCommand.Name)]"
     return $true
 }

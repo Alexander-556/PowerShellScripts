@@ -43,14 +43,23 @@ function Confirm-FileConflict {
         [PSCustomObject]$folderObj
     )
 
+    Write-Bounds `
+        -FunctionName $MyInvocation.MyCommand.Name `
+        -Mode "Enter"
+    Write-Verbose "Checking user response..."
+
     $skipKeyWords = @('S', 's', '')
     $renameKeyWords = @('R', 'r')
     # $overwriteKeyWords = @('O', 'o')
 
-    Write-Host "To skip this file, type 'S' or 's' or 'Enter'." `
-        -ForegroundColor DarkYellow
-    Write-Host "To rename this file, type 'R' or 'r'." `
-        -ForegroundColor DarkYellow
+    Write-Host "To skip this file, type " -NoNewline -ForegroundColor Cyan
+    Write-Host "'S'" -NoNewline -ForegroundColor Cyan
+    Write-Host ", 's', or press Enter." -ForegroundColor Cyan
+
+    Write-Host "To rename this file, type " -NoNewline -ForegroundColor Cyan
+    Write-Host "'R'" -NoNewline -ForegroundColor Cyan
+    Write-Host " or 'r'." -ForegroundColor Cyan
+
 
     # Loop for continuous prompting
     while ($true) {
@@ -58,19 +67,36 @@ function Confirm-FileConflict {
         $response = Read-Host "Enter your response"
         
         if ($skipKeyWords -contains $response) {                        
-            Write-Host "File '$($targetFileObj.Filename)' will be skipped."
+            Write-Host "File '$($targetFileObj.Filename)' will be skipped." `
+                -ForegroundColor Green
+
+            Write-Verbose "User action confirmed."
+            Write-Bounds `
+                -FunctionName $MyInvocation.MyCommand.Name `
+                -Mode "Exit"
+                
             return "skip"
         }
         elseif ($renameKeyWords -contains $response) {
-            Write-Host "File '$($targetFileObj.Filename)' in '$($folderObj.Name)' will be renamed."
+            Write-Host "File '$($targetFileObj.Filename)' in '$($folderObj.Name)' will be renamed." `
+                -ForegroundColor Green
+
+            Write-Verbose "User action confirmed."
+            Write-Bounds `
+                -FunctionName $MyInvocation.MyCommand.Name `
+                -Mode "Exit"
+
             return "rename"
         }
         else {
-            Write-Warning "Invalid response. Please follow the instructions:"
-            Write-Host "To skip this file, type 'S' or 's' or 'Enter'." `
-                -ForegroundColor DarkYellow
-            Write-Host "To rename this file, type 'R' or 'r'." `
-                -ForegroundColor DarkYellow
+            Write-Warning "Invalid response. Please follow the instructions below:"
+            Write-Host "To skip this file, type " -NoNewline -ForegroundColor DarkYellow
+            Write-Host "'S'" -NoNewline -ForegroundColor DarkYellow
+            Write-Host ", 's', or press Enter." -ForegroundColor DarkYellow
+
+            Write-Host "To rename this file, type " -NoNewline -ForegroundColor DarkYellow
+            Write-Host "'R'" -NoNewline -ForegroundColor DarkYellow
+            Write-Host " or 'r'." -ForegroundColor DarkYellow
         }
     }
 }

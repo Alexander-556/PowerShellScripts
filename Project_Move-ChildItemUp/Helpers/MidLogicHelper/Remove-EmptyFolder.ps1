@@ -39,16 +39,23 @@ function Remove-EmptyFolder {
         [System.Collections.Generic.List[pscustomobject]]$folderObjArray
     )
 
+    Write-Bounds `
+        -FunctionName $MyInvocation.MyCommand.Name `
+        -Mode "Enter"
+    Write-Verbose "Start cleaning up after moving file..."
+
     foreach ($folderObj in $folderObjArray) {
 
         # Construct full path
+        Write-Verbose "Construct full path..."
         $folderPath = Join-Path -Path $folderObj.Parent -ChildPath $folderObj.Name
 
         # Check if the folder is empty
+        Write-Verbose "Checking if folder is empty..."
         $childItems = Get-ChildItem -Path $folderPath -Force
-
         if ($childItems.Count -eq 0) {
             # Use ShouldProcess for confirmation
+            Write-Verbose "Removing Empty folder..."
             if ($PSCmdlet.ShouldProcess("$folderPath", "Remove empty folder")) {
                 Remove-Item -Path $folderPath -Force
                 Write-Host "Removed empty folder:`n$folderPath" `
@@ -57,8 +64,13 @@ function Remove-EmptyFolder {
         }
         else {
             Write-Host "Skipped non-empty folder:`n$folderPath" `
-            -ForegroundColor DarkYellow
+                -ForegroundColor DarkYellow
             continue
         }
     }
+
+    Write-Verbose "Clean up complete."
+    Write-Bounds `
+        -FunctionName $MyInvocation.MyCommand.Name `
+        -Mode "Exit"
 }

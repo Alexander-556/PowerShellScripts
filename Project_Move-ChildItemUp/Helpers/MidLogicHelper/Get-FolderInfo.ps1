@@ -40,18 +40,27 @@ function Get-FolderInfo {
         [System.Collections.Generic.List[string]]$folderPathsArray
     )
 
+    Write-Bounds `
+        -FunctionName $MyInvocation.MyCommand.Name `
+        -Mode "Enter"
+    Write-Verbose "Start collecting folder relevant info..."
+
     # Initialize array of objects to return
+    Write-Verbose "Initializing folder object array list..."
     $folderObjArray = [System.Collections.Generic.List[pscustomobject]]::new()
     
     # Initialize the seenPaths for skipping duplicates
+    Write-Verbose "Initializing seen path hash set..."
     $seenPaths = [System.Collections.Generic.HashSet[string]]::new()
 
     # Start main loop
+    Write-Verbose "Start main loop..."
     foreach ($folderPath in $folderPathsArray) {
 
         # Step 0: Check for empty input
+        Write-Verbose "Checking for empty or null input..."
         if ([string]::IsNullOrWhiteSpace($folderPath)) {
-            Write-Verbose "Empty or whitespace folder path. Skipping..."
+            Write-Warning "Empty or whitespace folder path. Skipping..."
             continue
         }
 
@@ -60,6 +69,7 @@ function Get-FolderInfo {
         $resolvedPath = Resolve-PathwErr $folderPath
 
         # Step 2: Check if the resolved path is `$null`
+        Write-Verbose "Checking for null resolved path..."
         if ([string]::IsNullOrEmpty($resolvedPath)) {
             # If the resolved path is `$null` then the path is invalid
             Write-Warning "Path resolution failed for '$folderPath'. Skipping..."
@@ -70,6 +80,7 @@ function Get-FolderInfo {
         # Step 3: Validate folder path
         #         validates the path exists and is a folder
         #         potential duplicate validation logic
+        Write-Verbose "Checking for path type (folder or file)..."
         if (-not (Confirm-FolderPath $resolvedPath)) {
             # If the folder path is not valid (likely a file)
             Write-Warning "The path '$folderPath' is not valid (likely a file). Skipping..."
@@ -77,6 +88,7 @@ function Get-FolderInfo {
         }
     
         # Step 4: Check for duplicates
+        Write-Verbose "Checking for duplicate entries..."
         if (-not $seenPaths.Add($resolvedPath)) {
             Write-Warning "Duplicate folder detected: '$resolvedPath'. Skipping..."
             continue
@@ -86,15 +98,22 @@ function Get-FolderInfo {
         $folderObj = Get-FolderParentInfo $resolvedPath
 
         # Step 6: Add to return list
+        Write-Verbose "Adding folder object to the process list..."
         $folderObjArray.Add($folderObj)
     }
 
     # Checking output folder array for null to make powershell happy
+    Write-Verbose "Checking for empty process list..."
     if (-not $folderObjArray -or $folderObjArray.Count -eq 0) {
         Show-ErrorMsg `
             -FunctionName $MyInvocation.MyCommand.Name `
             -CustomMessage "No valid folder can be processed."
     }
+
+    Write-Verbose "Folder info collection complete."
+    Write-Bounds `
+        -FunctionName $MyInvocation.MyCommand.Name `
+        -Mode "Exit"
 
     return $folderObjArray
 }

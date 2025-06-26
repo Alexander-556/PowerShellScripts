@@ -38,11 +38,18 @@ function Get-FolderParentInfo {
         [string]$inputFolderPath
     )
 
+    Write-Bounds `
+        -FunctionName $MyInvocation.MyCommand.Name `
+        -Mode "Enter"
+    Write-Verbose "Start collection parent folder information..."
+
+    Write-Verbose "Initializing null variables for assignment..."
     # Initialize two attributes with null values for ecc purposes
     $parentFolder = $null
     $folderName = $null
 
     try {
+        Write-Verbose "Splitting the input path '$inputFolderPath'..."
         # Split the path into parent folder and folder name
         $parentFolder = Split-Path -Path $inputFolderPath -Parent
         $folderName = Split-Path -Path $inputFolderPath -Leaf
@@ -50,10 +57,11 @@ function Get-FolderParentInfo {
     catch {
         Show-ErrorMsg `
             -FunctionName $MyInvocation.MyCommand.Name
-            -CustomMessage "Error in splitting folder path '$inputFolderPath'."
-            -Exception $_.Exception
+        -CustomMessage "Error in splitting folder path '$inputFolderPath'."
+        -Exception $_.Exception
     }
-        
+    
+    Write-Verbose "Constructing the folder object..."
     # Create a PS object with Parent and Name properties
     $folderObj = [PSCustomObject]@{
         Parent = $parentFolder
@@ -63,6 +71,11 @@ function Get-FolderParentInfo {
     # full path to this folder. However, I finally decided to not to add this attribute
     # because you can always assemble your own full path at any time, this prevents
     # unnecessary use of obj attributes.
+
+    Write-Verbose "Parent folder information collected."
+    Write-Bounds `
+        -FunctionName $MyInvocation.MyCommand.Name `
+        -Mode "Exit"
 
     return $folderObj
 }

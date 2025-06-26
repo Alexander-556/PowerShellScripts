@@ -35,7 +35,10 @@ function Resolve-PathwErr {
         [string]$inputFolderPath
     )
     
-    Write-Verbose "Resolving path for '$inputFolderPath'."
+    Write-Bounds `
+        -FunctionName $MyInvocation.MyCommand.Name `
+        -Mode "Enter"
+    Write-Verbose "Resolving for '$inputFolderPath'..."
 
     # Catch any error during Resolve-Path operation
     try {
@@ -45,7 +48,14 @@ function Resolve-PathwErr {
     }
     catch {
         $outputPath = $null
+        Write-Verbose "Resolve operation failed, fall back to null."
+        Write-Verbose "Output path: null."
     }
+
+    Write-Verbose "Path resolution complete..."
+    Write-Bounds `
+        -FunctionName $MyInvocation.MyCommand.Name `
+        -Mode "Exit"
     
     return $outputPath
 }
